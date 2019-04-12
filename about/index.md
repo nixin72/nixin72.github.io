@@ -1,3 +1,5 @@
+<script src="/nav.js"></script>
+
 # Hi, my name is Philip! 
 
 I'm a passionate developer living in Montreal Canada currently attending Concordia University. 

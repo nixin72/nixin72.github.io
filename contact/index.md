@@ -1,3 +1,5 @@
+<script src="/nav.js"></script>
+
 Feel free to contact me in any of the ways below:
 
 Email: <a href="mailto:phdumaresq@gmail.com">phdumaresq@gmail.com</a>
