@@ -3,52 +3,96 @@
 ---
 
 // My standard colour scheme: 
-$background-body: #FFFFFF;  // Background colour behind content
-$background-cont: #f8f8f8;  // Content's background colour 
-$header-color1: #008598;    // Level 1 headers 
-$header-color2: #008598;    // Level 2 headers
+$background-body: #E5E5E5;  // Background colour behind content
+$background-cont: #F8F8F8;  // Content's background colour 
+$header-color1: #014353;    // Level 1 headers 
+$header-color2: #006588;    // Level 2 headers
 $header-color: #008598;     // Other headers
-$content-color: #FFFFFF;    // Main content colour 
-
+$content-color: #333333;    // Main content colour 
 
 // Dark theme colour scheme:
 
+
+// Standard:
+// size/positioning (width, height, float, position)
+// margin
+// border (border-width, border-radius, border-color)
+// padding
+// content (display, alignment, color, background, text-decoration)
+
 // Main colours
-body { 
+html, body { 
     color: $content-color;
-    background: $background-body;
+    background: $background-body!important;
+    overflow-x: hidden;
 }
 
-h1 { color: $header-color1; }
+h1 { 
+    color: $header-color1; 
+    text-align: center;
+}
+
 h2 { color: $header-color2; }
 h3, h4, h5, h6 { color: $header-color; }
 
 
 header {
+    z-index: 1;
     width: 100%;
     padding-top: 1%;
 
     section {
-        width: 70%;
+        width: 65%;
         margin: auto;
+        padding: 0 5%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
 
         nav {
             width: 20%;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between;        
+        }
 
-            a {
-                font-weight: bold;
-            }
+        a {
+            color: $header-color1;
+            font-weight: bold;
+        }
+
+        a:visited {
+            color: $header-color1;
         }
     }
 }
 
+#topImg {
+    z-index: 0;
+    margin-top: -8%;
+    width: 100%;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    div {
+        height: 50%;
+        width: 150%;
+        margin-left: -25%;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        background: $background-body;
+    }
+}
+
 #content {  
-    width: 70%;
+    transform: translateY(-40%);
+    z-index: 1;
+    width: 65%;
     margin: 5% auto;
+    border-radius: 10px;
+    padding: 2% 5%;
+    background: $background-cont;
 }
 
 footer {
