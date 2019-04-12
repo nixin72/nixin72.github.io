@@ -1,0 +1,56 @@
+---
+# Tell Jekyll to convert this to CSS
+---
+
+// My standard colour scheme: 
+$background-body: #FFFFFF;  // Background colour behind content
+$background-cont: #f8f8f8;  // Content's background colour 
+$header-color1: #008598;    // Level 1 headers 
+$header-color2: #008598;    // Level 2 headers
+$header-color: #008598;     // Other headers
+$content-color: #FFFFFF;    // Main content colour 
+
+
+// Dark theme colour scheme:
+
+// Main colours
+body { 
+    color: $content-color;
+    background: $background-body;
+}
+
+h1 { color: $header-color1; }
+h2 { color: $header-color2; }
+h3, h4, h5, h6 { color: $header-color; }
+
+
+header {
+    width: 100%;
+    padding-top: 1%;
+
+    section {
+        width: 70%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+
+        nav {
+            width: 20%;
+            display: flex;
+            justify-content: space-between;
+
+            a {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+#content {  
+    width: 70%;
+    margin: 5% auto;
+}
+
+footer {
+
+}
