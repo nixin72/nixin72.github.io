@@ -10,9 +10,6 @@ $header-color2: #006588;    // Level 2 headers
 $header-color: #008598;     // Other headers
 $content-color: #333333;    // Main content colour 
 
-// Dark theme colour scheme:
-
-
 // Standard:
 // size/positioning (width, height, float, position)
 // margin
@@ -35,27 +32,16 @@ h1 {
 h2 { color: $header-color2; }
 h3, h4, h5, h6 { color: $header-color; }
 
-
 header {
     z-index: 1;
-    width: 150%;
-    margin-top: -349px;
-    height: 400px;
-    margin-left: -25%;
     background: $background-body;
     opacity: 0.6;
-    border-radius: 50%;
+    box-shadow: -1px 10px 10px #555555;
   
-    @media only screen and (max-width: 600px) {
-        
-    }
-
     section {
-        transform: translateY(335px);
-        position: bottom;
-        width: 35%;
+        width: 65%;
         margin: auto;
-        padding: 1% 5%;
+        padding: 10px 5%;
         display: flex;
         justify-content: space-around;
 
@@ -63,6 +49,7 @@ header {
             width: 20%;
             display: flex;
             justify-content: space-between;        
+            align-items: center;
         }
 
         a {
@@ -97,7 +84,7 @@ header {
 }
 
 #content {  
-    transform: translateY(-40%);
+    transform: translateY(-500px);
     z-index: 1;
     width: 65%;
     margin: 5% auto;
@@ -107,5 +94,9 @@ header {
 }
 
 footer {
-
+    a {
+        color: $content-color;
+    }
+    a:visited { color: $content-color; }
 }
+
