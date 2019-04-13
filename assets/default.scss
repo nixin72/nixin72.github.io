@@ -38,13 +38,24 @@ h3, h4, h5, h6 { color: $header-color; }
 
 header {
     z-index: 1;
-    width: 100%;
-    padding-top: 1%;
+    width: 150%;
+    margin-top: -349px;
+    height: 400px;
+    margin-left: -25%;
+    background: $background-body;
+    opacity: 0.6;
+    border-radius: 50%;
+  
+    @media only screen and (max-width: 600px) {
+        
+    }
 
     section {
-        width: 65%;
+        transform: translateY(335px);
+        position: bottom;
+        width: 35%;
         margin: auto;
-        padding: 0 5%;
+        padding: 1% 5%;
         display: flex;
         justify-content: space-around;
 

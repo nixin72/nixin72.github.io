@@ -3,18 +3,13 @@ title: Home
 layout: default
 ---
 
-<!--# Passionate. Creative. Optimistic. Developer.-->
-# Philip Dumaresq"
+# Passionate. Creative. Optimistic. Developer.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-<!--Hi, my name is Philip! I'm a 20 year old software developer living in Montreal Canada. I'm passionate about Computer Science, technology, and it's ability to empower people. 
-My personal interests in Computer Science are in compilers and programming languages, and teaching others to code. -->
+Hi, my name is Philip! I'm a 20 year old software developer living in Montreal Canada. I'm passionate about Computer Science, technology, and it's ability to empower people. 
+My personal interests in Computer Science are in compilers and programming languages, and teaching others to code. 
 
 ## About Me 
-<!--Born and raised in Gatineau, I went to CEGEP Heritage college where I feel in love with Computer Science. Now I'm currently in my first year of Computer Science at Concordia University in Montreal. -->
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
+Born and raised in Gatineau, I went to CEGEP Heritage college where I feel in love with Computer Science. Now I'm currently in my first year of Computer Science at Concordia University in Montreal. 
 
 ## Projects
 I'm constantly thinking of new projects that I'd like to try out. My biggest problem is that I can never finish my own projects! So I'm hoping this website will be an exception to that...
