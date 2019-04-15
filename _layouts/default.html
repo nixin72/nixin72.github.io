@@ -24,38 +24,81 @@
         
         <script>
             window.onload = e => {
-                let imgs = [
-                    "montreal3.jpg", 
-                ];
-                let img = imgs[Math.floor(Math.random() * imgs.length)];
-                console.log(img);
-                document.getElementById("topImg").innerHTML = "<img src=\"/assets/" + img + "\" /><div id=\"imgCover\"></div>";
+                document.querySelector("a.toggle-contact").addEventListener("click", e => {
+                    let el = document.querySelector("section.contact");
+                    if (el.style.display == "none") {
+                        el.style.display = "block";
+                    }
+                    else {
+                        el.style.display = "none";
+                    }
+                });
             }
         </script>
     </head>
     <body>
+        <!-------------------------------- HEADER  ------------------------------------>
         <header>
-            <section>
+            <!-- CONTACT -->
+            <section class="contact" style="display: none">
+                <h3>Contact</h3>
+                <div class="desktop">
+                    Feel free to get in touch with me! Whether it's an opportunity, a question or you just want to chat, I'd love to hear from you!
+                </div>
+                <div class="contact">
+                    Email: <a href="mailto:phdumaresq@gmail.com">phdumaresq@gmail.com</a>
+                    <div>
+                        <a href="https://linkedin.com/in/phdumaresq"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/phdumaresq"><i class="fab fa-github"></i></a>
+                        <a href="https://discord.gg/XuxQDev"><i class="fab fa-discord"></i></a>
+                        <a href="https://stackoverflow.com/users/7971448/phdumaresq"><i class="fab fa-stack-overflow"></i></a>
+                        <a href="/resume.md"><button>Resume</button></a>
+                    </div>
+                </div>
+            </section>
+            <!-- NAVIGATION - DESKTOP -->
+            <section class="nav desktop">
                 <nav>
                     <div><a href="/about.html">About</a></div>
                     <div><a href="/projects.html">Projects</a></div>
                 </nav>
                 <a href="/"><img src="/assets/signature.png" height="40" /></a>
                 <nav>
-                    <div><a href="/contact.html">Contact</a></div>
+                    <div><a href="#" class="toggle-contact">Contact</a></div>
                     <div><a href="/blog/index.html">Blog</a></div>
                 </nav>
             </section>
+
+            <!-- NAVIGATION - MOBILE -->
+            <section class="nav mobile">
+
+            </section>
         </header>
-        <section id="topImg">
-            <img src="/assets/{{ page.image }}" />
-        </section>
+
+        <!--------------------------------  COVER UP  --------------------------------->
+        <div id="imgCover"></div>
+        
+        <!-------------------------------- CONTENT ------------------------------------>
         <section id="content">
             {{ content }}
         </section>
+
+        <!-------------------------------- FOOTER ------------------------------------->
         <footer>
             <div>
-                <span><a href="https://github.com/phdumaresq"><i class="fab fa-github"></i>phdumaresq</a></span>
+                <a href="https://linkedin.com/in/phdumaresq"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/phdumaresq"><i class="fab fa-github"></i></a>
+                <br />
+                <a href="https://discord.gg/XuxQDev"><i class="fab fa-discord"></i></a>
+                <a href="https://stackoverflow.com/users/7971448/phdumaresq"><i class="fab fa-stack-overflow"></i></a>
+                
+            </div>
+            <div>
+                Hosted by GitHub Pages
+                <br />
+                Made with Jekyll
+                <br />
+                Using: <i class="fab fa-sass"></i><i class="fab fa-html5"></i><i class="fab fa-js-square"></i>
             </div>
         </footer>
     </body>

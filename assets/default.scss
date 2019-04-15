@@ -2,7 +2,6 @@
 # Tell Jekyll to convert this to CSS
 ---
 
-// My standard colour scheme: 
 $background-body: #E5E5E5;  // Background colour behind content
 $background-cont: #F8F8F8;  // Content's background colour 
 $header-color1: #014353;    // Level 1 headers 
@@ -10,39 +9,72 @@ $header-color2: #006588;    // Level 2 headers
 $header-color: #008598;     // Other headers
 $content-color: #333333;    // Main content colour 
 
-// Standard:
-// size/positioning (width, height, float, position)
-// margin
-// border (border-width, border-radius, border-color)
-// padding
-// content (display, alignment, color, background, text-decoration)
-
 // Main colours
 html, body { 
     color: $content-color;
-    background: $background-body!important;
     overflow-x: hidden;
 }
 
-h1 { 
-    color: $header-color1; 
-    text-align: center;
+body {
+    background-image: url("/assets/montreal3.jpg");
+    background-color: $background-body!important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-items: center;
 }
 
+h1 { color: $header-color1; }
 h2 { color: $header-color2; }
 h3, h4, h5, h6 { color: $header-color; }
 
+@media only screen and (min-width: 900px) {
+    .mobile {
+        display: none;
+    }
+}
+
 header {
-    z-index: 1;
     background: $background-body;
     opacity: 0.6;
     box-shadow: -1px 10px 10px #555555;
-  
+    width: 100%;
+
     section {
         width: 65%;
         margin: auto;
-        padding: 10px 5%;
         display: flex;
+    }
+
+    section.contact {
+        width: 40%;
+        padding: 5%;
+
+        * { color: $header-color1; }
+       
+        div {
+            height: 15%;
+            margin-top: 2%;
+            align-items: center;
+
+            a {
+                font-size: 1.5em;
+                margin: 0 1% 0 0;
+            }
+    
+            button {
+                height: 100%;
+                border: thin solid $header-color2;
+                border-radius: 5px;
+                padding: 0.3rem 0.5rem;
+                font-size: 1rem;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    section.nav {
+        padding: 10px 5%;
         justify-content: space-around;
 
         nav {
@@ -63,40 +95,34 @@ header {
     }
 }
 
-#topImg {
+#imgCover {
     z-index: 0;
-    margin-top: -8%;
-    width: 100%;
-
-    img {
-        width: 100%;
-        height: auto;
-    }
-
-    div {
-        height: 50%;
-        width: 150%;
-        margin-left: -25%;
-        border-radius: 50%;
-        transform: translateY(-50%);
-        background: $background-body;
-    }
+    position: absolute;
+    top: 60%;
+    height: 40rem;
+    width: 150%;
+    border-radius: 50%;
+    background: $background-body;
 }
 
 #content {  
-    transform: translateY(-500px);
     z-index: 1;
     width: 65%;
-    margin: 5% auto;
+    margin-top: 20%;
     border-radius: 10px;
     padding: 2% 5%;
     background: $background-cont;
+
+    h1 { text-align: center;  }
 }
 
 footer {
+    display: flex; 
+
     a {
         color: $content-color;
     }
+
     a:visited { color: $content-color; }
 }
 
