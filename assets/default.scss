@@ -27,10 +27,12 @@ h1 { color: $header-color1; }
 h2 { color: $header-color2; }
 h3, h4, h5, h6 { color: $header-color; }
 
-@media only screen and (min-width: 900px) {
-    .mobile {
-        display: none;
-    }
+.mobile { display: none; }
+.desktop { display: flex; }
+
+@media only screen and (max-width: 900px) {
+    .mobile { display: initial; }
+    .desktop { display: none; }
 }
 
 header {
@@ -74,6 +76,15 @@ header {
     }
 
     section.nav {
+        nav {
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    section.desktop.nav    {
         padding: 10px 5%;
         justify-content: space-around;
 
@@ -92,6 +103,10 @@ header {
         a:visited {
             color: $header-color1;
         }
+    }
+
+    section.mobile.nav nav {
+        flex-direction: column;
     }
 }
 
