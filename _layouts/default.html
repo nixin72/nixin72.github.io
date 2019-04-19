@@ -28,9 +28,11 @@
                     let el = document.querySelector("section.contact");
                     if (el.style.display == "none") {
                         el.style.display = "block";
+                        el.parentElement.style.opacity = "1";
                     }
                     else {
                         el.style.display = "none";
+                        el.parentElement.style.opacity = "0.6";
                     }
                 });
             }

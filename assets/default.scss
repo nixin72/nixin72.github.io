@@ -11,6 +11,7 @@ $content-color: #333333;    // Main content colour
 
 // Main colours
 html, body { 
+    width: 100%;
     color: $content-color;
     overflow-x: hidden;
 }
@@ -36,6 +37,8 @@ h3, h4, h5, h6 { color: $header-color; }
 }
 
 header {
+    position: relative;
+    z-index: 2;
     background: $background-body;
     opacity: 0.6;
     box-shadow: -1px 10px 10px #555555;
@@ -64,7 +67,6 @@ header {
             }
     
             button {
-                height: 100%;
                 border: thin solid $header-color2;
                 border-radius: 5px;
                 padding: 0.3rem 0.5rem;

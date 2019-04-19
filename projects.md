@@ -32,7 +32,7 @@ function ajax(url, options, callback) {
 
         xhr.open(method, url, async);
         setHeaders();
-        xhr.send(data);        
+        xhr.send(data);
     }
     else {
         xhr.open("GET", url, true);
@@ -40,7 +40,7 @@ function ajax(url, options, callback) {
         xhr.send();
     }
 }
-   
+
 let url = "https://api.github.com/users/phdumaresq/repos";
 ajax(url, null, data => {
     data = JSON.parse(data);
