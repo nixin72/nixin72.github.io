@@ -3,28 +3,51 @@ title: Home
 layout: default
 ---
 
-# Passionate. Creative. Optimistic. Developer.
+## Passionate. Creative. Optimistic. Developer.
 
-Hi, my name is Philip! I'm a 20 year old software developer living in Montreal Canada. I'm passionate about Computer Science, technology, and it's ability to empower people. 
-My personal interests in Computer Science are in compilers and programming languages, and teaching others to code. 
+Hi, my name is Philip! I'm a 21 year old software developer living in Montreal Canada. I'm passionate about Computer Science, technology, and it's ability to empower people.
+My personal interests in Computer Science are in compilers and programming languages, and teaching others to code.
 
-## About Me 
-Born and raised in Gatineau, I went to CEGEP Heritage college where I feel in love with Computer Science. Now I'm currently in my first year of Computer Science at Concordia University in Montreal. 
+## Posts
 
-## Projects
-I'm constantly thinking of new projects that I'd like to try out. My biggest problem is that I can never finish my own projects! So I'm hoping this website will be an exception to that...
+<div class="post">
+  <h1><a href="blog/lisp-uninitiated.html">Lisp for the uninitiated</a></h1>
+  <p class="meta">November 10th, 2019 | 10 minute read</p>
+  <p class="desc">For many people, Lisp is a mystical programming language they hear of here and there, and hear of it's great power. Well, Lisp is amazing, but I'm gonna demystify it a bit for you.</p>
+</div>
 
-### Project-Icarus
-- An interpreter for Lisp written from scratch. I'd like to make this into an actual usable language at some point, and so I can't decide what language to build this in... I've got versions in JavaScript, Rust, and beginnings of one in Python. 
+<div class="post">
+  <h1><a href="_posts/joy-of-racket.md">The joy of learning Racket</a></h1>
+  <p class="meta">November 10th, 2019 | 10 minute read</p>
+  <p class="desc">Recently I started learning Racket and it's the most fun I've had learning a new language in a long time. In this post I'll talk about what was great about Racket and how you can get started.</p>
+</div>
 
-### Project-Horus
-- This started out as a nodejs framework that I built while working for a company, but they didn't take on the idea. Now I've continued to develop it a little, but it's fell on the backburner right now. My image for this project is a language-agnostic web development framework allowing using any language to develop it with it's own build system and use of metadata in JSON. 
+<div class="post">
+  <h1><a href="_posts/love-hate-js.md">What I love and hate about JavaScript</a></h1>
+  <p class="meta">November 10th, 2019 | 10 minute read</p>
+  <p class="desc">JavaScript is the language that I've used the most professionally, and while I love it as a language, it's not without flaws. I'm gonna hash out what I love and hate about full stack JS.</p>
+</div>
 
-### LeDocubot
-- This project hasn't had much momentum, but I'm working with a friend to learn a little bit about GitHub's Probot framework for developing GitHub extensions. It's supposed to be a tool that will auto-document some amount of JavaScript and TypeScript code when you make pushes to GitHub. 
+<div class="post">
+  <h1><a href="_posts/give-php-a-shot.md">Why you should give PHP a shot</a></h1>
+  <p class="meta">November 10th, 2019 | 10 minute read</p>
+  <p class="desc">PHP gets a lot of flak for being a terrible language - I think otherwise.</p>
+</div>
 
-## Blog
-I've wanted to start a programming blog for a long time. So I'm finally trying it! My focuses in the blog are in delving into technologies that most people are perhaps unfamiliar with to give insights into how diverse the field of Computer Science is. 
+<div class="post">
+  <h1><a href="_posts/rust-over-cpp.md">Learn Rust, not C++</a></h1>
+  <p class="meta">November 10th, 2019 | 10 minute read</p>
+  <p class="desc">C++ has been the defacto language large-scale low-level programming for decades. I think people new to low-level programming should try out Rust first.</p>
+</div>
 
-## Contact Me
+<div class="post">
+  <h1><a href="_posts/lisp-for-beginners">Why Lisp is great for beginners</a></h1>
+  <p class="meta">November 10th, 2019 | 10 minute read</p>
+  <p class="desc">There's so much debate about what language someone should learn first. Python, C, Java and JavaScript are all cited as "good first languages". Lisp should get some more attention.</p>
+</div>
 
+<div class="post">
+  <h1><a href="_posts/nodejs-event-loop.md">Understanding the Nodejs Event loop</a></h1>
+  <p class="meta">November 10th, 2019 | 10 minute read</p>
+  <p class="desc">Asynchronous programming is such an important concept in nodejs, and people often gloss over the details of what's happening under the hood. Learn about the nodejs event loop here.</p>
+</div>
