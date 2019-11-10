@@ -2,144 +2,27 @@
 # Tell Jekyll to convert this to CSS
 ---
 
-$background-body: #E5E5E5;  // Background colour behind content
-$background-cont: #F8F8F8;  // Content's background colour 
-$header-color1: #014353;    // Level 1 headers 
-$header-color2: #006588;    // Level 2 headers
-$header-color: #008598;     // Other headers
-$content-color: #333333;    // Main content colour 
+#content {
+  width: 50%;
+  margin: 1% auto;
 
-// Main colours
-html, body { 
-    width: 100%;
-    color: $content-color;
-    overflow-x: hidden;
-}
+  .flex { display: flex; }
 
-body {
-    background-image: url("/assets/montreal3.jpg");
-    background-color: $background-body!important;
-    background-size: contain;
-    background-repeat: no-repeat;
-    align-items: center;
-}
-
-h1 { color: $header-color1; }
-h2 { color: $header-color2; }
-h3, h4, h5, h6 { color: $header-color; }
-
-.mobile { display: none; }
-.desktop { display: flex; }
-
-@media only screen and (max-width: 900px) {
-    .mobile { display: initial; }
-    .desktop { display: none; }
-}
-
-header {
+  header {
     position: relative;
-    z-index: 2;
-    background: $background-body;
-    opacity: 0.6;
-    box-shadow: -1px 10px 10px #555555;
-    width: 100%;
+  }
 
-    section {
-        width: 65%;
-        margin: auto;
-        display: flex;
+  .main {
+    .post > h1 { margin-bottom: 0; }
+    .post > .meta { font-size: 0.75em; }
+    .post > .desc { font-size: 1em; }
+  }
+
+  footer {
+    justify-content: center;
+
+    div {
+      padding: 0 1%;
     }
-
-    section.contact {
-        width: 40%;
-        padding: 5%;
-
-        * { color: $header-color1; }
-       
-        div {
-            height: 15%;
-            margin-top: 2%;
-            align-items: center;
-
-            a {
-                font-size: 1.5em;
-                margin: 0 1% 0 0;
-            }
-    
-            button {
-                border: thin solid $header-color2;
-                border-radius: 5px;
-                padding: 0.3rem 0.5rem;
-                font-size: 1rem;
-                font-weight: 500;
-                text-transform: uppercase;
-            }
-        }
-    }
-
-    section.nav {
-        nav {
-            width: 20%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    }
-
-    section.desktop.nav    {
-        padding: 10px 5%;
-        justify-content: space-around;
-
-        nav {
-            width: 20%;
-            display: flex;
-            justify-content: space-between;        
-            align-items: center;
-        }
-
-        a {
-            color: $header-color1;
-            font-weight: bold;
-        }
-
-        a:visited {
-            color: $header-color1;
-        }
-    }
-
-    section.mobile.nav nav {
-        flex-direction: column;
-    }
+  }
 }
-
-#imgCover {
-    z-index: 0;
-    position: absolute;
-    top: 60%;
-    height: 40rem;
-    width: 150%;
-    border-radius: 50%;
-    background: $background-body;
-}
-
-#content {  
-    z-index: 1;
-    width: 65%;
-    margin-top: 20%;
-    border-radius: 10px;
-    padding: 2% 5%;
-    background: $background-cont;
-
-    h1 { text-align: center;  }
-}
-
-footer {
-    display: flex; 
-
-    a {
-        color: $content-color;
-    }
-
-    a:visited { color: $content-color; }
-}
-

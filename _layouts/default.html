@@ -1,117 +1,65 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>{{ page.title  }}</title>
-        <link rel="stylesheet" type="text/css" href="/assets/default.css" />
-        <link rel="stylesheet" type="text/css" href="/assets/main.css" />
-        
-        <script defer 
-            src="https://use.fontawesome.com/releases/v5.8.1/js/solid.js" 
-            integrity="sha384-IA6YnujJIO+z1m4NKyAGvZ9Wmxrd4Px8WFqhFcgRmwLaJaiwijYgApVpo1MV8p77" 
-            crossorigin="anonymous"></script>
-        <script defer 
-            src="https://use.fontawesome.com/releases/v5.8.1/js/regular.js" 
-            integrity="sha384-Uc9toywOA44owltk1MWl0lQZ+L0mBzJkLQcdif6+JtG9izvok9DLJtCZX57Uq3k2" 
-            crossorigin="anonymous"></script>
-        <script defer 
-            src="https://use.fontawesome.com/releases/v5.8.1/js/brands.js" 
-            integrity="sha384-rUOIFHM3HXni/WG5pzDhA1e2Js5nn4bWudTYujHbbI9ztBIxK54CL4ZNZWwcBQeD" 
-            crossorigin="anonymous"></script>
-        <script defer 
-            src="https://use.fontawesome.com/releases/v5.8.1/js/fontawesome.js" 
-            integrity="sha384-EMmnH+Njn8umuoSMZ3Ae3bC9hDknHKOWL2e9WJD/cN6XLeAN7tr5ZQ0Hx5HDHtkS" 
-            crossorigin="anonymous"></script>      
-        
-        <script>
-            window.onload = e => {
-                document.querySelector("a.toggle-contact").addEventListener("click", e => {
-                    let el = document.querySelector("section.contact");
-                    if (el.style.display == "none") {
-                        el.style.display = "block";
-                        el.parentElement.style.opacity = "1";
-                    }
-                    else {
-                        el.style.display = "none";
-                        el.parentElement.style.opacity = "0.6";
-                    }
-                });
-            }
-        </script>
-    </head>
-    <body>
-        <!-------------------------------- HEADER  ------------------------------------>
-        <header>
-            <!-- CONTACT -->
-            <section class="contact" style="display: none">
-                <h3>Contact</h3>
-                <div class="desktop">
-                    Feel free to get in touch with me! Whether it's an opportunity, a question or you just want to chat, I'd love to hear from you!
-                </div>
-                <div class="contact">
-                    Email: <a href="mailto:phdumaresq@gmail.com">phdumaresq@gmail.com</a>
-                    <div>
-                        <a href="https://linkedin.com/in/phdumaresq"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/phdumaresq"><i class="fab fa-github"></i></a>
-                        <a href="https://discord.gg/XuxQDev"><i class="fab fa-discord"></i></a>
-                        <a href="https://stackoverflow.com/users/7971448/phdumaresq"><i class="fab fa-stack-overflow"></i></a>
-                        <a href="/resume.md"><button>Resume</button></a>
-                    </div>
-                </div>
-            </section>
-            <!-- NAVIGATION - DESKTOP -->
-            <section class="nav desktop">
-                <nav>
-                    <div><a href="/about.html">About</a></div>
-                    <div><a href="/projects.html">Projects</a></div>
-                </nav>
-                <a href="/"><img src="/assets/signature.png" height="40" /></a>
-                <nav>
-                    <div><a href="#" class="toggle-contact">Contact</a></div>
-                    <div><a href="/blog/index.html">Blog</a></div>
-                </nav>
-            </section>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title  }}</title>
+    <link rel="stylesheet" type="text/css" href="/assets/default.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/main.css" />
 
-            <!-- NAVIGATION - MOBILE -->
-            <section class="nav mobile">
-                <div>
-                    <nav>
-                        <a href="/"><img src="/assets/signature.png" height="40" /></a>
-                        <div><a href="/about.html">About</a></div>
-                        <div><a href="/projects.html">Projects</a></div>
-                        <div><a href="#" class="toggle-contact">Contact</a></div>
-                        <div><a href="/blog/index.html">Blog</a></div>
-                    </nav>
-                        
-                    </nav>
-                </div>
-            </section>
-        </header>
+    <script defer
+            src="https://use.fontawesome.com/releases/v5.8.1/js/solid.js"
+            integrity="sha384-IA6YnujJIO+z1m4NKyAGvZ9Wmxrd4Px8WFqhFcgRmwLaJaiwijYgApVpo1MV8p77"
+            crossorigin="anonymous"></script>
+    <script defer
+            src="https://use.fontawesome.com/releases/v5.8.1/js/regular.js"
+            integrity="sha384-Uc9toywOA44owltk1MWl0lQZ+L0mBzJkLQcdif6+JtG9izvok9DLJtCZX57Uq3k2"
+            crossorigin="anonymous"></script>
+    <script defer
+            src="https://use.fontawesome.com/releases/v5.8.1/js/brands.js"
+            integrity="sha384-rUOIFHM3HXni/WG5pzDhA1e2Js5nn4bWudTYujHbbI9ztBIxK54CL4ZNZWwcBQeD"
+            crossorigin="anonymous"></script>
+    <script defer
+            src="https://use.fontawesome.com/releases/v5.8.1/js/fontawesome.js"
+            integrity="sha384-EMmnH+Njn8umuoSMZ3Ae3bC9hDknHKOWL2e9WJD/cN6XLeAN7tr5ZQ0Hx5HDHtkS"
+            crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="content">
+      <header>
+        <div class="flex">
+          <h1>Philip Dumaresq</h1>
+          <div>
+            <div>Student at <a href="https://www.concordia.ca/">Concordia University</a></div>
+            <div>Contractor for <a href="https://github.com/phdumaresq">GitHub</a></div>
+          </div>
+        </div>
+      </header>
 
-        <!--------------------------------  COVER UP  --------------------------------->
-        <div id="imgCover"></div>
-        
-        <!-------------------------------- CONTENT ------------------------------------>
-        <section id="content">
-            {{ content }}
-        </section>
+      <section class="main">
+        {{ content }}
+      </section>
 
-        <!-------------------------------- FOOTER ------------------------------------->
-        <footer>
-            <div>
-                <a href="https://linkedin.com/in/phdumaresq"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/phdumaresq"><i class="fab fa-github"></i></a>
-                <br />
-                <a href="https://discord.gg/XuxQDev"><i class="fab fa-discord"></i></a>
-                <a href="https://stackoverflow.com/users/7971448/phdumaresq"><i class="fab fa-stack-overflow"></i></a>
-                
-            </div>
-            <div>
-                Hosted by GitHub Pages
-                <br />
-                Made with Jekyll
-                <br />
-                Using: <i class="fab fa-sass"></i><i class="fab fa-html5"></i><i class="fab fa-js-square"></i>
-            </div>
-        </footer>
-    </body>
+      <footer>
+        <div>
+
+        </div>
+        <div class="flex">
+          <div>
+            <a href="https://linkedin.com/in/phdumaresq"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/phdumaresq"><i class="fab fa-github"></i></a>
+            <br />
+            <a href="https://discord.gg/XuxQDev"><i class="fab fa-discord"></i></a>
+            <a href="https://stackoverflow.com/users/7971448/phdumaresq"><i class="fab fa-stack-overflow"></i></a>
+
+          </div>
+          <div>
+            Hosted by GitHub Pages
+            <br />
+            Made with Jekyll
+            <br />
+            Using: <i class="fab fa-sass"></i><i class="fab fa-html5"></i></i>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
