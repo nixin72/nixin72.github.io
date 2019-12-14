@@ -12,15 +12,15 @@ My personal interests in Computer Science are in compilers and programming langu
 
 <div class="post">
   <h1><a href="blog/lisp-uninitiated.html">Lisp for the uninitiated</a></h1>
-  <p class="meta">November 10th, 2019 | 10 minute read</p>
+  <p class="meta">November 10th, 2019 | 15 minute read</p>
   <p class="desc">For many people, Lisp is a mystical programming language they hear of here and there, and hear of it's great power. Well, Lisp is amazing, but I'm gonna demystify it a bit for you.</p>
 </div>
 
-<!-- <div class="post"> -->
-<!--   <h1><a href="_posts/joy-of-racket.md">The joy of learning Racket</a></h1> -->
-<!--   <p class="meta">November 10th, 2019 | 10 minute read</p> -->
-<!--   <p class="desc">Recently I started learning Racket and it's the most fun I've had learning a new language in a long time. In this post I'll talk about what was great about Racket and how you can get started.</p> -->
-<!-- </div> -->
+<div class="post">
+  <h1><a href="_posts/joy-of-racket.md">The joy of learning Racket</a></h1>
+  <p class="meta">December 14th, 2019 | 8 minute read</p>
+  <p class="desc">Recently I started learning Racket and it's the most fun I've had learning a new language in a long time. In this post I'll talk about what was great about Racket and how you can get started.</p>
+</div>
 
 <!-- <div class="post"> -->
 <!--   <h1><a href="_posts/love-hate-js.md">What I love and hate about JavaScript</a></h1> -->
