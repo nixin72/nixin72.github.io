@@ -17,7 +17,7 @@ My personal interests in Computer Science are in compilers and programming langu
 </div>
 
 <div class="post">
-  <h1><a href="blog/joy-of-racket.md">The joy of learning Racket</a></h1>
+  <h1><a href="blog/joy-of-racket.html">The joy of learning Racket</a></h1>
   <p class="meta">December 14th, 2019 | 8 minute read</p>
   <p class="desc">Recently I started learning Racket and it's the most fun I've had learning a new language in a long time. In this post I'll talk about what was great about Racket and how you can get started.</p>
 </div>
