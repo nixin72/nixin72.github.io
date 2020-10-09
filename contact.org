@@ -1,0 +1,11 @@
+#+TITLE: Contact
+#+AUTHOR: Philip Dumaresq
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/s/repos/dotfiles/.emacs.d/src/languages/my-org-css.css" />
+
+If you want to get in touch for any reason, you've got tons of options! Whether it's for an 
+opportunity, you've got a question or you just want to chat, I'd love to hear from you!
+
+- Email: [[mailto:phdumaresq@gmail.com][phdumaresq@gmail.com]]
+- LinkedIn:  [[https://linkedin.com/in/phdumaresq][https://linkedin.com/in/phdumaresq]]
+- GitHub: [[https://github.com/nixin72][https://github.com/nixin72]]
+
