@@ -1,6 +1,6 @@
 #+TITLE: Declaring and modifying variables in Common Lisp
 #+AUTHOR: Philip Dumaresq
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/s/repos/dotfiles/.emacs.d/src/languages/my-org-css.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
 
 * Question: How do we set a variable in Lisp?
 

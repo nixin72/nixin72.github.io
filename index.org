@@ -1,6 +1,6 @@
 #+TITLE: Philip Dumaresq
 #+AUTHOR: Philip Dumaresq
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/s/repos/dotfiles/.emacs.d/src/languages/my-org-css.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="assets/org.css" />
 
 Hi, my name is Philip! I'm a 21 year old software developer living in Montreal Canada. I'm 
 passionate about Computer Science, technology, and it's ability to empower people. My personal 

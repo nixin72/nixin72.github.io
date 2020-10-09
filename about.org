@@ -1,6 +1,6 @@
 #+TITLE: Philip Dumaresq
 #+AUTHOR: Philip Dumaresq
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/s/repos/dotfiles/.emacs.d/src/languages/my-org-css.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="assets/org.css" />
 
 * Hi, my name is Philip! 
 

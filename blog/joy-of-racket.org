@@ -1,6 +1,6 @@
 #+TITLE: The Joy of Learning Racket
 #+AUTHOR: Philip Dumaresq
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/s/repos/dotfiles/.emacs.d/src/languages/my-org-css.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
 
 * The Joy of Learning Racket
 I recently took up learning Racket, and I've really been loving it. This is just a short mind 
