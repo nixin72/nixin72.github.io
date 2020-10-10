@@ -6,7 +6,7 @@
 <!-- 2020-10-09 Fri 21:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Home</title>
+<title>Let scoping</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Philip Dumaresq" />
 <style type="text/css">
@@ -193,7 +193,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="assets/org.css" />
+<link rel="stylesheet" type="text/css" href="../assets/org.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -243,84 +243,86 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Home</h1>
+<h1 class="title">Let scoping</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2650eba">Question</a></li>
+</ul>
+</div>
+</div>
 <div class="org-center">
 <p>
-<a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="contact.html">Contact</a>
+<a href="../index.html">Home</a> | <a href="../about.html">About</a> | <a href="../contact.html">Contact</a>
 </p>
 </div>
 
-<div id="outline-container-orgc74c723" class="outline-2">
-<h2 id="orgc74c723">Projects</h2>
-<div class="outline-text-2" id="text-orgc74c723">
-<ul class="org-ul">
-<li><a href="https://github.com/nixin72/dotfiles">dotfiles</a>: My constantly tinkered-with dotfiles for linux</li>
-<li><a href="https://github.com/nixin72/from-template">from-template</a>: A Racket tool for using templates</li>
-<li><a href="https://github.com/nixin72/block-nav.el">block-nav.el</a>: An Emacs package for navigation</li>
-<li><a href="https://github.com/nixin72/window-bind-buffer.el">window-bind-buffer.el</a>: An Emacs package for modern buffer/window management</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orgb118afe" class="outline-2">
-<h2 id="orgb118afe"><a href="blog/index.html">Blog</a></h2>
-<div class="outline-text-2" id="text-orgb118afe">
-</div>
-<div id="outline-container-org5c692ae" class="outline-3">
-<h3 id="org5c692ae"><a href="blog/joy-of-racket.html">The Joy of learning Racket</a></h3>
-<div class="outline-text-3" id="text-org5c692ae">
-<div class="small">
+<div id="outline-container-org2650eba" class="outline-2">
+<h2 id="org2650eba">Question</h2>
+<div class="outline-text-2" id="text-org2650eba">
 <p>
-December 14th, 2019 | 8 minute read
+Why does this return 2 and not 3?
 </p>
 
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #51afef;">let</span> ((c 1<span style="color: #5B6268;">))</span>
+  (<span style="color: #51afef;">let</span> ((c 2<span style="color: #5B6268;">)</span>
+  (a (+ c 1<span style="color: #5B6268;">)))</span>
+    a))<span style="color: #5B6268;">; RETURNS 2</span>
+</pre>
 </div>
 
 <p>
-Recently I started learning Racket and it's the most fun I've had learning a new language in a long
-time. In this post I'll talk about what was great about Racket and how you can get started.
-</p>
-</div>
-</div>
-<div id="outline-container-orgb205400" class="outline-3">
-<h3 id="orgb205400"><a href="blog/lisp-uninitiated.html">Lisp for the uninitiated</a></h3>
-<div class="outline-text-3" id="text-orgb205400">
-<div class="small">
-<p>
-November 10th, 2019 | 15 minute read
+The reason here is because of how the scoping works in Lisp when using <code>let</code>. When you use <code>let</code>,
+variables that you're binding aren't able to see variables bound before it in the same <code>let</code>. If we
+did
 </p>
 
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #51afef;">let</span> ((a 1<span style="color: #5B6268;">)</span>
+      (b (+ a 1<span style="color: #5B6268;">)))</span>
+  (print b<span style="color: #5B6268;">))</span>
+</pre>
 </div>
 
 <p>
-For many people, Lisp is a mystical programming language they hear of here and there, and hear of
-it's great power. Well, Lisp is amazing, but I'm gonna demystify it a bit for you.
+This would give us an error, because <code>a</code> isn't available when binding <code>b</code>. So logically, Lisp would need
+to look to the enclosing scopes to try to find that variable <code>a</code>. That's what's happening in the
+example above as well. Lisp isn't able to bind <code>a</code> to the value of the <code>c</code> bound immediately before it,
+so Lisp looks to the enclosing scope and find that there's a variable <code>c</code> in that scope, and uses it. 
 </p>
-</div>
-</div>
+
+<p>
+If we change our inner <code>let</code> to be <code>let*</code>, then we get another interesting question:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #51afef;">let</span> ((c 1<span style="color: #5B6268;">))</span>
+  (<span style="color: #51afef;">let*</span> ((c 2<span style="color: #5B6268;">)</span>
+   (a (+ c 1<span style="color: #5B6268;">)))</span>
+    a<span style="color: #5B6268;">))</span>
+</pre>
 </div>
 
-<div id="outline-container-org9fc9f3c" class="outline-2">
-<h2 id="org9fc9f3c"><a href="questions/index.html">Questions</a></h2>
-<div class="outline-text-2" id="text-org9fc9f3c">
 <p>
-This section is all related to questions that have been asked by students, with the questions and
-answers preserved here for use by future students.
+Now what will the value of <code>a</code> be? In this case, it'll be 3, because our second <code>c</code> shadows the value of
+the first. So whenever we refer to <code>c</code> inside our nested <code>let*</code> here, it'll be referring to the <code>c</code>
+declared in that block.
 </p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #51afef;">let</span> ((c 1<span style="color: #5B6268;">))</span>
+  (<span style="color: #51afef;">let*</span> ((c 2<span style="color: #5B6268;">))</span>
+    (setf c 20<span style="color: #5B6268;">)</span>
+    (print c<span style="color: #5B6268;">))</span>
+  (print c<span style="color: #5B6268;">))</span>
+</pre>
 </div>
 
-<div id="outline-container-orgd27c11e" class="outline-3">
-<h3 id="orgd27c11e">Lisp</h3>
-<div class="outline-text-3" id="text-orgd27c11e">
 <p>
-This section is for all questions relating to Lisp, Scheme, Clojure, etc
+What do you think this program will output now?
 </p>
-<ul class="org-ul">
-<li><a href="questions/lisp-setting-variables.html">How to declare and set variables in Lisp</a></li>
-<li><a href="questions/lisp-quote-vs-'.html">The difference between <code>quote</code> and <code>'</code></a></li>
-<li><a href="questions/lisp-let-scoping.html">Variable scoping and <code>let</code> bindings</a></li>
-</ul>
-</div>
 </div>
 </div>
 </div>

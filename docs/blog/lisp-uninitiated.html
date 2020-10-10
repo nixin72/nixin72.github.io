@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-10-09 Fri 16:50 -->
+<!-- 2020-10-09 Fri 20:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lisp for the uninitiated</title>
@@ -248,8 +248,7 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb00510b">Lisp for the Uninitiated</a>
-<ul>
+<li><a href="#orgc14fde2">About Lisp</a></li>
 <li><a href="#org8d79afd">Lisp Syntax</a></li>
 <li><a href="#org16e5ed0">Prefix notation</a></li>
 <li><a href="#org9f287ab">Representing data</a></li>
@@ -257,14 +256,17 @@ for the JavaScript code in this tag.
 <li><a href="#orgc69d38f">Reader macros</a></li>
 <li><a href="#org5deec6d">Conclusion</a></li>
 </ul>
-</li>
-</ul>
 </div>
+</div>
+<div class="org-center">
+<p>
+<a href="../index.html">Home</a> | <a href="../about.html">About</a> | <a href="../contact.html">Contact</a>
+</p>
 </div>
 
-<div id="outline-container-orgb00510b" class="outline-2">
-<h2 id="orgb00510b">Lisp for the Uninitiated</h2>
-<div class="outline-text-2" id="text-orgb00510b">
+<div id="outline-container-orgc14fde2" class="outline-2">
+<h2 id="orgc14fde2">About Lisp</h2>
+<div class="outline-text-2" id="text-orgc14fde2">
 <blockquote>
 <p>
 Study C to see the power of a computer without the constraints of a language. Study Lisp to see the
@@ -294,10 +296,11 @@ Common Lisp, Clojure, Emacs Lisp, Hy, Scheme, Racket, etc. When people say "Lisp
 either referring to Common Lisp or Lisp as a concept.
 </p>
 </div>
+</div>
 
-<div id="outline-container-org8d79afd" class="outline-3">
-<h3 id="org8d79afd">Lisp Syntax</h3>
-<div class="outline-text-3" id="text-org8d79afd">
+<div id="outline-container-org8d79afd" class="outline-2">
+<h2 id="org8d79afd">Lisp Syntax</h2>
+<div class="outline-text-2" id="text-org8d79afd">
 <p>
 We all know and recognize C-like languages, they've got their curly braces, prodecural programming 
 style, big for loops, etc. But what does a Lisp look like if not that? Lisp uses a type of syntax 
@@ -329,9 +332,9 @@ a function that adds two number. <code>print</code> is a function that outputs i
 </div>
 </div>
 
-<div id="outline-container-org16e5ed0" class="outline-3">
-<h3 id="org16e5ed0">Prefix notation</h3>
-<div class="outline-text-3" id="text-org16e5ed0">
+<div id="outline-container-org16e5ed0" class="outline-2">
+<h2 id="org16e5ed0">Prefix notation</h2>
+<div class="outline-text-2" id="text-org16e5ed0">
 <p>
 This is pretty unfamiliar to most people, but I promose it has a very good reason for being like 
 this! Think about the following code in C/C++:
@@ -365,9 +368,9 @@ about how to represent <b>data</b> in Lisp.
 </div>
 </div>
 
-<div id="outline-container-org9f287ab" class="outline-3">
-<h3 id="org9f287ab">Representing data</h3>
-<div class="outline-text-3" id="text-org9f287ab">
+<div id="outline-container-org9f287ab" class="outline-2">
+<h2 id="org9f287ab">Representing data</h2>
+<div class="outline-text-2" id="text-org9f287ab">
 <p>
 The central data structure in Lisp is <b>singly-linked lists</b>. If you think List and Lisp are too close 
 sounding, that's because Lisp used to be an ackronym meaning LISt Processor. The way you create a 
@@ -405,9 +408,9 @@ This is because Lisp code and data are the same thing. This becomes very importa
 </div>
 </div>
 
-<div id="outline-container-org78ff111" class="outline-3">
-<h3 id="org78ff111">Macros</h3>
-<div class="outline-text-3" id="text-org78ff111">
+<div id="outline-container-org78ff111" class="outline-2">
+<h2 id="org78ff111">Macros</h2>
+<div class="outline-text-2" id="text-org78ff111">
 <p>
 In C and C++ you can define what are called macros. Macros are pieces of code that when called, 
 will replace the call to the macro with the text that it's declared as <b>at compile time</b>. For example:
@@ -500,9 +503,9 @@ do, because many Lisp dialects also have something called <b>reader macros</b>.
 </div>
 </div>
 
-<div id="outline-container-orgc69d38f" class="outline-3">
-<h3 id="orgc69d38f">Reader macros</h3>
-<div class="outline-text-3" id="text-orgc69d38f">
+<div id="outline-container-orgc69d38f" class="outline-2">
+<h2 id="orgc69d38f">Reader macros</h2>
+<div class="outline-text-2" id="text-orgc69d38f">
 <p>
 While macros are able to transform your code into a new form, <b>reader macros</b> are able to transform 
 code that previously wasn't in valid Lisp syntax into valid syntax. This means that you can not 
@@ -562,9 +565,9 @@ You can do some incredibly cool, and complicated stuff with reader macros such a
 </div>
 </div>
 
-<div id="outline-container-org5deec6d" class="outline-3">
-<h3 id="org5deec6d">Conclusion</h3>
-<div class="outline-text-3" id="text-org5deec6d">
+<div id="outline-container-org5deec6d" class="outline-2">
+<h2 id="org5deec6d">Conclusion</h2>
+<div class="outline-text-2" id="text-org5deec6d">
 <p>
 I hope you walk away from reading this understanding why Lisp syntax is so important. I know that 
 it takes a while to get used to it, and some of you who learn it might have a gut reaction to hate 
@@ -587,10 +590,9 @@ a dialect of Lisp!
 </div>
 </div>
 </div>
-</div>
 <div id="postamble" class="status">
 <p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2020-10-09 Fri 16:50</p>
+<p class="date">Created: 2020-10-09 Fri 20:58</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

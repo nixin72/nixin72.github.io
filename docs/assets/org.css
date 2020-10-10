@@ -107,3 +107,5 @@ p.footnote {}
 .footnum {}
 
 .org-svg {}
+
+.validation { display: none; }
