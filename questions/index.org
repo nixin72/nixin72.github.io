@@ -3,10 +3,6 @@
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
 #+OPTIONS: toc:nil
 
-#+BEGIN_CENTER
-[[file:../index.org][Home]] | [[file:../about.org][About]] | [[file:../contact.org][Contact]]
-#+END_CENTER
-
 ** COMMENT Java
 This section is for all questions relating to Java, in particular the ~stream~ API.
 
