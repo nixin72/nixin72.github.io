@@ -2,7 +2,12 @@
 #+AUTHOR: Philip Dumaresq
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
 
-* Question: How do we set a variable in Lisp?
+#+BEGIN_CENTER
+[[file:index.org][Back]]
+#+END_CENTER
+
+* Question: 
+How do we set a variable in Lisp?
 
 There are lots of ways to declare variables and change their values in Lisp, each one we use in
 different situations. For this class, we really only need to worry about 3. 

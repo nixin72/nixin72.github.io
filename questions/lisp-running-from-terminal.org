@@ -3,7 +3,7 @@
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
 
 #+BEGIN_CENTER
-[[file:../index.org][Home]] | [[file:../about.org][About]] | [[file:../contact.org][Contact]]
+[[file:index.org][Back]]
 #+END_CENTER
 
 * Question:
