@@ -2,6 +2,10 @@
 #+AUTHOR: Philip Dumaresq
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
 
+#+BEGIN_CENTER
+[[file:../index.org][Home]] | [[file:../about.org][About]] | [[file:../contact.org][Contact]]
+#+END_CENTER
+
 * Question: 
 The notes use ~(quote a)~ but lisp outputs ~'a~ - what's the difference?
 

@@ -1,6 +1,11 @@
 #+TITLE: The Joy of Learning Racket
 #+AUTHOR: Philip Dumaresq
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
+#+OPTIONS: toc:nil
+
+#+BEGIN_CENTER
+[[file:../index.org][Home]] | [[file:../about.org][About]] | [[file:../contact.org][Contact]]
+#+END_CENTER
 
 * The Joy of Learning Racket
 I recently took up learning Racket, and I've really been loving it. This is just a short mind 

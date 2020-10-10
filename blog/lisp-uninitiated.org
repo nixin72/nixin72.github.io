@@ -2,7 +2,11 @@
 #+AUTHOR: Philip Dumaresq
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
 
-* Lisp for the Uninitiated
+#+BEGIN_CENTER
+[[file:../index.org][Home]] | [[file:../about.org][About]] | [[file:../contact.org][Contact]]
+#+END_CENTER
+
+* About Lisp
 
 #+begin_quote
 Study C to see the power of a computer without the constraints of a language. Study Lisp to see the
@@ -25,7 +29,7 @@ languages. Just like the "C family" covers C, C++, C#, Java, JS, Go, etc., the L
 Common Lisp, Clojure, Emacs Lisp, Hy, Scheme, Racket, etc. When people say "Lisp", they're usually 
 either referring to Common Lisp or Lisp as a concept.
 
-** Lisp Syntax
+* Lisp Syntax
 
 We all know and recognize C-like languages, they've got their curly braces, prodecural programming 
 style, big for loops, etc. But what does a Lisp look like if not that? Lisp uses a type of syntax 
@@ -49,7 +53,7 @@ is kind of weird, and even the ~+~ has parenthesis around it. There's a very goo
 in Lisp, *everything* is a function. ~defun~ is actually a function that created another function. ~+~ is 
 a function that adds two number. ~print~ is a function that outputs it's argument to the console.
 
-** Prefix notation
+* Prefix notation
 
 This is pretty unfamiliar to most people, but I promose it has a very good reason for being like 
 this! Think about the following code in C/C++:
@@ -72,7 +76,7 @@ There's no order of orperations in Lisp, so everything is entirely unambiguous. 
 advantage to writing code like this, but before we can get to the real advantage, we need to talk 
 about how to represent *data* in Lisp.
 
-** Representing data
+* Representing data
 
 The central data structure in Lisp is *singly-linked lists*. If you think List and Lisp are too close 
 sounding, that's because Lisp used to be an ackronym meaning LISt Processor. The way you create a 
@@ -98,7 +102,7 @@ Notice now how the syntax for creating lists is the exact same syntax as that fo
 This is because Lisp code and data are the same thing. This becomes very important in understand 
 *macros*.
 
-** Macros
+* Macros
 
 In C and C++ you can define what are called macros. Macros are pieces of code that when called, 
 will replace the call to the macro with the text that it's declared as *at compile time*. For example:
@@ -162,7 +166,7 @@ framework pretty trivially:
 And this macro could generate an HTML page with the corresponding CSS. But that's not all it can 
 do, because many Lisp dialects also have something called *reader macros*.
 
-** Reader macros
+* Reader macros
 While macros are able to transform your code into a new form, *reader macros* are able to transform 
 code that previously wasn't in valid Lisp syntax into valid syntax. This means that you can not 
 only transform the code at compile time, but you can create your own syntax for an entirely new 
@@ -206,7 +210,7 @@ You can do some incredibly cool, and complicated stuff with reader macros such a
 - [[https://stackoverflow.com/questions/267862/what-makes-lisp-macros-so-special#answer-4621882][Write Python-like list comprehension]]
 - [[https://github.com/y2q-actionman/with-c-syntax/][Embed C syntax directly into Lisp code]]
 
-** Conclusion
+* Conclusion
 I hope you walk away from reading this understanding why Lisp syntax is so important. I know that 
 it takes a while to get used to it, and some of you who learn it might have a gut reaction to hate 
 it, but understanding the reason behind the syntax will make you a better Lisp programmer. Take 
