@@ -13,7 +13,7 @@
 - [[https://github.com/nixin72/block-nav.el][block-nav.el]]: An Emacs package for navigation
 - [[https://github.com/nixin72/window-bind-buffer.el][window-bind-buffer.el]]: An Emacs package for modern buffer/window management
 
-* Blog
+* [[file:blog/index.org][Blog]]
  
 ** [[file:blog/joy-of-racket.org][The Joy of learning Racket]]
 #+BEGIN_small 
@@ -39,7 +39,7 @@ October 18th 2020
 What is meta-programming? What are macros? Why use them? This talk gives and introduction to macros
 and meta-programming in Common Lisp. We define a small DSL in Lisp for writing SQL queries.
 
-* Questions 
+* [[file:questions/index.org][Questions]]
 This section is all related to questions that have been asked by students, with the questions and
 answers preserved here for use by future students.
 
@@ -50,6 +50,7 @@ This section is for all questions relating to Java, in particular the ~stream~ A
 This section is for all questions relating to Lisp, Scheme, Clojure, etc
 - [[file:questions/lisp-setting-variables.org][How to declare and set variables in Lisp]]
 - [[file:questions/lisp-quote-vs-'.org][The difference between ~quote~ and ~'~]]
+- [[file:questions/lisp-let-scoping.org][Variable scoping and ~let~ bindings]]
 
 ** COMMENT Prolog
 This section is for all questions relating to Prolog
