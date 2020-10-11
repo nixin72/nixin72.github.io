@@ -8,10 +8,12 @@ This section is for all questions relating to Java, in particular the ~stream~ A
 
 ** Lisp
 This section is for all questions relating to Lisp, Scheme, Clojure, etc
-- [[file:questions/lisp-setting-variables.org][How to declare and set variables in Lisp]]
-- [[file:questions/lisp-quote-vs-'.org][The difference between ~quote~ and ~'~]]
+- [[file:lisp-setting-variables.org][How to declare and set variables in Lisp]]
+- [[file:lisp-quote-vs-'.org][The difference between ~quote~ and ~'~]]
 - [[file:lisp-let-scoping.org][Variable scoping and ~let~ bindings]]
 - [[file:lisp-running-from-terminal.org][Running Lisp from any terminal]]
+- [[file:lisp-debugging.org][Debugging Common Lisp from the terminal]]
+
 ** COMMENT Prolog
 This section is for all questions relating to Prolog
 
