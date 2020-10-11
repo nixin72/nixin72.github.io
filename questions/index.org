@@ -7,7 +7,7 @@
 This section is for all questions relating to Java, in particular the ~stream~ API.
 
 ** Lisp
-This section is for all questions relating to Lisp, Scheme, Clojure, etc
+This section is for all questions relating to Common Lisp (or other lisps).
 - [[file:lisp-setting-variables.org][How to declare and set variables in Lisp]]
 - [[file:lisp-quote-vs-'.org][The difference between ~quote~ and ~'~]]
 - [[file:lisp-let-scoping.org][Variable scoping and ~let~ bindings]]
