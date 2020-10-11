@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-10-11 Sun 13:45 -->
+<!-- 2020-10-11 Sun 13:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Questions</title>
+<title>Debugging Prolog</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Philip Dumaresq" />
 <style type="text/css">
@@ -243,39 +243,77 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Questions</h1>
-
-<div id="outline-container-org154425b" class="outline-2">
-<h2 id="org154425b">Prolog</h2>
-<div class="outline-text-2" id="text-org154425b">
-<p>
-This section is for all questions relating to Prolog
-</p>
-<ul class="org-ul">
-<li><a href="prolog-debugging.html">Debugging in Prolog</a></li>
+<h1 class="title">Debugging Prolog</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org781dcc8">Question</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orga9b0cd9" class="outline-2">
-<h2 id="orga9b0cd9">Lisp</h2>
-<div class="outline-text-2" id="text-orga9b0cd9">
+<div class="org-center">
 <p>
-This section is for all questions relating to Common Lisp (or other lisps).
+<a href="index.html">Back</a>
 </p>
-<ul class="org-ul">
-<li><a href="lisp-setting-variables.html">How to declare and set variables in Lisp</a></li>
-<li><a href="lisp-quote-vs-'.html">The difference between <code>quote</code> and <code>'</code></a></li>
-<li><a href="lisp-let-scoping.html">Variable scoping and <code>let</code> bindings</a></li>
-<li><a href="lisp-running-from-terminal.html">Running Lisp from any terminal</a></li>
-<li><a href="lisp-debugging.html">Debugging Common Lisp from the terminal</a></li>
-</ul>
+</div>
+
+<div id="outline-container-org781dcc8" class="outline-2">
+<h2 id="org781dcc8">Question</h2>
+<div class="outline-text-2" id="text-org781dcc8">
+<p>
+How do I debug my Prolog queries?
+</p>
+
+<p>
+Debugging Prolog can be done pretty easily using a built-in tool called <code>trace</code>. Now, since the online
+<a href="https://swish.swi-prolog.org/">swish</a> editor for Prolog is fantastic, I'll be assuming you're using that, but this can all be done
+using <a href="https://www.swi-prolog.org/">swipl</a> from your terminal as well. 
+</p>
+
+<p>
+Let's say you have the following dataset:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-prolog"><span style="color: #c678dd;">parent</span>(tom, adam).
+<span style="color: #c678dd;">parent</span>(tom, alex).
+<span style="color: #c678dd;">parent</span>(tom, luna).
+<span style="color: #c678dd;">parent</span>(mel, adam).
+<span style="color: #c678dd;">parent</span>(mel, alex).
+<span style="color: #c678dd;">parent</span>(mel, luna).
+
+<span style="color: #c678dd;">sibling</span>(<span style="color: #dcaeea;">X</span>,<span style="color: #dcaeea;">Y</span>):- 
+    parent(<span style="color: #dcaeea;">P</span>, <span style="color: #dcaeea;">X</span>), parent(<span style="color: #dcaeea;">P</span>, <span style="color: #dcaeea;">Y</span>), <span style="color: #dcaeea;">X</span> \= <span style="color: #dcaeea;">Y</span>.
+</pre>
+</div>
+
+<p>
+And we want to track down an error in our <code>sibling</code> rule. When querying against this rule, we can
+prefix our query with <code>trace/0</code> to interactively follow what Prolog is doing:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-prolog">?- trace, sibling(<span style="color: #dcaeea;">X</span>, adam).
+</pre>
+</div>
+
+<p>
+This will allow us to step through our code using step-into, step-over, step-out and retry, just
+like when we're debugging in Java.  
+</p>
+
+<p>
+<code>trace</code> is the main tool that I use for debugging Prolog, but there's a number of other tools that you
+can use here to learn how to debug Prolog better, all of which are explained in the <a href="https://www.swi-prolog.org/pldoc/man?section=debugger">swi-prolog
+documentation</a>
+</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2020-10-11 Sun 13:45</p>
+<p class="date">Created: 2020-10-11 Sun 13:43</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

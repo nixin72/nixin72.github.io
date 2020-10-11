@@ -6,6 +6,10 @@
 ** COMMENT Java
 This section is for all questions relating to Java, in particular the ~stream~ API.
 
+** Prolog
+This section is for all questions relating to Prolog
+- [[file:prolog-debugging.org][Debugging in Prolog]]
+
 ** Lisp
 This section is for all questions relating to Common Lisp (or other lisps).
 - [[file:lisp-setting-variables.org][How to declare and set variables in Lisp]]
@@ -13,9 +17,6 @@ This section is for all questions relating to Common Lisp (or other lisps).
 - [[file:lisp-let-scoping.org][Variable scoping and ~let~ bindings]]
 - [[file:lisp-running-from-terminal.org][Running Lisp from any terminal]]
 - [[file:lisp-debugging.org][Debugging Common Lisp from the terminal]]
-
-** COMMENT Prolog
-This section is for all questions relating to Prolog
 
 ** COMMENT C
 This section is for all questions relating to Lisp, Scheme, Clojure, etc
