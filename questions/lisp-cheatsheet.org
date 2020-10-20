@@ -70,7 +70,8 @@ lectures and tutorials should appear here. If there's something that I missed, p
 | ~>~        | ~(> 1 2)~     | nil    | Checks if all arguments are greater than the following arguments             |
 | ~<=~       | ~(<= 1 2)~    | t      | Checks if all arguments are smaller than or equal to the following arguments |
 | ~=>~       | ~(=> 1 2)~    | nil    | Checks if all arguments are greater than or equal to the following arguments |
-| ~eql~      | ~(eql 1 2)~   | nil    | Checks if two values are equal. Numbers, symbols, strings, lists, etc.       |
+| ~eq~      | ~(eq 1 2)~   | nil    | Checks if two numbers or characters have the same value. |
+| ~eql~      | ~(eql 1 2)~   | nil    | Checks if two values refer to the same object or are ~eq~. |
 | ~equal~    | ~(equal 1 2)~ | nil    | Checks if two values are equal. Numbers, symbols, strings, lists, etc.       |
 
 * Numerical functions
@@ -118,7 +119,7 @@ lectures and tutorials should appear here. If there's something that I missed, p
 | ~symbolp~  | ~(symbolp 'a)~        | T      | Returns true if it's argument is a symbol.         |
 | ~keywordp~ | ~(keywordp :a)~       | T      | Returns true if it's argument is a keyword.        |
 
-* Miscelaneous
+* Miscellaneous
 
 | Function | Example             | Output | Description                                                         |
 |----------+---------------------+--------+---------------------------------------------------------------------|

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-10-19 Mon 18:28 -->
+<!-- 2020-10-19 Mon 20:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Common Lisp Cheatsheet</title>
@@ -278,7 +278,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgde1ce39">Numerical functions</a></li>
 <li><a href="#orgbdfb206">Output</a></li>
 <li><a href="#org930bad5">Predicates</a></li>
-<li><a href="#org926681d">Miscelaneous</a></li>
+<li><a href="#orge70f073">Miscellaneous</a></li>
 </ul>
 </div>
 </div>
@@ -689,10 +689,17 @@ lectures and tutorials should appear here. If there's something that I missed, p
 </tr>
 
 <tr>
+<td class="org-left"><code>eq</code></td>
+<td class="org-left"><code>(eq 1 2)</code></td>
+<td class="org-left">nil</td>
+<td class="org-left">Checks if two numbers or characters have the same value.</td>
+</tr>
+
+<tr>
 <td class="org-left"><code>eql</code></td>
 <td class="org-left"><code>(eql 1 2)</code></td>
 <td class="org-left">nil</td>
-<td class="org-left">Checks if two values are equal. Numbers, symbols, strings, lists, etc.</td>
+<td class="org-left">Checks if two values refer to the same object or are <code>eq</code>.</td>
 </tr>
 
 <tr>
@@ -1000,9 +1007,9 @@ lectures and tutorials should appear here. If there's something that I missed, p
 </div>
 </div>
 
-<div id="outline-container-org926681d" class="outline-2">
-<h2 id="org926681d">Miscelaneous</h2>
-<div class="outline-text-2" id="text-org926681d">
+<div id="outline-container-orge70f073" class="outline-2">
+<h2 id="orge70f073">Miscellaneous</h2>
+<div class="outline-text-2" id="text-orge70f073">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1051,7 +1058,7 @@ lectures and tutorials should appear here. If there's something that I missed, p
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2020-10-19 Mon 18:28</p>
+<p class="date">Created: 2020-10-19 Mon 20:23</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

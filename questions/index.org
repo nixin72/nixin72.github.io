@@ -25,7 +25,7 @@ For any other questions you might have, you can check out the questions I've rec
 - [[file:lisp-let-scoping.org][Variable scoping and ~let~ bindings]]
 - [[file:lisp-running-from-terminal.org][Running Lisp from any terminal]]
 - [[file:lisp-debugging.org][Debugging Common Lisp from the terminal]]
-- [[file:lisp-function-definitions.org][Different ways to define functions]]
+- [file:lisp-function-definitions.org][Different ways to define functions]]
 
 ** COMMENT C
 This section is for all questions relating to Lisp, Scheme, Clojure, etc
