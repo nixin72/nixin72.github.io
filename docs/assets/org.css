@@ -109,3 +109,9 @@ p.footnote {}
 .org-svg {}
 
 .validation { display: none; }
+
+tbody tr td:not(:first-child):not(:last-child) {
+		border-left: thin solid #abb2bf;
+		border-right: thin solid #abb2bf;
+		padding: 0 15px;
+}
