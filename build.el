@@ -1,4 +1,4 @@
-(setq website-dir "/run/media/nixin72/s/repos/website")
+(setq website-dir "/run/media/nixin72/s/repos/nixin72.github.com")
 
 (setq build-root
   `("nixin72.github.io:root"
@@ -6,14 +6,15 @@
     :publishing-directory ,(concat website-dir "/docs")
     :section-numbers nil
     :table-of-contents nil
+    :exclude "faq/.*"
     :recursive t
     :publishing-function org-html-publish-to-html))
 
 (setq build-assets
   `("nixin72.github.io:assets"
-    :base-directory ,(concat root-dir "/assets")
+    :base-directory ,(concat website-dir "/assets")
+    :publishing-directory ,(concat website-dir "/docs/assets")
     :base-extension "css\\|el\\|js\\|jpg\\|gif\\|png"
-    :publishing-directory ,(concat root-dir "/docs/assets")
     :publishing-function org-publish-attachment))
 
 (setq org-publish-project-alist
