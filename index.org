@@ -10,12 +10,12 @@
 
 * [[file:blog/index.org][Blog]]
 
-#+INCLUDE: blog/index.org
+#+INCLUDE: blog/blog.org
 
 * [[file:talks/index.org][Talks]]
 
-#+INCLUDE: talks/index.org
+#+INCLUDE: talks/talks.org
 
 * COMMENT [[file:faq/index.org][Questions]]
 
-#+INCLUDE: faq/index.org
+#+INCLUDE: faq/faq.org

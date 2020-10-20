@@ -1,12 +1,5 @@
 #+TITLE: Talks
 #+SETUPFILE: ~/.emacs.d/org-templates/home.org
 #+INCLUDE: header.org
+#+INCLUDE: talks.org
 
-** [[file:metaprogramming/talk.org][Meta Programming and Macros]] 
-#+BEGIN_small
-October 21st 2020
-#+END_small
-
-What is meta-programming? What are macros? Why use them? This talk gives an introduction to macros
-and meta-programming in Racket. We define a number of constructs from Racket ourselves using the
-macro system.
