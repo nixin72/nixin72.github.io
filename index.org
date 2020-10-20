@@ -16,6 +16,6 @@
 
 #+INCLUDE: talks/index.org
 
-* [[file:faq/index.org][Questions]]
+* COMMENT [[file:faq/index.org][Questions]]
 
 #+INCLUDE: faq/index.org

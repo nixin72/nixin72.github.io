@@ -10,7 +10,7 @@
     :recursive t
     :publishing-function org-html-publish-to-html))
 
-(setq build-assets
+(setq build-assets 
   `("nixin72.github.io:assets"
     :base-directory ,(concat website-dir "/assets")
     :publishing-directory ,(concat website-dir "/docs/assets")
@@ -18,7 +18,6 @@
     :publishing-function org-publish-attachment))
 
 (setq org-publish-project-alist
-      ;; Main website
       `(,build-root
         ,build-assets
         ("nixin72.github.io"
