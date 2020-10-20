@@ -1,0 +1,3 @@
+#+BEGIN_CENTER
+[[file:../index.org][Home]] | [[file:../about.org][About]] | [[file:../contact.org][Contact]]
+#+END_CENTER

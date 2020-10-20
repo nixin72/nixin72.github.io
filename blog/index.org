@@ -1,0 +1,18 @@
+#+TITLE: Blog
+#+SETUPFILE: ~/.emacs.d/org-templates/home.org
+#+INCLUDE: header.org
+
+** [[file:joy-of-racket.org][The Joy of learning Racket]]
+#+BEGIN_small 
+December 14th, 2019 | 8 minute read
+#+END_small
+
+Recently I started learning Racket and it's the most fun I've had learning a new language in a long
+time. In this post I'll talk about what was great about Racket and how you can get started.
+** [[file:lisp-uninitiated.org][Lisp for the uninitiated]]
+#+BEGIN_small 
+November 10th, 2019 | 15 minute read
+#+END_small
+
+For many people, Lisp is a mystical programming language they hear of here and there, and hear of
+it's great power. Well, Lisp is amazing, but I'm gonna demystify it a bit for you.

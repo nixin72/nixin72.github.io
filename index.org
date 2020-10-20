@@ -1,0 +1,21 @@
+#+TITLE: Home
+#+SETUPFILE: ~/.emacs.d/org-templates/home.org
+#+INCLUDE: header.org
+
+* Projects
+- [[https://github.com/nixin72/dotfiles][dotfiles]]: My constantly tinkered-with dotfiles for linux
+- [[https://github.com/nixin72/from-template][from-template]]: A Racket tool for using templates
+- [[https://github.com/nixin72/block-nav.el][block-nav.el]]: An Emacs package for navigation
+- [[https://github.com/nixin72/window-bind-buffer.el][window-bind-buffer.el]]: An Emacs package for modern buffer/window management
+
+* [[file:blog/index.org][Blog]]
+
+#+INCLUDE: blog/index.org
+
+* [[file:talks/index.org][Talks]]
+
+#+INCLUDE: talks/index.org
+
+* [[file:faq/index.org][Questions]]
+
+#+INCLUDE: faq/index.org

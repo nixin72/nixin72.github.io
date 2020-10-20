@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-10-20 Tue 12:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lisp for the uninitiated</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Philip Dumaresq" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://nixin72.github.io/temp/assets/org.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Lisp for the uninitiated</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org37935f7">About Lisp</a></li>
+<li><a href="#orgf78e397">Lisp Syntax</a></li>
+<li><a href="#org2545c93">Prefix notation</a></li>
+<li><a href="#orgafcd39e">Representing data</a></li>
+<li><a href="#org4dbf96c">Macros</a></li>
+<li><a href="#orgb50fff6">Reader macros</a></li>
+<li><a href="#orgd340069">Conclusion</a></li>
+</ul>
+</div>
+</div>
+<div class="org-center">
+<p>
+<a href="../index.html">Home</a> | <a href="../about.html">About</a> | <a href="../contact.html">Contact</a>
+</p>
+</div>
+
+<div id="outline-container-org37935f7" class="outline-2">
+<h2 id="org37935f7">About Lisp</h2>
+<div class="outline-text-2" id="text-org37935f7">
+<blockquote>
+<p>
+Study C to see the power of a computer without the constraints of a language. Study Lisp to see the
+power of a language without the constraints of a computer. Even if you never use either language 
+professionally, they will both fundamentally change how you code for the better.
+</p>
+</blockquote>
+
+<p>
+This is one of my favourite quotes about Lisp, and even though it's from a random reddit user, I 
+believe it holds true. People often talk about Lisp as though it's some infinitely powerful 
+language and mysterious and blah blah blah. While it's true that Lisp is very powerful, it's not 
+mysterious or complicated how it works.
+</p>
+
+<p>
+This article is targeted towards people who maybe took a class in Lisp and really hated it, or had 
+a friend show it to them but poorly explained it and were left confused, wonder why the hell you'd 
+use something so esoteric or archaic. If you've never used Lisp before, but are maybe curious, 
+check out my other post about [learning Lisp](lisp-for-beginners.html).
+</p>
+
+<p>
+To start, I want to clarify that Lisp is not a programming language. Lisp is a <i>family</i> of programming
+languages. Just like the "C family" covers C, C++, C#, Java, JS, Go, etc., the Lisp family covers
+Common Lisp, Clojure, Emacs Lisp, Hy, Scheme, Racket, etc. When people say "Lisp", they're usually 
+either referring to Common Lisp or Lisp as a concept.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf78e397" class="outline-2">
+<h2 id="orgf78e397">Lisp Syntax</h2>
+<div class="outline-text-2" id="text-orgf78e397">
+<p>
+We all know and recognize C-like languages, they've got their curly braces, prodecural programming 
+style, big for loops, etc. But what does a Lisp look like if not that? Lisp uses a type of syntax 
+called s-expressions, and they look like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp">(<span style="color: #51afef;">defun</span> <span style="color: #c678dd;">my-adder</span> (number-1 number-2<span style="color: #5B6268;">)</span>
+  (print number-1<span style="color: #5B6268;">)</span>
+  (print number-2<span style="color: #5B6268;">)</span>
+  (print (+ number-1 number-2<span style="color: #5B6268;">)))</span>
+</pre>
+</div>
+
+<p>
+This code is pretty simple to figure out what's going on: it defines a function (with <code>defun</code>) named 
+<code>my-adder</code> that accepts two parameters. The body of the function simply prints those two parameters, 
+and then prints their sum.
+</p>
+
+<p>
+There's nothing particularly complicated about this, but there's actually a lot to unpack here. The 
+first thing you'll probably notice is that there's a lot of parenthesis everywhere. The <code>defun</code> 
+keyword is inside parenthesis, the <code>print</code> function has parenthesis <b>before</b> the function name, which 
+is kind of weird, and even the <code>+</code> has parenthesis around it. There's a very good reason for this: 
+in Lisp, <b>everything</b> is a function. <code>defun</code> is actually a function that created another function. <code>+</code> is 
+a function that adds two number. <code>print</code> is a function that outputs it's argument to the console.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2545c93" class="outline-2">
+<h2 id="org2545c93">Prefix notation</h2>
+<div class="outline-text-2" id="text-org2545c93">
+<p>
+This is pretty unfamiliar to most people, but I promose it has a very good reason for being like 
+this! Think about the following code in C/C++:
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp"><span style="color: #ECBE7B;">int</span> * <span style="color: #dcaeea;">a1</span>, <span style="color: #dcaeea;">a2</span>;
+</pre>
+</div>
+
+<p>
+What does this code do? We know that it declared 2 variables <code>a1</code> and <code>a2</code>, but we also have this <code>*</code> in 
+here that's declaring them as pointers. Or is it? Is it declaring both of them as pointers or just 
+<code>a1</code>? To a reader, this code is <b>ambiguous</b> unless you know the order of precedence of operations in 
+C++.
+</p>
+
+<p>
+In Lisp, we don't have this problem. The way that we do math in Lisp is like so:
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">(print (+ 3 (* 2 (+ 4 5<span style="color: #5B6268;">))))</span>
+</pre>
+</div>
+
+<p>
+And this means that we're first adding <code>4 + 5</code>, then multiplying <code>2 * 9</code>, then adding <code>18 + 3</code> to get <code>21</code>. 
+There's no order of orperations in Lisp, so everything is entirely unambiguous. This is one small 
+advantage to writing code like this, but before we can get to the real advantage, we need to talk 
+about how to represent <b>data</b> in Lisp.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgafcd39e" class="outline-2">
+<h2 id="orgafcd39e">Representing data</h2>
+<div class="outline-text-2" id="text-orgafcd39e">
+<p>
+The central data structure in Lisp is <b>singly-linked lists</b>. If you think List and Lisp are too close 
+sounding, that's because Lisp used to be an ackronym meaning LISt Processor. The way you create a 
+single linked list is like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">my-list</span> (list 1 2 3 4 5<span style="color: #5B6268;">))</span>
+(print my-list) <span style="color: #5B6268;">; (1 2 3 4 5)</span>
+</pre>
+</div>
+
+<p>
+Since all of the values in that list are constant, we could equally declare that list as so:
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">my-list</span> '(1 2 3 4 5<span style="color: #5B6268;">))</span>
+</pre>
+</div>
+
+<p>
+What that quote means in Lisp is "treat everything after this <code>'</code> until the matching set of closing 
+parenthesis literally". This means to create a 2D list I could do:
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">(print '((1 2 3) (4 5 6<span style="color: #5B6268;">)))</span>
+</pre>
+</div>
+
+<p>
+Notice now how the syntax for creating lists is the exact same syntax as that for writing code. 
+This is because Lisp code and data are the same thing. This becomes very important in understand 
+<b>macros</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4dbf96c" class="outline-2">
+<h2 id="org4dbf96c">Macros</h2>
+<div class="outline-text-2" id="text-org4dbf96c">
+<p>
+In C and C++ you can define what are called macros. Macros are pieces of code that when called, 
+will replace the call to the macro with the text that it's declared as <b>at compile time</b>. For example:
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp"><span style="color: #51afef; font-weight: bold;">#define</span> <span style="color: #c678dd;">print</span>(<span style="color: #dcaeea;">a</span>) <span style="color: #a9a1e1;">std</span>::cout &lt;&lt; a &lt;&lt; <span style="color: #a9a1e1;">std</span>::endl
+
+print(<span style="color: #98be65;">"hello"</span>);
+</pre>
+</div>
+
+<p>
+What this would do is when you compile this code, a <b>textual-substituion</b> takes place. The code 
+<code>print("hello")</code> would actually get replaced by the code <code>std::cout &lt;&lt; a &lt;&lt; std::endl</code>. This is a pretty
+convenient feature - we can use it for writing very small "functions" and have them get replaced by
+their definitions at compile time to eliminate the overhead of calling a function and creating a 
+new stack frame.
+</p>
+
+<p>
+In Lisp though, we have something even better. In Lisp, macros are actual functions that evaluate 
+themselves at compile time. That sounds kinda complicated, so here's an example:
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #51afef;">defmacro</span> <span style="color: #c678dd;">infix-&gt;prefix</span> (func-call<span style="color: #5B6268;">)</span>
+  (list (cadr func-call) (car func-call) (caddr func-call<span style="color: #5B6268;">)))</span>
+</pre>
+</div>
+
+<p>
+What this does is it defines a macro called <code>infix-&gt;prefix</code>, and it takes a function call as a 
+parameter. The function <code>car</code> will extract the first element of a list, <code>cadr</code> will extract the second, 
+and <code>caddr</code> will extract the 3rd. Ignore these weird function names for now - I won't get around to 
+covering why they have these weird names.
+</p>
+
+<p>
+If you we're to call this like so:
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">(print (infix-&gt;prefix (1 + 2<span style="color: #5B6268;">)))</span>
+</pre>
+</div>
+
+<p>
+Then what this does is at compile time, it'll transform the list <code>(1 + 2)</code> into <code>(+ 1 2)</code>, so that when 
+it comes time for the program to execute, it'll evaluate <code>(+ 1 2)</code> and print it at run-time.
+</p>
+
+<p>
+While this example might seem somewhat trivial and not that much more powerful that C/C++ macros, 
+here's a quote that describes the difference between the two quite well:
+</p>
+<blockquote>
+<p>
+In most programming languages, syntax is complex. Macros have to take apart program syntax, analyze 
+it, and reassemble it. They do not have access to the program's parser, so they have to depend on 
+heuristics and best-guesses. Sometimes their cut-rate analysis is wrong, and then they break.
+</p>
+
+<p>
+But Lisp is different. Lisp macros do have access to the parser, and it is a really simple parser. 
+A Lisp macro is not handed a string, but a pre-parsed piece of source code in the form of a list, 
+because the source of a Lisp program is not a string; it is a list. And Lisp programs are really 
+good at taking apart lists and putting them back together. They do this reliably, every day."
+</p>
+
+<ul class="org-ul">
+<li>Ben Tilly</li>
+</ul>
+</blockquote>
+
+<p>
+Since Lisp is able to do much more complicated preprocessing like this with macros, the 
+possibilities are endless. For example, you can define HTML-like syntax in Lisp for building a web 
+framework pretty trivially:
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">(html
+  (head (title <span style="color: #98be65;">"hello world"</span><span style="color: #5B6268;">))</span>
+  (body ((color <span style="color: #98be65;">"green"</span><span style="color: #5B6268;">))</span>
+    (p <span style="color: #98be65;">"This is some green text"</span><span style="color: #5B6268;">)))</span>
+</pre>
+</div>
+
+<p>
+And this macro could generate an HTML page with the corresponding CSS. But that's not all it can 
+do, because many Lisp dialects also have something called <b>reader macros</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb50fff6" class="outline-2">
+<h2 id="orgb50fff6">Reader macros</h2>
+<div class="outline-text-2" id="text-orgb50fff6">
+<p>
+While macros are able to transform your code into a new form, <b>reader macros</b> are able to transform 
+code that previously wasn't in valid Lisp syntax into valid syntax. This means that you can not 
+only transform the code at compile time, but you can create your own syntax for an entirely new 
+language.
+</p>
+
+<p>
+Remember earlier we talked about how that quote would make everything after it get interpreted 
+literally? Well <code>quote</code> is actually the name of a macro that does that, and the <code>'</code> that we use is a 
+<b>reader macro</b> that transforms it into the `quote` macro form. We can define the <code>'</code> reader macro like 
+this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #51afef;">defun</span> <span style="color: #c678dd;">single-quote-reader</span> (stream char<span style="color: #5B6268;">)</span>
+   (<span style="color: #51afef;">declare</span> (ignore char<span style="color: #5B6268;">))</span>
+   (list (quote quote) (read stream t nil t<span style="color: #5B6268;">)))</span>
+
+(set-macro-character #\' #'single-quote-reader<span style="color: #5B6268;">)</span>
+</pre>
+</div>
+
+<p>
+This will tell the Lisp compiler "when you see the <code>'</code> character, take the s-expression following it, 
+and give it to the function <code>single-quote-reader</code>". This allows us to extend the syntax of our 
+language pretty simply by telling the compiler what to do when it sees a quote. Now remember how we 
+had that HTML-like code, except it was still really just Lisp syntax? Well using reader macros we 
+can change that and make something like this:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #c678dd;">html</span>&gt;
+  &lt;<span style="color: #c678dd;">head</span>&gt;
+    &lt;<span style="color: #c678dd;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">Hello world</span>&lt;/<span style="color: #c678dd;">title</span>&gt;
+  &lt;/<span style="color: #c678dd;">head</span>&gt;
+  &lt;<span style="color: #c678dd;">body</span> <span style="color: #dcaeea;">style</span>=<span style="color: #98be65;">"color: green"</span>&gt;
+    &lt;<span style="color: #c678dd;">p</span>&gt;This is some green text&lt;/<span style="color: #c678dd;">p</span>&gt;
+  &lt;/<span style="color: #c678dd;">body</span>&gt;
+&lt;/<span style="color: #c678dd;">html</span>&gt;
+</pre>
+</div>
+
+<p>
+perfectly valid Lisp code. It would simply get transformed by a complicated set of reader macros 
+into the s-expression version above, which would then get translated into some more complicated 
+generation code.
+</p>
+
+<p>
+You can do some incredibly cool, and complicated stuff with reader macros such as:
+</p>
+<ul class="org-ul">
+<li><a href="https://lisper.in/reader-macros">Allow JSON syntax in Lisp</a></li>
+<li><a href="https://stackoverflow.com/questions/267862/what-makes-lisp-macros-so-special#answer-4621882">Write Python-like list comprehension</a></li>
+<li><a href="https://github.com/y2q-actionman/with-c-syntax/">Embed C syntax directly into Lisp code</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd340069" class="outline-2">
+<h2 id="orgd340069">Conclusion</h2>
+<div class="outline-text-2" id="text-orgd340069">
+<p>
+I hope you walk away from reading this understanding why Lisp syntax is so important. I know that 
+it takes a while to get used to it, and some of you who learn it might have a gut reaction to hate 
+it, but understanding the reason behind the syntax will make you a better Lisp programmer. Take 
+some time to practice. Read chapter 3 of <a href="http://www.gigamonkeys.com/book/">Practical Common Lisp</a>, it will give you some really neat 
+experience and throw you right into Lisp. If you don't hate it but don't think it'll ever be useful,
+refer to the quote at the top of this article. It will make you a better programmer if you 
+understand metaprogramming. Also, Lisp is used in the real world:
+</p>
+<ul class="org-ul">
+<li><a href="https://lisp-lang.org/">Grammarly uses Common Lisp for natural language processing</a></li>
+<li><a href="https://www.gameenginebook.com/resources/SINFO.pdf">Naughty Dog used Racket for PS3 and PS4 games</a></li>
+<li><a href="https://insights.stackoverflow.com/survey/2019?utm_source=so-owned&amp;utm_medium=blog&amp;utm_campaign=dev-survey-2019&amp;utm_content=launch-blog#technology-_-what-languages-are-associated-with-the-highest-salaries-worldwide">Clojure developers are some of the highest paid in the world</a></li>
+</ul>
+
+<p>
+Many places are using Clojure to migrate old Java applications to a more modern language - and it's
+a dialect of Lisp!
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Philip Dumaresq</p>
+<p class="date">Created: 2020-10-20 Tue 12:58</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

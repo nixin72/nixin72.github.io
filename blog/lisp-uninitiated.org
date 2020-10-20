@@ -1,0 +1,222 @@
+#+Title: Lisp for the uninitiated
+#+SETUPFILE: ~/.emacs.d/org-templates/html.org
+#+INCLUDE: header.org
+
+* About Lisp
+
+#+begin_quote
+Study C to see the power of a computer without the constraints of a language. Study Lisp to see the
+power of a language without the constraints of a computer. Even if you never use either language 
+professionally, they will both fundamentally change how you code for the better.
+#+end_quote
+
+This is one of my favourite quotes about Lisp, and even though it's from a random reddit user, I 
+believe it holds true. People often talk about Lisp as though it's some infinitely powerful 
+language and mysterious and blah blah blah. While it's true that Lisp is very powerful, it's not 
+mysterious or complicated how it works.
+
+This article is targeted towards people who maybe took a class in Lisp and really hated it, or had 
+a friend show it to them but poorly explained it and were left confused, wonder why the hell you'd 
+use something so esoteric or archaic. If you've never used Lisp before, but are maybe curious, 
+check out my other post about [learning Lisp](lisp-for-beginners.html).
+
+To start, I want to clarify that Lisp is not a programming language. Lisp is a /family/ of programming
+languages. Just like the "C family" covers C, C++, C#, Java, JS, Go, etc., the Lisp family covers
+Common Lisp, Clojure, Emacs Lisp, Hy, Scheme, Racket, etc. When people say "Lisp", they're usually 
+either referring to Common Lisp or Lisp as a concept.
+
+* Lisp Syntax
+
+We all know and recognize C-like languages, they've got their curly braces, prodecural programming 
+style, big for loops, etc. But what does a Lisp look like if not that? Lisp uses a type of syntax 
+called s-expressions, and they look like this:
+
+#+begin_src common-lisp
+(defun my-adder (number-1 number-2)
+  (print number-1)
+  (print number-2)
+  (print (+ number-1 number-2)))
+#+end_src
+
+This code is pretty simple to figure out what's going on: it defines a function (with ~defun~) named 
+~my-adder~ that accepts two parameters. The body of the function simply prints those two parameters, 
+and then prints their sum.
+
+There's nothing particularly complicated about this, but there's actually a lot to unpack here. The 
+first thing you'll probably notice is that there's a lot of parenthesis everywhere. The ~defun~ 
+keyword is inside parenthesis, the ~print~ function has parenthesis *before* the function name, which 
+is kind of weird, and even the ~+~ has parenthesis around it. There's a very good reason for this: 
+in Lisp, *everything* is a function. ~defun~ is actually a function that created another function. ~+~ is 
+a function that adds two number. ~print~ is a function that outputs it's argument to the console.
+
+* Prefix notation
+
+This is pretty unfamiliar to most people, but I promose it has a very good reason for being like 
+this! Think about the following code in C/C++:
+#+begin_src cpp
+int * a1, a2;
+#+end_src
+
+What does this code do? We know that it declared 2 variables ~a1~ and ~a2~, but we also have this ~*~ in 
+here that's declaring them as pointers. Or is it? Is it declaring both of them as pointers or just 
+~a1~? To a reader, this code is *ambiguous* unless you know the order of precedence of operations in 
+C++.
+
+In Lisp, we don't have this problem. The way that we do math in Lisp is like so:
+#+begin_src lisp
+(print (+ 3 (* 2 (+ 4 5))))
+#+end_src
+
+And this means that we're first adding ~4 + 5~, then multiplying ~2 * 9~, then adding ~18 + 3~ to get ~21~. 
+There's no order of orperations in Lisp, so everything is entirely unambiguous. This is one small 
+advantage to writing code like this, but before we can get to the real advantage, we need to talk 
+about how to represent *data* in Lisp.
+
+* Representing data
+
+The central data structure in Lisp is *singly-linked lists*. If you think List and Lisp are too close 
+sounding, that's because Lisp used to be an ackronym meaning LISt Processor. The way you create a 
+single linked list is like this:
+
+#+begin_src lisp
+(defvar my-list (list 1 2 3 4 5))
+(print my-list) ; (1 2 3 4 5)
+#+end_src
+
+Since all of the values in that list are constant, we could equally declare that list as so:
+#+begin_src lisp
+(defvar my-list '(1 2 3 4 5))
+#+end_src
+
+What that quote means in Lisp is "treat everything after this ~'~ until the matching set of closing 
+parenthesis literally". This means to create a 2D list I could do:
+#+begin_src lisp
+(print '((1 2 3) (4 5 6)))
+#+end_src
+
+Notice now how the syntax for creating lists is the exact same syntax as that for writing code. 
+This is because Lisp code and data are the same thing. This becomes very important in understand 
+*macros*.
+
+* Macros
+
+In C and C++ you can define what are called macros. Macros are pieces of code that when called, 
+will replace the call to the macro with the text that it's declared as *at compile time*. For example:
+#+begin_src cpp
+#define print(a) std::cout << a << std::endl
+
+print("hello");
+#+end_src
+
+What this would do is when you compile this code, a *textual-substituion* takes place. The code 
+~print("hello")~ would actually get replaced by the code ~std::cout << a << std::endl~. This is a pretty
+convenient feature - we can use it for writing very small "functions" and have them get replaced by
+their definitions at compile time to eliminate the overhead of calling a function and creating a 
+new stack frame.
+
+In Lisp though, we have something even better. In Lisp, macros are actual functions that evaluate 
+themselves at compile time. That sounds kinda complicated, so here's an example:
+#+begin_src lisp
+(defmacro infix->prefix (func-call)
+  (list (cadr func-call) (car func-call) (caddr func-call)))
+#+end_src
+
+What this does is it defines a macro called ~infix->prefix~, and it takes a function call as a 
+parameter. The function ~car~ will extract the first element of a list, ~cadr~ will extract the second, 
+and ~caddr~ will extract the 3rd. Ignore these weird function names for now - I won't get around to 
+covering why they have these weird names.
+
+If you we're to call this like so:
+#+begin_src lisp
+(print (infix->prefix (1 + 2)))
+#+end_src
+
+Then what this does is at compile time, it'll transform the list ~(1 + 2)~ into ~(+ 1 2)~, so that when 
+it comes time for the program to execute, it'll evaluate ~(+ 1 2)~ and print it at run-time.
+
+While this example might seem somewhat trivial and not that much more powerful that C/C++ macros, 
+here's a quote that describes the difference between the two quite well:
+#+begin_quote
+In most programming languages, syntax is complex. Macros have to take apart program syntax, analyze 
+it, and reassemble it. They do not have access to the program's parser, so they have to depend on 
+heuristics and best-guesses. Sometimes their cut-rate analysis is wrong, and then they break.
+
+But Lisp is different. Lisp macros do have access to the parser, and it is a really simple parser. 
+A Lisp macro is not handed a string, but a pre-parsed piece of source code in the form of a list, 
+because the source of a Lisp program is not a string; it is a list. And Lisp programs are really 
+good at taking apart lists and putting them back together. They do this reliably, every day."
+
+- Ben Tilly
+#+end_quote
+
+Since Lisp is able to do much more complicated preprocessing like this with macros, the 
+possibilities are endless. For example, you can define HTML-like syntax in Lisp for building a web 
+framework pretty trivially:
+#+begin_src lisp
+(html
+  (head (title "hello world"))
+  (body ((color "green"))
+    (p "This is some green text")))
+#+end_src
+
+And this macro could generate an HTML page with the corresponding CSS. But that's not all it can 
+do, because many Lisp dialects also have something called *reader macros*.
+
+* Reader macros
+While macros are able to transform your code into a new form, *reader macros* are able to transform 
+code that previously wasn't in valid Lisp syntax into valid syntax. This means that you can not 
+only transform the code at compile time, but you can create your own syntax for an entirely new 
+language.
+
+Remember earlier we talked about how that quote would make everything after it get interpreted 
+literally? Well ~quote~ is actually the name of a macro that does that, and the ~'~ that we use is a 
+*reader macro* that transforms it into the `quote` macro form. We can define the ~'~ reader macro like 
+this:
+
+#+begin_src lisp
+(defun single-quote-reader (stream char)
+   (declare (ignore char))
+   (list (quote quote) (read stream t nil t)))
+
+(set-macro-character #\' #'single-quote-reader)
+#+end_src
+
+This will tell the Lisp compiler "when you see the ~'~ character, take the s-expression following it, 
+and give it to the function ~single-quote-reader~". This allows us to extend the syntax of our 
+language pretty simply by telling the compiler what to do when it sees a quote. Now remember how we 
+had that HTML-like code, except it was still really just Lisp syntax? Well using reader macros we 
+can change that and make something like this:
+#+begin_src html
+<html>
+  <head>
+    <title>Hello world</title>
+  </head>
+  <body style="color: green">
+    <p>This is some green text</p>
+  </body>
+</html>
+#+end_src
+
+perfectly valid Lisp code. It would simply get transformed by a complicated set of reader macros 
+into the s-expression version above, which would then get translated into some more complicated 
+generation code.
+
+You can do some incredibly cool, and complicated stuff with reader macros such as:
+- [[https://lisper.in/reader-macros][Allow JSON syntax in Lisp]]
+- [[https://stackoverflow.com/questions/267862/what-makes-lisp-macros-so-special#answer-4621882][Write Python-like list comprehension]]
+- [[https://github.com/y2q-actionman/with-c-syntax/][Embed C syntax directly into Lisp code]]
+
+* Conclusion
+I hope you walk away from reading this understanding why Lisp syntax is so important. I know that 
+it takes a while to get used to it, and some of you who learn it might have a gut reaction to hate 
+it, but understanding the reason behind the syntax will make you a better Lisp programmer. Take 
+some time to practice. Read chapter 3 of [[http://www.gigamonkeys.com/book/][Practical Common Lisp]], it will give you some really neat 
+experience and throw you right into Lisp. If you don't hate it but don't think it'll ever be useful,
+refer to the quote at the top of this article. It will make you a better programmer if you 
+understand metaprogramming. Also, Lisp is used in the real world:
+- [[https://lisp-lang.org/][Grammarly uses Common Lisp for natural language processing]]
+- [[https://www.gameenginebook.com/resources/SINFO.pdf][Naughty Dog used Racket for PS3 and PS4 games]]
+- [[https://insights.stackoverflow.com/survey/2019?utm_source=so-owned&utm_medium=blog&utm_campaign=dev-survey-2019&utm_content=launch-blog#technology-_-what-languages-are-associated-with-the-highest-salaries-worldwide][Clojure developers are some of the highest paid in the world]]
+
+Many places are using Clojure to migrate old Java applications to a more modern language - and it's
+a dialect of Lisp!
