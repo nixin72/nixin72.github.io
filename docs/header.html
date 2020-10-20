@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-10-10 Sat 22:50 -->
+<!-- 2020-10-20 Tue 11:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Declaring and modifying variables in Common Lisp</title>
+<title>&lrm;</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Philip Dumaresq" />
+<meta name="author" content="nixin72" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -193,7 +193,6 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="../assets/org.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -243,178 +242,15 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Declaring and modifying variables in Common Lisp</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#org9013142">Question:</a>
-<ul>
-<li><a href="#org0e29e02">Declaring top-level variables</a></li>
-<li><a href="#orgaa3e4fa">Declaring local variables</a></li>
-<li><a href="#orgd7f2ef1">Mutating existing variables</a>
-<ul>
-<li><a href="#org32cef09"><code>set</code></a></li>
-<li><a href="#org3c4c27f"><code>setq</code></a></li>
-<li><a href="#orgda7272b"><code>setf</code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
 <div class="org-center">
 <p>
-<a href="index.html">Back</a>
+<a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="contact.html">Contact</a>
 </p>
-</div>
-
-<div id="outline-container-org9013142" class="outline-2">
-<h2 id="org9013142">Question:</h2>
-<div class="outline-text-2" id="text-org9013142">
-<p>
-How do we set a variable in Lisp?
-</p>
-
-<p>
-There are lots of ways to declare variables and change their values in Lisp, each one we use in
-different situations. For this class, we really only need to worry about 3. 
-</p>
-</div>
-
-<div id="outline-container-org0e29e02" class="outline-3">
-<h3 id="org0e29e02">Declaring top-level variables</h3>
-<div class="outline-text-3" id="text-org0e29e02">
-<p>
-For creating variables that aren't inside a function, we use the <code>defvar</code> builtin:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-common-lisp">(<span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">sym</span> 'hello<span style="color: #5B6268;">)</span>
-(<span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">num</span> 20<span style="color: #5B6268;">)</span>
-(<span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">str</span> <span style="color: #98be65;">"Hello world"</span><span style="color: #5B6268;">)</span>
-(<span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">lst</span> '(hello 20 <span style="color: #98be65;">"hello world"</span><span style="color: #5B6268;">))</span>
-</pre>
-</div>
-
-<p>
-We could use <code>defvar</code> to declare variables inside of functions as well, but Lisp will give us a
-warning about this - although it will still work. 
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgaa3e4fa" class="outline-3">
-<h3 id="orgaa3e4fa">Declaring local variables</h3>
-<div class="outline-text-3" id="text-orgaa3e4fa">
-<p>
-For creating variables inside a function, or to create locally-scoped variables, we use <code>let</code> and <code>let*</code>
-</p>
-
-<div class="org-src-container">
-<pre class="src src-common-lisp">(<span style="color: #51afef;">let</span> ((sym 'hello<span style="color: #5B6268;">)</span>
-      (num 20<span style="color: #5B6268;">)</span>
-      (str <span style="color: #98be65;">"Hello world"</span><span style="color: #5B6268;">)</span>
-      (lst '(hello 20 <span style="color: #98be65;">"Hello world"</span><span style="color: #5B6268;">)))</span>
-  (format t <span style="color: #98be65;">"Values: ~s, ~d, ~s, ~a"</span> sym num str lst<span style="color: #5B6268;">))</span>
-(print <span style="color: #98be65;">"None of those variables are visible here"</span><span style="color: #5B6268;">)</span>
-</pre>
-</div>
-
-<p>
-We can also use <code>let*</code> to be able to access previous bindings in the same <code>let</code>:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp">(<span style="color: #51afef;">let*</span> ((sym 'hello<span style="color: #5B6268;">)</span>
-       (num 20<span style="color: #5B6268;">)</span>
-       (str <span style="color: #98be65;">"Hello world"</span><span style="color: #5B6268;">)</span>
-       (lst (list sym num str))) <span style="color: #5B6268;">; No need to redeclare the values here</span>
-  (format t <span style="color: #98be65;">"Values: ~s, ~d, ~s, ~a"</span> sym num str lst<span style="color: #5B6268;">))</span>
-(print <span style="color: #98be65;">"None of those variables are visible here"</span><span style="color: #5B6268;">)</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgd7f2ef1" class="outline-3">
-<h3 id="orgd7f2ef1">Mutating existing variables</h3>
-<div class="outline-text-3" id="text-orgd7f2ef1">
-<p>
-To change the value of a variable, we use the <code>set[f/q]</code> functions. 
-</p>
-</div>
-
-<div id="outline-container-org32cef09" class="outline-4">
-<h4 id="org32cef09"><code>set</code></h4>
-<div class="outline-text-4" id="text-org32cef09">
-<p>
-The <code>set</code> function is the most basic of the 3 ways to set a value in Lisp. We simply pass it an atom
-and a value, and it binds that value to the symbol:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp">(set 'x 10<span style="color: #5B6268;">)</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org3c4c27f" class="outline-4">
-<h4 id="org3c4c27f"><code>setq</code></h4>
-<div class="outline-text-4" id="text-org3c4c27f">
-<p>
-The <code>setq</code> tool means "set quoted". It's very similar to <code>set</code>, except that we don't have to quote the
-symbol being passed to it:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-common-lisp">(setq x 10<span style="color: #5B6268;">)</span>
-</pre>
-</div>
-
-<p>
-Now, unlike <code>set</code>, if we call <code>setq</code> with a variable that doesn't exist yet, Lisp will give us a
-warning. So if you need to, you can use <code>set</code> to declare variables, but <code>setq</code> will warn you against it.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgda7272b" class="outline-4">
-<h4 id="orgda7272b"><code>setf</code></h4>
-<div class="outline-text-4" id="text-orgda7272b">
-<p>
-The <code>setf</code> tool means "set field". It behaves the same as <code>setq</code> when trying to set just the value of a
-variable:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp">(<span style="color: #51afef;">let</span> ((x 10) (y 20<span style="color: #5B6268;">))</span>
-  (setq x 20<span style="color: #5B6268;">)</span>
-  (setf y 30<span style="color: #5B6268;">))</span>
-</pre>
-</div>
-
-<p>
-Will do the exact same thing. However, we can <i>also</i> use <code>setf</code> to set the values <i>inside</i> a list:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp">(<span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">lst</span> '(1 2 3 4 5<span style="color: #5B6268;">))</span>
-(setq (car lst) 10) <span style="color: #5B6268;">; This will give an error</span>
-(setf (car lst) 10) <span style="color: #5B6268;">; This will mutate the list</span>
-(print lst) <span style="color: #5B6268;">; '(10 2 3 4 5)</span>
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2020-10-10 Sat 22:50</p>
+<p class="author">Author: nixin72</p>
+<p class="date">Created: 2020-10-20 Tue 11:55</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -115,3 +115,7 @@ tbody tr td:not(:first-child):not(:last-child) {
 		border-right: thin solid #abb2bf;
 		padding: 0 15px;
 }
+
+.outline-2 > .outline-text-2 > .org-center {
+	display: none;
+}

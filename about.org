@@ -1,11 +1,6 @@
 #+TITLE: About Me
-#+AUTHOR: Philip Dumaresq
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="assets/org.css" />
-#+OPTIONS: toc:nil
-
-#+BEGIN_CENTER
-[[file:index.org][Home]] | [[file:about.org][About]] | [[file:contact.org][Contact]]
-#+END_CENTER
+#+SETUPFILE: ~/.emacs.d/org-templates/home.org
+#+INCLUDE: header.org
 
 * Hi, my name is Philip! 
 

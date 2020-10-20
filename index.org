@@ -1,11 +1,6 @@
 #+TITLE: Home
-#+AUTHOR: Philip Dumaresq
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="assets/org.css" />
-#+OPTIONS: toc:nil
-
-#+BEGIN_CENTER
-[[file:index.org][Home]] | [[file:about.org][About]] | [[file:contact.org][Contact]]
-#+END_CENTER
+#+SETUPFILE: ~/.emacs.d/org-templates/home.org
+#+INCLUDE: header.org
 
 * Projects
 - [[https://github.com/nixin72/dotfiles][dotfiles]]: My constantly tinkered-with dotfiles for linux
@@ -13,8 +8,10 @@
 - [[https://github.com/nixin72/block-nav.el][block-nav.el]]: An Emacs package for navigation
 - [[https://github.com/nixin72/window-bind-buffer.el][window-bind-buffer.el]]: An Emacs package for modern buffer/window management
 
-* [[file:blog/index.org][Blog]]
- 
+* [[file:../blog/index.org][Blog]]
+
+#+INCLUDE: ../blog/index.org
+
 ** [[file:blog/joy-of-racket.org][The Joy of learning Racket]]
 #+BEGIN_small 
 December 14th, 2019 | 8 minute read
@@ -30,14 +27,15 @@ November 10th, 2019 | 15 minute read
 For many people, Lisp is a mystical programming language they hear of here and there, and hear of
 it's great power. Well, Lisp is amazing, but I'm gonna demystify it a bit for you.
 
-* COMMENT Talks
-** [[http://github.com/nixin72/talks/tree/master/meta-programming][Meta Programming and Macros]] 
+* Talks
+** [[file:https://nixin72.github.io/talks/metaprogramming.html][Meta Programming and Macros]] 
 #+BEGIN_small
-October 18th 2020
+October 21st 2020
 #+END_small
 
-What is meta-programming? What are macros? Why use them? This talk gives and introduction to macros
-and meta-programming in Common Lisp. We define a small DSL in Lisp for writing SQL queries.
+What is meta-programming? What are macros? Why use them? This talk gives an introduction to macros
+and meta-programming in Racket. We define a number of constructs from Racket ourselves using the
+macro system.
 
 * [[file:questions/index.org][Questions]]
 This section is all related to questions that have been asked by students, with the questions and
@@ -47,11 +45,13 @@ answers preserved here for use by future students.
 This section is for all questions relating to Java, in particular the ~stream~ API.
 
 ** Lisp
-This section is for all questions relating to Lisp, Scheme, Clojure, etc
+This section is for all questions relating to Common Lisp.
 - [[file:questions/lisp-setting-variables.org][How to declare and set variables in Lisp]]
-- [[file:questions/lisp-quote-vs-'.org][The difference between ~quote~ and ~'~]]
+- [[file:questions/lisp-quote-vs-'.org][The difference between ~quote~ and ~'~ ]]
 - [[file:questions/lisp-let-scoping.org][Variable scoping and ~let~ bindings]]
 - [[file:questions/lisp-running-from-terminal.org][Running Lisp from any terminal]]
+- [[file:questions/lisp-debugging.org][Debugging Common Lisp from the terminal]]
+- [[file:questions/lisp-function-definitions.org][Different ways to define functions]]
 
 ** COMMENT Prolog
 This section is for all questions relating to Prolog
