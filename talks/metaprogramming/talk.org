@@ -24,8 +24,8 @@
 
 * A simple while loop
 
-In Lisp, as we all know, we tend to favour recursion. Afterall, why not? Tail-recursion just gets
-optmized into loops anyways, so it's not like we're loosing much performance. Let's look at what
+In Lisp, as we all know, we tend to favour recursion. After all, why not? Tail-recursion just gets
+optimized into loops anyways, so it's not like we're loosing much performance. Let's look at what
 happens if we take a common pattern for a loop and make it recursive following the same logic we'd
 use in Java:
 
@@ -377,6 +377,36 @@ compile-time static type checks. There's even an implementation of Haskell in Ra
 that demonstrates the flexibility of Racket's macros to implement a very sophisticated static type
 system.
 
+* Rules inside macros 
+
+One thing that can be very helpful to have is rules for how the rest of your program is able to
+interact with macros, or define certain special forms inside your macros. For example, in the ~while~
+loop that we defined at the beginning of this, we would want a ~break~ and ~continue~
+construct. Defining both of those is something that we can do using macros, although it does get
+complicated. We can use ~define-syntax-parameter~ to define the contructs themselves, and define them
+to error when outside the right context: 
+
+#+begin_src racket
+(define-syntax-parameter break
+  (lambda (stx)
+    (raise-syntax-error #f "Used outside the context of a while body" stx)))
+#+end_src
+
+And now we can redefine our while macro to be able to use our new ~break~ construct.
+
+#+begin_src racket
+(define-syntax (while stx)
+  (syntax-case stx ()
+    [(_ cond body ...)
+     (syntax/loc stx
+       (let/ec fresh-break 
+         (let loop ()
+           (when cond
+             (syntax-parameterize 
+                 ([break (force-use-with-parens #'fresh-break)])
+               (begin body ...)))
+             (loop))))]))
+#+end_src
 * What to do with this
 
 Racket provides some insanely powerful meta-programming facilities. From ~define-syntax~ to reader
