@@ -1,4 +1,4 @@
 #+TITLE: Blog
-#+SETUPFILE: ~/.emacs.d/org-templates/home.org
+#+SETUPFILE: ../templates/home.org
 #+INCLUDE: header.org
 #+INCLUDE: blog.org

@@ -3,14 +3,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-10-20 Tue 17:53 -->
+<!-- 2022-02-17 Thu 20:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Joy of Learning Racket</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Philip Dumaresq" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -31,8 +31,9 @@
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
   pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
     padding: 8pt;
     font-family: monospace;
     overflow: auto;
@@ -40,22 +41,22 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
+    overflow: auto;
   }
   pre.src:before {
     display: none;
     position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
+    top: -8px;
+    right: 12px;
     padding: 3px;
-    border: 1px solid black;
+    color: #555;
+    background-color: #f2f2f299;
   }
-  pre.src:hover:before { display: inline;}
+  pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
   pre.src-C:before { content: 'C'; }
   /* pre.src-C++ doesn't work in CSS */
   pre.src-clojure:before { content: 'Clojure'; }
@@ -191,64 +192,18 @@
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
-  /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="https://nixin72.github.io/assets/org.css" />
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
-</script>
+<link rel="stylesheet" type="text/css" href="assets/org.css" />
+<link rel="stylesheet" type="text/css" href="../assets/org.css" />
 </head>
 <body>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">The Joy of Learning Racket</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2b298a9">The Joy of Learning Racket</a></li>
+<li><a href="#org86eec7e">The Joy of Learning Racket</a></li>
 </ul>
 </div>
 </div>
@@ -258,41 +213,41 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-org2b298a9" class="outline-2">
-<h2 id="org2b298a9">The Joy of Learning Racket</h2>
-<div class="outline-text-2" id="text-org2b298a9">
+<div id="outline-container-org86eec7e" class="outline-2">
+<h2 id="org86eec7e">The Joy of Learning Racket</h2>
+<div class="outline-text-2" id="text-org86eec7e">
 <p>
-I recently took up learning Racket, and I've really been loving it. This is just a short mind 
-dump/rant of what I've been loving about Racket so far.
+I recently took up learning Racket, and I&rsquo;ve really been loving it. This is just a short mind 
+dump/rant of what I&rsquo;ve been loving about Racket so far.
 </p>
 
 <p>
-First of all, it's a lisp, as a language nerd, I love me some Lisp, so there's some points to it 
-right there. Second of all, it's from the sweet spot of language era where it's old enough to have 
-an established ecosystem and practices and great tools and it's recognized, but also young enough 
-that it feels modern. I think my biggest problem with Common Lisp is that even though it's great, 
+First of all, it&rsquo;s a lisp, as a language nerd, I love me some Lisp, so there&rsquo;s some points to it 
+right there. Second of all, it&rsquo;s from the sweet spot of language era where it&rsquo;s old enough to have 
+an established ecosystem and practices and great tools and it&rsquo;s recognized, but also young enough 
+that it feels modern. I think my biggest problem with Common Lisp is that even though it&rsquo;s great, 
 some things in it just feel old. The reader macro system, while phenomenal and incredibly powerful, 
-makes for messy code. The language has a small standard library, but still feels bloated. There's 
+makes for messy code. The language has a small standard library, but still feels bloated. There&rsquo;s 
 so many different ways of doing things and a lot of code ends up just feeling very verbose.
 </p>
 
 <p>
-Enter Racket. It's a derivative of Scheme, not Common Lisp, which has traditionally had it's 
-emphasis on a minimalist language. Minimalism is great, Scheme doesn't feel bloated the way Common 
+Enter Racket. It&rsquo;s a derivative of Scheme, not Common Lisp, which has traditionally had it&rsquo;s 
+emphasis on a minimalist language. Minimalism is great, Scheme doesn&rsquo;t feel bloated the way Common 
 Lisp does, code is pretty clean, the reader macro system while equally as powerful feels less 
 intrusive, and these make it feel a lot nicer to me. Racket is a derivative of Scheme, but it takes 
 the minimalism and throws it out the door purely in terms of the standard library. The syntax is 
-Scheme, so your core language isn't bloated with reader macro symbols all over the place like 
-Common Lisp and the code is a lot less verbose, but it's powerful. The standard library contains 
-libraries for building full GUIs, webservers, multithreading, cli applications, etc., it's great. 
-Because it's a Lisp, it's also dynamically typed. However, Racket even includes a library for 
+Scheme, so your core language isn&rsquo;t bloated with reader macro symbols all over the place like 
+Common Lisp and the code is a lot less verbose, but it&rsquo;s powerful. The standard library contains 
+libraries for building full GUIs, webservers, multithreading, cli applications, etc., it&rsquo;s great. 
+Because it&rsquo;s a Lisp, it&rsquo;s also dynamically typed. However, Racket even includes a library for 
 adding static typing to the language, so you get the best of both worlds. The reason Racket has so 
-much in it's standard library is because it was built as a language for teaching. University of 
+much in it&rsquo;s standard library is because it was built as a language for teaching. University of 
 Waterloo teaches Racket as a first language for example. But since it was built with teaching in 
-mind, it's got to be able to do all the things that you would normally teach someone to do in a 
+mind, it&rsquo;s got to be able to do all the things that you would normally teach someone to do in a 
 language, which happens to cover a lot of use cases. Racket also defines itself as being a 
-"language oriented programming"  language, which is a weird way of saying that one of the primary 
-goals of the language is to facilitate making languages. So it's great for creating all sorts of 
+&ldquo;language oriented programming&rdquo;  language, which is a weird way of saying that one of the primary 
+goals of the language is to facilitate making languages. So it&rsquo;s great for creating all sorts of 
 DSLs that are built on top of Racket instead of the normal process of creating a YAML parser for 50 
 different languages.
 </p>
@@ -300,14 +255,14 @@ different languages.
 <p>
 Again, being a teaching language, it itself has phenomenal documentation, but not just docs, it 
 also has guides. And it has guides for every level of programmer. Never touched programming before? 
-It's got official guides and textbooks for getting started. Programmed but never used Lisp? They've 
+It&rsquo;s got official guides and textbooks for getting started. Programmed but never used Lisp? They&rsquo;ve 
 got you covered. Advanced programmer and dabbled in Lisp? Used Lisp but not convinced you should 
-use it in a production system? Want to use it in a production system but don't know where to get 
+use it in a production system? Want to use it in a production system but don&rsquo;t know where to get 
 started? They have it all, so many guides. And the guides are built in a wonderful way, they have a 
 system that automatically links you to the docs for the name of every function, which I know is 
-nothing new or revolutionary, but it's still highly appreciated to have. It makes it super easy to 
+nothing new or revolutionary, but it&rsquo;s still highly appreciated to have. It makes it super easy to 
 follow the guides. And when you do click on those links to check a reference, the whole language is 
-really well documented, it's super easy to understand what everything does. The docs for the 
+really well documented, it&rsquo;s super easy to understand what everything does. The docs for the 
 <code>parameterize</code> function for example have 5 different examples - although that is higher than most to 
 be fair.
 </p>
@@ -316,44 +271,43 @@ be fair.
 Racket also ships with a text editor called DrRacket, which is a fantastic editor for testing the 
 waters without needing to delve into Emacs, because Emacs is hard, but also the only full fledged 
 environment for doing most serious Lisp programming. DrRacket has you covered through for Racket 
-stuff. When you hover over a function, it'll show you where exactly that function comes from, you 
-can peek definitions super easily, etc., and again, this is nothing revolutionary, but it's great 
-for learning the language and seeing what package is used where and stuff. It's got a terminal 
-that's able to draw in non-ascii, which is great because some of the guides allow you to just learn 
+stuff. When you hover over a function, it&rsquo;ll show you where exactly that function comes from, you 
+can peek definitions super easily, etc., and again, this is nothing revolutionary, but it&rsquo;s great 
+for learning the language and seeing what package is used where and stuff. It&rsquo;s got a terminal 
+that&rsquo;s able to draw in non-ascii, which is great because some of the guides allow you to just learn 
 by doing fun stuff by drawing simple shapes and seeing how you can expand just drawing simple 
 shapes to repeating them, making matrices out of them and expanding them into building a checkers 
-board for example. It's nothing revolutionary, but it's done well, and it makes you enjoy what 
-you're doing.
+board for example. It&rsquo;s nothing revolutionary, but it&rsquo;s done well, and it makes you enjoy what 
+you&rsquo;re doing.
 </p>
 
 <p>
-Finally, Racket makes things really easy. When I'm writing code, it feels like the Python of Lisp 
-languages (although with better benchmarks than Python). It's super easy to use, read and learn. 
-It's really powerful and it's fun to use. One of the guides that I read through was for building a 
+Finally, Racket makes things really easy. When I&rsquo;m writing code, it feels like the Python of Lisp 
+languages (although with better benchmarks than Python). It&rsquo;s super easy to use, read and learn. 
+It&rsquo;s really powerful and it&rsquo;s fun to use. One of the guides that I read through was for building a 
 multi-threaded webserver from scratch using just their TCP-socket stuff from their standard
 library. My whole webserver was only 30 lines of code, and while all it can do right now is send 
-back "Hello world", I already knew after just an hour of using the language how I could make it into
-a much more full-featured web server. Except I don't have to do that, because Racket already has a 
+back &ldquo;Hello world&rdquo;, I already knew after just an hour of using the language how I could make it into
+a much more full-featured web server. Except I don&rsquo;t have to do that, because Racket already has a 
 full-featured web server that ships with it.
 </p>
 
 <p>
-Racket has been a joy to learn, and I'd love to continuing to use it for my own projects. For 
+Racket has been a joy to learn, and I&rsquo;d love to continuing to use it for my own projects. For 
 anyone looking for learn a new language in their spare time, I would 10/10 recommend giving Racket 
 a shot.
 </p>
 
 <p>
 If you want to get started with Racket, just take a look at the guides on the offical Racket 
-website, they're all phenomenal: <a href="https://docs.racket-lang.org/guide/index.htm">https://docs.racket-lang.org/guide/index.htm</a>
+website, they&rsquo;re all phenomenal: <a href="https://docs.racket-lang.org/guide/index.htm">https://docs.racket-lang.org/guide/index.htm</a>
 </p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2020-10-20 Tue 17:53</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2022-02-17 Thu 20:07</p>
 </div>
 </body>
 </html>

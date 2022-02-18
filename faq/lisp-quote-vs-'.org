@@ -1,5 +1,5 @@
 #+TITLE: quote vs ' in Lisp
-#+SETUPFILE: ~/.emacs.d/org-templates/html.org
+#+SETUPFILE: templates/html.org
 #+INCLUDE: header.org
 
 * Question: 

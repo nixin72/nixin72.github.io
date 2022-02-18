@@ -1,4 +1,4 @@
-(setq website-dir "/run/media/nixin72/s/repos/nixin72.github.com")
+(setq website-dir "~/Documents/repos/nixin72.github.com")
 
 (setq build-root
   `("nixin72.github.io:root"
@@ -20,6 +20,12 @@
 (setq org-publish-project-alist
       `(,build-root
         ,build-assets
+        ,build-blog
         ("nixin72.github.io"
          :components ("nixin72.github.io:root"
                       "nixin72.github.io:assets"))))
+
+(org-publish-reset-cache)
+(org-publish-remove-all-timestamps)
+
+;;; build.el ends here

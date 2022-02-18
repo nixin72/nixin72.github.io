@@ -1,0 +1,4 @@
+#+SETUPFILE: main.org
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="assets/org.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../assets/org.css" />

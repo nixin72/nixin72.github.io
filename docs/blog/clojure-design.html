@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-02-17 Thu 22:33 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clojure Design</title>
+<meta name="author" content="Philip Dumaresq" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+</style>
+<link rel="stylesheet" type="text/css" href="assets/org.css" />
+<link rel="stylesheet" type="text/css" href="../assets/org.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/org.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Clojure Design</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2364906">Immutability</a></li>
+<li><a href="#org70e86f8">Thread-safety</a></li>
+<li><a href="#org81d56a2">Data structures</a></li>
+<li><a href="#org259e458">Threading</a></li>
+<li><a href="#org8375de6">Scalability</a></li>
+<li><a href="#org55ee466">Ecosystem</a></li>
+<li><a href="#org7703eb6">Macros</a></li>
+<li><a href="#orgfbaccd3">Ergonomics</a></li>
+<li><a href="#org4d0d0c9">Simple</a></li>
+<li><a href="#orgf4f2286">Conclusion</a></li>
+</ul>
+</div>
+</div>
+<div class="org-center">
+<p>
+<a href="../index.html">Home</a> | <a href="../about.html">About</a> | <a href="../contact.html">Contact</a>
+</p>
+</div>
+
+<p>
+I have a tendency to &ldquo;go-off&rdquo; sometimes when asked questions, and when tutoring students in Common
+Lisp, it can be tough sometimes to avoid letting my negative opinions about Common Lisp or positive
+opinions about Clojure through. I was asked why I liked Clojure so much the other day though, so I
+figured I&rsquo;d give a detailed answer about that.
+</p>
+
+<div id="outline-container-org2364906" class="outline-2">
+<h2 id="org2364906">Immutability</h2>
+<div class="outline-text-2" id="text-org2364906">
+<p>
+First of all, everything is immutable by default. This can be a bit weird to overcome when you first
+start using it, but reassignment in Clojure is rare. This makes testing code super easy because
+you’re always dealing with pure functions and the headaches that come with mutation aren’t something
+you need to think about. But making changes to data is still incredibly easy:
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">[</span>hashmap <span style="color: #98be65;">{</span><span style="color: #a9a1e1;">:a</span> <span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #a9a1e1;">:b</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #a9a1e1;">:c</span> <span style="color: #da8548; font-weight: bold;">3</span><span style="color: #98be65;">}</span><span style="color: #c678dd;">]</span>
+  <span style="color: #c678dd;">(</span>assoc hashmap <span style="color: #a9a1e1;">:a</span> <span style="color: #da8548; font-weight: bold;">2</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+<p>
+I can use a wide variety of functions to produce new data structures that are modified versions of
+the old ones, but in Clojure is never changes the origional and uses <b>structural sharing</b> to reduce
+the memory footprint of doing this and avoiding copying all that data.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org70e86f8" class="outline-2">
+<h2 id="org70e86f8">Thread-safety</h2>
+<div class="outline-text-2" id="text-org70e86f8">
+<p>
+In the instances where it’s necessary, Clojure provides thread-safe mechanisms for updating values
+to keep them synchronized across threads. This makes it super good for building largely concurrent
+applications - which Clojure provides tons of support for simple threading.
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">[</span>val <span style="color: #98be65;">(</span>atom <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #98be65;">)</span>
+      fut <span style="color: #98be65;">(</span>future
+            <span style="color: #a9a1e1;">(</span><span style="color: #51afef;">doseq</span> <span style="color: #51afef;">[</span>x <span style="color: #c678dd;">(</span>range <span style="color: #da8548; font-weight: bold;">10</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">]</span>
+              <span style="color: #51afef;">(</span>println @val<span style="color: #51afef;">)</span>
+              <span style="color: #51afef;">(</span>swap! val inc<span style="color: #51afef;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">]</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">loop</span> <span style="color: #98be65;">[]</span>
+    <span style="color: #98be65;">(</span><span style="color: #51afef;">when-not</span> <span style="color: #a9a1e1;">(</span>future-done? fut<span style="color: #a9a1e1;">)</span>
+      <span style="color: #a9a1e1;">(</span>println @val<span style="color: #a9a1e1;">)</span>
+      <span style="color: #a9a1e1;">(</span><span style="color: #51afef;">recur</span><span style="color: #a9a1e1;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+Will print 1-10, perhaps in a weird order, but with the value of <code>val</code> being in-sync in the main
+thread and the future thread. We can use <code>atom</code> to access thread-safe mutation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org81d56a2" class="outline-2">
+<h2 id="org81d56a2">Data structures</h2>
+<div class="outline-text-2" id="text-org81d56a2">
+<p>
+Clojure also features really good first-class support for a lot of data structures - lists, vectors,
+hashmaps, sets, stacks and queues. So the data structure you need is always right there. All of
+these data structures can be interacted with through the sequence interface, which has like, 100+
+functions probably. Practically any operation you want - reverse order, sort, sort-by, group-by,
+frequencies of elements, mappings, reductions, slices, zipping, tree-walking, etc. And any type of
+transformation that isn’t there is usually really easy to express as a composition of other
+operations.
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #51afef;">[</span><span style="color: #a9a1e1;">:this</span> <span style="color: #a9a1e1;">:is</span> <span style="color: #a9a1e1;">:a</span> <span style="color: #a9a1e1;">:vector</span><span style="color: #51afef;">]</span>
+<span style="color: #51afef;">(</span><span style="color: #a9a1e1;">:this</span> <span style="color: #a9a1e1;">:is</span> <span style="color: #a9a1e1;">:a</span> <span style="color: #a9a1e1;">:list</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">{</span><span style="color: #a9a1e1;">:this</span> <span style="color: #a9a1e1;">:is</span> <span style="color: #a9a1e1;">:a</span> <span style="color: #a9a1e1;">:hashmap</span><span style="color: #51afef;">}</span>
+#<span style="color: #51afef;">{</span><span style="color: #a9a1e1;">:this</span> <span style="color: #a9a1e1;">:is</span> <span style="color: #a9a1e1;">:a</span> <span style="color: #a9a1e1;">:set</span><span style="color: #51afef;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org259e458" class="outline-2">
+<h2 id="org259e458">Threading</h2>
+<div class="outline-text-2" id="text-org259e458">
+<p>
+The language also allows transformations to always be easily expressed as a pipeline of data. In
+Java you can only .a().b().c() so much if the APIs were designed to work that way, but in Clojure
+you can pipe the output of any function as the input to any other, which makes data transformations
+very clear to express. The functions are all also just designed to work incredibly well together in
+a very predictable way. The expected result is almost always what you get when messing around with
+things.
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #51afef;">(</span>map <span style="color: #c678dd;">(</span><span style="color: #51afef;">fn</span> <span style="color: #98be65;">[</span>x<span style="color: #98be65;">]</span> <span style="color: #98be65;">(</span>do-c x<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+     <span style="color: #c678dd;">(</span>filter <span style="color: #98be65;">(</span><span style="color: #51afef;">fn</span> <span style="color: #a9a1e1;">[</span>x<span style="color: #a9a1e1;">]</span> <span style="color: #a9a1e1;">(</span>do-b x<span style="color: #a9a1e1;">)</span><span style="color: #98be65;">)</span>
+             <span style="color: #98be65;">(</span>reduce <span style="color: #a9a1e1;">(</span><span style="color: #51afef;">fn</span> <span style="color: #51afef;">[</span>a x<span style="color: #51afef;">]</span> <span style="color: #51afef;">(</span>do-a a x<span style="color: #51afef;">)</span><span style="color: #a9a1e1;">)</span>
+                     <span style="color: #a9a1e1;">[]</span>
+                     some-vector<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">turns into</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">-&gt;&gt;</span> some-vector
+     <span style="color: #c678dd;">(</span>reduce <span style="color: #98be65;">(</span><span style="color: #51afef;">fn</span> <span style="color: #a9a1e1;">[</span>a x<span style="color: #a9a1e1;">]</span> <span style="color: #a9a1e1;">(</span>do-a a x<span style="color: #a9a1e1;">)</span><span style="color: #98be65;">)</span> <span style="color: #98be65;">[]</span><span style="color: #c678dd;">)</span>
+     <span style="color: #c678dd;">(</span>filter <span style="color: #98be65;">(</span><span style="color: #51afef;">fn</span> <span style="color: #a9a1e1;">[</span>x<span style="color: #a9a1e1;">]</span> <span style="color: #a9a1e1;">(</span>do-b x<span style="color: #a9a1e1;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+     <span style="color: #c678dd;">(</span>map <span style="color: #98be65;">(</span><span style="color: #51afef;">fn</span> <span style="color: #a9a1e1;">[</span>x<span style="color: #a9a1e1;">]</span> <span style="color: #a9a1e1;">(</span>do-c x<span style="color: #a9a1e1;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8375de6" class="outline-2">
+<h2 id="org8375de6">Scalability</h2>
+<div class="outline-text-2" id="text-org8375de6">
+<p>
+Clojure also has an excellent solution to scalability. There’s this well known problem called the
+expression problem that OOP and Functional languages need to deal with. OOP languages struggle to
+extend a type to have other functionalities and functional languages struggle to extend a
+functionality to work with more types. Clojure solves both these problems by allowing you to extend
+in either direction through what it calls multi-methods and protocols.
+</p>
+
+<p>
+An example would be a little long to provide here, but check out <a href="https://eli.thegreenplace.net/2016/the-expression-problem-and-its-solutions/">Eli Bendersky&rsquo;s article that
+explains this well.</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org55ee466" class="outline-2">
+<h2 id="org55ee466">Ecosystem</h2>
+<div class="outline-text-2" id="text-org55ee466">
+<p>
+It’s also a hosted language, meaning it runs on top of other platforms and ecosystems. It supports
+compiling to JVM, JavaScript or dotnet, which means Clojure has access to millions of libraries and
+has a massive ecosystem. There’s always going to be a library to do what you want pretty much, and
+Clojure has absolutely seamless interop with whatever host language you’re targeting.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7703eb6" class="outline-2">
+<h2 id="org7703eb6">Macros</h2>
+<div class="outline-text-2" id="text-org7703eb6">
+<p>
+By virtue of being a lisp, it also has macros, which are basically functions that run at compile
+time and transform your code. This lets you build your own syntax in Clojure whenever you find
+something that isn’t very nice to express normally, or when you just want to abstract away some
+details you don’t want people to have to worry about. Macros are an awesome abstraction tool that
+not many languages have.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">defmacro</span> <span style="color: #c678dd;">when</span> <span style="color: #c678dd;">[</span>cond &amp; body<span style="color: #c678dd;">]</span>
+  `<span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> ~cond <span style="color: #98be65;">(</span><span style="color: #51afef;">do</span> ~@body<span style="color: #98be65;">)</span> <span style="color: #a9a1e1;">nil</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style="color: #51afef;">when</span> <span style="color: #c678dd;">(</span>= a b<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>println a<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>println b<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>println <span style="color: #98be65;">(</span>+ a b<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfbaccd3" class="outline-2">
+<h2 id="orgfbaccd3">Ergonomics</h2>
+<div class="outline-text-2" id="text-orgfbaccd3">
+<p>
+It’s also got so many other small niceties. Commenting out a single expression, even if it’s several
+lines long, with a single comment symbol. Short-hand syntax for lambda functions. Syntax support for
+regular expressions. Short and sane function names. A testing library built in.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4d0d0c9" class="outline-2">
+<h2 id="org4d0d0c9">Simple</h2>
+<div class="outline-text-2" id="text-org4d0d0c9">
+<p>
+And all of this, and Clojure is, at its core, a super simple language. Basically all you have to
+learn is how to make functions, declare variables, if expressions, and then slowly learn functions
+in the standard library, 90% of which is super easily accessible through a cheatsheet on the Clojure
+website. And with sane function names, you don’t even have to look at the docs for that function
+most of the time cause it just does what you expect.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf4f2286" class="outline-2">
+<h2 id="orgf4f2286">Conclusion</h2>
+<div class="outline-text-2" id="text-orgf4f2286">
+<p>
+Clojure is an incredibly well designed language, and I&rsquo;ve never felt quite so comfortable using
+anything else before. I have no real complaints about Clojure in the 2 years since I first started
+learning it, and I have no intention of moving on from it any time soon. I would highly recommend
+learning Clojure to anyone who wants a language that&rsquo;s designed around the very real complexities of
+modern software development and offers a solution to cut through a lot of that complexity to make
+simpler, understandable, and scalable solutions to real-world problems.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Philip Dumaresq</p>
+<p class="date">Created: 2022-02-17 Thu 22:33</p>
+</div>
+</body>
+</html>

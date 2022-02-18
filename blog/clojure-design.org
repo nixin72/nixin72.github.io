@@ -1,0 +1,128 @@
+#+TITLE: Clojure Design
+#+SETUPFILE: ../templates/html.org
+#+INCLUDE: header.org
+
+I have a tendency to "go-off" sometimes when asked questions, and when tutoring students in Common
+Lisp, it can be tough sometimes to avoid letting my negative opinions about Common Lisp or positive
+opinions about Clojure through. I was asked why I liked Clojure so much the other day though, so I
+figured I'd give a detailed answer about that.
+
+**** Immutability
+First of all, everything is immutable by default. This can be a bit weird to overcome when you first
+start using it, but reassignment in Clojure is rare. This makes testing code super easy because
+you’re always dealing with pure functions and the headaches that come with mutation aren’t something
+you need to think about. But making changes to data is still incredibly easy:
+#+BEGIN_SRC clojure
+(let [hashmap {:a 1 :b 2 :c 3}]
+  (assoc hashmap :a 2))
+#+END_SRC
+I can use a wide variety of functions to produce new data structures that are modified versions of
+the old ones, but in Clojure is never changes the origional and uses *structural sharing* to reduce
+the memory footprint of doing this and avoiding copying all that data.
+
+**** Thread-safety
+In the instances where it’s necessary, Clojure provides thread-safe mechanisms for updating values
+to keep them synchronized across threads. This makes it super good for building largely concurrent
+applications - which Clojure provides tons of support for simple threading.
+#+BEGIN_SRC clojure
+(let [val (atom 0)
+      fut (future
+            (doseq [x (range 10)]
+              (println @val)
+              (swap! val inc)))]
+  (loop []
+    (when-not (future-done? fut)
+      (println @val)
+      (recur))))
+#+END_SRC
+
+Will print 1-10, perhaps in a weird order, but with the value of ~val~ being in-sync in the main
+thread and the future thread. We can use ~atom~ to access thread-safe mutation.
+
+**** Data structures
+Clojure also features really good first-class support for a lot of data structures - lists, vectors,
+hashmaps, sets, stacks and queues. So the data structure you need is always right there. All of
+these data structures can be interacted with through the sequence interface, which has like, 100+
+functions probably. Practically any operation you want - reverse order, sort, sort-by, group-by,
+frequencies of elements, mappings, reductions, slices, zipping, tree-walking, etc. And any type of
+transformation that isn’t there is usually really easy to express as a composition of other
+operations.
+#+BEGIN_SRC clojure
+[:this :is :a :vector]
+(:this :is :a :list)
+{:this :is :a :hashmap}
+#{:this :is :a :set}
+#+END_SRC
+
+**** Threading
+The language also allows transformations to always be easily expressed as a pipeline of data. In
+Java you can only .a().b().c() so much if the APIs were designed to work that way, but in Clojure
+you can pipe the output of any function as the input to any other, which makes data transformations
+very clear to express. The functions are all also just designed to work incredibly well together in
+a very predictable way. The expected result is almost always what you get when messing around with
+things.
+#+BEGIN_SRC clojure
+(map (fn [x] (do-c x))
+     (filter (fn [x] (do-b x))
+             (reduce (fn [a x] (do-a a x))
+                     []
+                     some-vector)))
+;; turns into
+(->> some-vector
+     (reduce (fn [a x] (do-a a x)) [])
+     (filter (fn [x] (do-b x)))
+     (map (fn [x] (do-c x))))
+#+END_SRC
+
+**** Scalability
+Clojure also has an excellent solution to scalability. There’s this well known problem called the
+expression problem that OOP and Functional languages need to deal with. OOP languages struggle to
+extend a type to have other functionalities and functional languages struggle to extend a
+functionality to work with more types. Clojure solves both these problems by allowing you to extend
+in either direction through what it calls multi-methods and protocols.
+
+An example would be a little long to provide here, but check out [[https://eli.thegreenplace.net/2016/the-expression-problem-and-its-solutions/][Eli Bendersky's article that
+explains this well.]]
+
+**** Ecosystem
+It’s also a hosted language, meaning it runs on top of other platforms and ecosystems. It supports
+compiling to JVM, JavaScript or dotnet, which means Clojure has access to millions of libraries and
+has a massive ecosystem. There’s always going to be a library to do what you want pretty much, and
+Clojure has absolutely seamless interop with whatever host language you’re targeting.
+
+**** Macros
+By virtue of being a lisp, it also has macros, which are basically functions that run at compile
+time and transform your code. This lets you build your own syntax in Clojure whenever you find
+something that isn’t very nice to express normally, or when you just want to abstract away some
+details you don’t want people to have to worry about. Macros are an awesome abstraction tool that
+not many languages have.
+
+#+BEGIN_SRC clojure
+(defmacro when [cond & body]
+  `(if ~cond (do ~@body) nil))
+
+(when (= a b)
+  (println a)
+  (println b)
+  (println (+ a b)))
+#+END_SRC
+
+**** Ergonomics
+It’s also got so many other small niceties. Commenting out a single expression, even if it’s several
+lines long, with a single comment symbol. Short-hand syntax for lambda functions. Syntax support for
+regular expressions. Short and sane function names. A testing library built in.
+
+**** Simple
+And all of this, and Clojure is, at its core, a super simple language. Basically all you have to
+learn is how to make functions, declare variables, if expressions, and then slowly learn functions
+in the standard library, 90% of which is super easily accessible through a cheatsheet on the Clojure
+website. And with sane function names, you don’t even have to look at the docs for that function
+most of the time cause it just does what you expect.
+
+**** Conclusion
+Clojure is an incredibly well designed language, and I've never felt quite so comfortable using
+anything else before. I have no real complaints about Clojure in the 2 years since I first started
+learning it, and I have no intention of moving on from it any time soon. I would highly recommend
+learning Clojure to anyone who wants a language that's designed around the very real complexities of
+modern software development and offers a solution to cut through a lot of that complexity to make
+simpler, understandable, and scalable solutions to real-world problems.

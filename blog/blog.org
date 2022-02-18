@@ -1,3 +1,20 @@
+** [[file:compare-lisps.org][A Comparison of Lisps]]
+#+BEGIN_small
+February 17th, 2022 | 8 minute read
+#+END_small
+
+When people first get into Lisp, a lot of people wonder what they should learn first. This article
+highlights some of the pros and cons of various dialects of lisp and when you should strongly
+consider or definitely avoid a certain dialect.
+
+** [[file:clojure-design.org][The things I love about Clojure]]
+#+BEGIN_small
+February 9th, 2022 | 8 minute read
+#+END_small
+
+I was asked why I love Clojure by some students, and it's something I've given a decent amount of
+thought to. So here's why I think Clojure is the best designed programming language I've ever seen.
+
 ** [[file:joy-of-racket.org][The Joy of learning Racket]]
 #+BEGIN_small 
 December 14th, 2019 | 8 minute read

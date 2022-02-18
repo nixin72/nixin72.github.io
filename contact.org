@@ -1,5 +1,5 @@
 #+TITLE: Contact
-#+SETUPFILE: ~/.emacs.d/org-templates/home.org
+#+SETUPFILE: templates/home.org
 #+INCLUDE: header.org
 
 If you want to get in touch for any reason, you've got tons of options! Whether it's for an 

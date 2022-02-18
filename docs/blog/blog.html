@@ -3,14 +3,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-10-20 Tue 17:51 -->
+<!-- 2022-02-17 Thu 22:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="generator" content="Org mode" />
-<meta name="author" content="nixin72" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+<meta name="author" content="Philip" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -31,8 +31,9 @@
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
   pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
     padding: 8pt;
     font-family: monospace;
     overflow: auto;
@@ -40,22 +41,22 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
+    overflow: auto;
   }
   pre.src:before {
     display: none;
     position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
+    top: -8px;
+    right: 12px;
     padding: 3px;
-    border: 1px solid black;
+    color: #555;
+    background-color: #f2f2f299;
   }
-  pre.src:hover:before { display: inline;}
+  pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
   pre.src-C:before { content: 'C'; }
   /* pre.src-C++ doesn't work in CSS */
   pre.src-clojure:before { content: 'Clojure'; }
@@ -191,70 +192,60 @@
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
-  /*]]>*/-->
 </style>
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
-</script>
 </head>
 <body>
-<div id="content">
-<div id="table-of-contents">
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf78e9be">The Joy of learning Racket</a></li>
-<li><a href="#org840cbcb">Lisp for the uninitiated</a></li>
+<li><a href="#orgcc3ae2a">A Comparison of Lisps</a></li>
+<li><a href="#org336f87f">The things I love about Clojure</a></li>
+<li><a href="#org47e9460">The Joy of learning Racket</a></li>
+<li><a href="#orgb2d1b68">Lisp for the uninitiated</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf78e9be" class="outline-2">
-<h2 id="orgf78e9be"><a href="joy-of-racket.html">The Joy of learning Racket</a></h2>
-<div class="outline-text-2" id="text-orgf78e9be">
-<div class="small">
+<div id="outline-container-orgcc3ae2a" class="outline-2">
+<h2 id="orgcc3ae2a"><a href="compare-lisps.html">A Comparison of Lisps</a></h2>
+<div class="outline-text-2" id="text-orgcc3ae2a">
+<div class="small" id="orgccd4562">
+<p>
+February 17th, 2022 | 8 minute read
+</p>
+
+</div>
+
+<p>
+When people first get into Lisp, a lot of people wonder what they should learn first. This article
+highlights some of the pros and cons of various dialects of lisp and when you should strongly
+consider or definitely avoid a certain dialect.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org336f87f" class="outline-2">
+<h2 id="org336f87f"><a href="clojure-design.html">The things I love about Clojure</a></h2>
+<div class="outline-text-2" id="text-org336f87f">
+<div class="small" id="org30b0041">
+<p>
+February 9th, 2022 | 8 minute read
+</p>
+
+</div>
+
+<p>
+I was asked why I love Clojure by some students, and it&rsquo;s something I&rsquo;ve given a decent amount of
+thought to. So here&rsquo;s why I think Clojure is the best designed programming language I&rsquo;ve ever seen.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org47e9460" class="outline-2">
+<h2 id="org47e9460"><a href="joy-of-racket.html">The Joy of learning Racket</a></h2>
+<div class="outline-text-2" id="text-org47e9460">
+<div class="small" id="orgd62c500">
 <p>
 December 14th, 2019 | 8 minute read
 </p>
@@ -262,15 +253,15 @@ December 14th, 2019 | 8 minute read
 </div>
 
 <p>
-Recently I started learning Racket and it's the most fun I've had learning a new language in a long
-time. In this post I'll talk about what was great about Racket and how you can get started.
+Recently I started learning Racket and it&rsquo;s the most fun I&rsquo;ve had learning a new language in a long
+time. In this post I&rsquo;ll talk about what was great about Racket and how you can get started.
 </p>
 </div>
 </div>
-<div id="outline-container-org840cbcb" class="outline-2">
-<h2 id="org840cbcb"><a href="lisp-uninitiated.html">Lisp for the uninitiated</a></h2>
-<div class="outline-text-2" id="text-org840cbcb">
-<div class="small">
+<div id="outline-container-orgb2d1b68" class="outline-2">
+<h2 id="orgb2d1b68"><a href="lisp-uninitiated.html">Lisp for the uninitiated</a></h2>
+<div class="outline-text-2" id="text-orgb2d1b68">
+<div class="small" id="org0eca58e">
 <p>
 November 10th, 2019 | 15 minute read
 </p>
@@ -279,15 +270,14 @@ November 10th, 2019 | 15 minute read
 
 <p>
 For many people, Lisp is a mystical programming language they hear of here and there, and hear of
-it's great power. Well, Lisp is amazing, but I'm gonna demystify it a bit for you.
+it&rsquo;s great power. Well, Lisp is amazing, but I&rsquo;m gonna demystify it a bit for you.
 </p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: nixin72</p>
-<p class="date">Created: 2020-10-20 Tue 17:51</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="author">Author: Philip</p>
+<p class="date">Created: 2022-02-17 Thu 22:34</p>
 </div>
 </body>
 </html>

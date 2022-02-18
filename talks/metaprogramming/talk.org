@@ -1,4 +1,4 @@
-#+SETUPFILE: ~/.emacs.d/org-templates/html.org
+#+SETUPFILE: ../../templates/html.org
 #+TITLE: Meta Programming and Macros
 
 * What is meta programming?

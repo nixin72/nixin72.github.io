@@ -1,5 +1,5 @@
 #+TITLE: Ways to define functions
-#+SETUPFILE: ~/.emacs.d/org-templates/html.org
+#+SETUPFILE: ../templates/html.org
 #+INCLUDE: header.org
 
 * Question:

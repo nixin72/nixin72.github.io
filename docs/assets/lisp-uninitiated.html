@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-02-17 Thu 20:07 -->
+<!-- 2022-02-17 Thu 15:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lisp for the uninitiated</title>
-<meta name="author" content="Philip Dumaresq" />
+<meta name="author" content="Philip" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -193,8 +193,6 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
 </style>
-<link rel="stylesheet" type="text/css" href="assets/org.css" />
-<link rel="stylesheet" type="text/css" href="../assets/org.css" />
 </head>
 <body>
 <div id="content" class="content">
@@ -203,18 +201,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0596e3a">About Lisp</a></li>
-<li><a href="#org4ad73b2">Lisp Syntax</a></li>
-<li><a href="#orgb2d1509">Prefix notation</a></li>
-<li><a href="#org92f70a1">Representing data</a></li>
-<li><a href="#orgd700449">Macros</a></li>
-<li><a href="#orgf96bd82">Reader macros</a></li>
-<li><a href="#org983d7bf">Dialects</a></li>
-<li><a href="#orgd9267b6">Conclusion</a>
+<li><a href="#org308c132">1. About Lisp</a></li>
+<li><a href="#orgb5a59d2">2. Lisp Syntax</a></li>
+<li><a href="#org12d5125">3. Prefix notation</a></li>
+<li><a href="#orgce1ae87">4. Representing data</a></li>
+<li><a href="#org173e9c0">5. Macros</a></li>
+<li><a href="#org05df910">6. Reader macros</a></li>
+<li><a href="#org1f78e6f">7. Dialects</a></li>
+<li><a href="#org3f86793">8. Conclusion</a>
 <ul>
-<li><a href="#org034dc2f">Clojure</a></li>
-<li><a href="#orgee14202">Common Lisp</a></li>
-<li><a href="#org67823e2">Racket</a></li>
+<li><a href="#orgb864614">8.1. Clojure</a></li>
+<li><a href="#org9b3abad">8.2. Common Lisp</a></li>
+<li><a href="#org997cec7">8.3. Racket</a></li>
 </ul>
 </li>
 </ul>
@@ -226,9 +224,9 @@
 </p>
 </div>
 
-<div id="outline-container-org0596e3a" class="outline-2">
-<h2 id="org0596e3a">About Lisp</h2>
-<div class="outline-text-2" id="text-org0596e3a">
+<div id="outline-container-org308c132" class="outline-2">
+<h2 id="org308c132"><span class="section-number-2">1.</span> About Lisp</h2>
+<div class="outline-text-2" id="text-1">
 <blockquote>
 <p>
 Study C to see the power of a computer without the constraints of a language. Study Lisp to see the
@@ -260,9 +258,9 @@ they&rsquo;re usually either referring to Common Lisp, but there&rsquo;s more to
 </div>
 </div>
 
-<div id="outline-container-org4ad73b2" class="outline-2">
-<h2 id="org4ad73b2">Lisp Syntax</h2>
-<div class="outline-text-2" id="text-org4ad73b2">
+<div id="outline-container-orgb5a59d2" class="outline-2">
+<h2 id="orgb5a59d2"><span class="section-number-2">2.</span> Lisp Syntax</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 We all know and recognize C-like languages, they&rsquo;ve got their curly braces, maybe semi-colons, if
 statements, for and while loops, etc. But what does a Lisp look like if not that? Lisp uses a type
@@ -295,9 +293,9 @@ a function that writes it&rsquo;s argument to stdout.
 </div>
 </div>
 
-<div id="outline-container-orgb2d1509" class="outline-2">
-<h2 id="orgb2d1509">Prefix notation</h2>
-<div class="outline-text-2" id="text-orgb2d1509">
+<div id="outline-container-org12d5125" class="outline-2">
+<h2 id="org12d5125"><span class="section-number-2">3.</span> Prefix notation</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 This is pretty unfamiliar to most people, but I promose it has a very good reason for being like 
 this! Think about the following code in C/C++:
@@ -333,9 +331,9 @@ compared, the real gain comes with how we represent <b>data</b> in Lisp.
 </div>
 </div>
 
-<div id="outline-container-org92f70a1" class="outline-2">
-<h2 id="org92f70a1">Representing data</h2>
-<div class="outline-text-2" id="text-org92f70a1">
+<div id="outline-container-orgce1ae87" class="outline-2">
+<h2 id="orgce1ae87"><span class="section-number-2">4.</span> Representing data</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 The central data structure in Lisp is the <b>singly-linked lists</b>. If you think List and Lisp are too
 close sounding, that&rsquo;s because Lisp used to be an ackronym meaning LISt Processor. The way you
@@ -411,9 +409,9 @@ very important in understanding Lisp&rsquo;s <b>macros.</b>
 </div>
 </div>
 
-<div id="outline-container-orgd700449" class="outline-2">
-<h2 id="orgd700449">Macros</h2>
-<div class="outline-text-2" id="text-orgd700449">
+<div id="outline-container-org173e9c0" class="outline-2">
+<h2 id="org173e9c0"><span class="section-number-2">5.</span> Macros</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 In C and C++ you can define what are called macros. Macros in C/C++ are pieces of code that when
 called, will replace the call to the macro with the text that it&rsquo;s declared as <b>at compile time</b>. For
@@ -541,9 +539,9 @@ using what they call <b>reader macros</b>.
 </div>
 </div>
 
-<div id="outline-container-orgf96bd82" class="outline-2">
-<h2 id="orgf96bd82">Reader macros</h2>
-<div class="outline-text-2" id="text-orgf96bd82">
+<div id="outline-container-org05df910" class="outline-2">
+<h2 id="org05df910"><span class="section-number-2">6.</span> Reader macros</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 While normal macros are able to transform your code into a new form, <b>reader macros</b> are able to
 transform code that previously wasn&rsquo;t in valid Lisp syntax into valid syntax. This means that you
@@ -603,9 +601,9 @@ You can do some incredibly cool, and complicated stuff with reader macros such a
 </div>
 </div>
 
-<div id="outline-container-org983d7bf" class="outline-2">
-<h2 id="org983d7bf">Dialects</h2>
-<div class="outline-text-2" id="text-org983d7bf">
+<div id="outline-container-org1f78e6f" class="outline-2">
+<h2 id="org1f78e6f"><span class="section-number-2">7.</span> Dialects</h2>
+<div class="outline-text-2" id="text-7">
 <p>
 As mentioned at the beginning of the article, there are several dialects of Lisp. Some of the most common
 ones are Clojure, Common Lisp, Scheme, Racket, and Emacs Lisp. If you&rsquo;re thinking of learning one of
@@ -614,9 +612,9 @@ them, <a href="which-lisp.html">maybe this can help you chose</a> a dialect to l
 </div>
 </div>
 
-<div id="outline-container-orgd9267b6" class="outline-2">
-<h2 id="orgd9267b6">Conclusion</h2>
-<div class="outline-text-2" id="text-orgd9267b6">
+<div id="outline-container-org3f86793" class="outline-2">
+<h2 id="org3f86793"><span class="section-number-2">8.</span> Conclusion</h2>
+<div class="outline-text-2" id="text-8">
 <p>
 I hope you walk away from reading this understanding why Lisp is interesting. I know that it takes a
 while to get used to it, and many people that learn it have a gut reaction to hate it, but
@@ -629,9 +627,9 @@ resources below:
 </p>
 </div>
 
-<div id="outline-container-org034dc2f" class="outline-3">
-<h3 id="org034dc2f">Clojure</h3>
-<div class="outline-text-3" id="text-org034dc2f">
+<div id="outline-container-orgb864614" class="outline-3">
+<h3 id="orgb864614"><span class="section-number-3">8.1.</span> Clojure</h3>
+<div class="outline-text-3" id="text-8-1">
 <ul class="org-ul">
 <li><a href="https://www.braveclojure.com/clojure-for-the-brave-and-true/">Clojure for the Brave and True</a></li>
 <li><a href="https://learnxinyminutes.com/docs/clojure/">Learn Clojure in Y minutes</a></li>
@@ -640,9 +638,9 @@ resources below:
 </div>
 </div>
 
-<div id="outline-container-orgee14202" class="outline-3">
-<h3 id="orgee14202">Common Lisp</h3>
-<div class="outline-text-3" id="text-orgee14202">
+<div id="outline-container-org9b3abad" class="outline-3">
+<h3 id="org9b3abad"><span class="section-number-3">8.2.</span> Common Lisp</h3>
+<div class="outline-text-3" id="text-8-2">
 <ul class="org-ul">
 <li><a href="https://gigamonkeys.com/book/">Practical Common Lisp (jump to Chapter 3)</a></li>
 <li><a href="https://learnxinyminutes.com/docs/common-lisp/">Learn Common Lisp in Y minutes</a></li>
@@ -650,9 +648,9 @@ resources below:
 </div>
 </div>
 
-<div id="outline-container-org67823e2" class="outline-3">
-<h3 id="org67823e2">Racket</h3>
-<div class="outline-text-3" id="text-org67823e2">
+<div id="outline-container-org997cec7" class="outline-3">
+<h3 id="org997cec7"><span class="section-number-3">8.3.</span> Racket</h3>
+<div class="outline-text-3" id="text-8-3">
 <ul class="org-ul">
 <li><a href="https://docs.racket-lang.org/quick/">An introduction Racket with Pictures</a></li>
 <li><a href="https://docs.racket-lang.org/more/">Systems Programming with Racket </a></li>
@@ -677,8 +675,8 @@ encouragement to learn it, lisp sees more use than you might think:
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2022-02-17 Thu 20:07</p>
+<p class="author">Author: Philip</p>
+<p class="date">Created: 2022-02-17 Thu 15:48</p>
 </div>
 </body>
 </html>
