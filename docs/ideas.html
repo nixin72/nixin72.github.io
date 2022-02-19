@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-02-19 Sat 12:44 -->
+<!-- 2022-02-19 Sat 12:27 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Home</title>
-<meta name="author" content="Philip Dumaresq" />
+<title>&lrm;</title>
+<meta name="author" content="Philip" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -193,165 +193,71 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
 </style>
-<link rel="stylesheet" type="text/css" href="assets/org.css" />
-<link rel="stylesheet" type="text/css" href="../assets/org.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/org.css" />
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Home</h1>
-<div class="org-center">
-<p>
-<a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="contact.html">Contact</a>
-</p>
-</div>
-
-
-<div id="outline-container-org69a0fe3" class="outline-2">
-<h2 id="org69a0fe3">Projects</h2>
-<div class="outline-text-2" id="text-org69a0fe3">
-</div>
-<div id="outline-container-orga458463" class="outline-4">
-<h4 id="orga458463"><a href="https://github.com/nixin72/shan">Shan</a></h4>
-<div class="outline-text-4" id="text-orga458463">
-<p>
-Shan is a cross-platform, declarative package manager. Instead of utilizing it&rsquo;s own repositories,
-it wraps your favourite system-wide package managers so that you can use them declaratively.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgf0cba14" class="outline-4">
-<h4 id="orgf0cba14"><a href="https://github.com/nixin72/block-nav.el">block-nav.el</a></h4>
-<div class="outline-text-4" id="text-orgf0cba14">
-<p>
-An Emacs packgage for easier navigation. Navigation to different functions across large files can be
-a pain, or to the next case in a particularly large if-statement. This emacs package helps you
-navigated based on indentation levels.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgdd6bba7" class="outline-4">
-<h4 id="orgdd6bba7"><a href="https://github.com/nixin72/dotfiles">My dotfiles</a></h4>
-<div class="outline-text-4" id="text-orgdd6bba7">
-<p>
-Collection of personal dotfiles that I use for Linux and macOS. Includes neovim, Emacs, i3, rofi, etc.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org8c78743" class="outline-4">
-<h4 id="org8c78743">Other</h4>
-<div class="outline-text-4" id="text-org8c78743">
-<ul class="org-ul">
-<li><a href="https://github.com/nixin72/from-template">from-template</a>: A Racket tool for using templates - migrated to <a href="https://github.com/racket-templates/new">racket-templates</a>.</li>
-<li><a href="https://github.com/nixin72/window-bind-buffer.el">window-bind-buffer.el</a>: An Emacs package for modern buffer/window management - archived</li>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org4c8261d">Discord Forum bot</a></li>
+<li><a href="#org9a8ce03">Clojure API library</a></li>
+<li><a href="#org7e50f40">Clojure + Svelte library?</a></li>
 </ul>
 </div>
 </div>
+<div id="outline-container-org4c8261d" class="outline-2">
+<h2 id="org4c8261d">Discord Forum bot</h2>
+<div class="outline-text-2" id="text-org4c8261d">
+<ul class="org-ul">
+<li>Forces everything into threads</li>
+<li>Prompts user for information about their question</li>
+<li>Adds upvote/downvote buttons</li>
+<li>Lets you mark a message as containing the correct answer.</li>
+<li>Bot keeps record of this in website too with more accessible search for it to be a &ldquo;proper&rdquo; forum</li>
+<li>Bot can also work in other communities too, like Slack, since it has threads</li>
+</ul>
+</div>
 </div>
 
-
-<div id="outline-container-org38f5fc3" class="outline-2">
-<h2 id="org38f5fc3"><a href="blog/index.html">Blog</a></h2>
-<div class="outline-text-2" id="text-org38f5fc3">
+<div id="outline-container-org9a8ce03" class="outline-2">
+<h2 id="org9a8ce03">Clojure API library</h2>
+<div class="outline-text-2" id="text-org9a8ce03">
+<ul class="org-ul">
+<li>Add metadata maps to functions to create APIs</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">defn</span> <span style="color: #c678dd;">get-users</span> <span style="color: #c678dd;">{</span><span style="color: #a9a1e1;">:get</span> <span style="color: #98be65;">"/users"</span>
+                 <span style="color: #a9a1e1;">:query-params</span> <span style="color: #98be65;">[</span>a b c<span style="color: #98be65;">]</span><span style="color: #c678dd;">}</span>
+  <span style="color: #c678dd;">[</span>req<span style="color: #c678dd;">]</span>
+  <span style="color: #c678dd;">(</span>list-users<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
 </div>
-<div id="outline-container-org32adb06" class="outline-3">
-<h3 id="org32adb06"><a href="blog/compare-lisps.html">A Comparison of Lisps</a></h3>
-<div class="outline-text-3" id="text-org32adb06">
-<div class="small" id="org751586f">
+<ul class="org-ul">
+<li>Maybe could alternatively make this a WebRTC thing? I&rsquo;ve been interested in HTML over the wire&#x2026;</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7e50f40" class="outline-2">
+<h2 id="org7e50f40">Clojure + Svelte library?</h2>
+<div class="outline-text-2" id="text-org7e50f40">
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">def</span> <span style="color: #dcaeea;">val</span> <span style="color: #c678dd;">(</span>atom <span style="color: #98be65;">"hello"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span>html
+ <span style="color: #c678dd;">(</span>div <span style="color: #98be65;">(</span>p <span style="color: #98be65;">"Hello"</span> @val<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
 <p>
-February 17th, 2022 | 8 minute read
+Idk, but svelte seems nice and easy, and would nice to have access to it through ClojureScript
 </p>
-
-</div>
-
-<p>
-When people first get into Lisp, a lot of people wonder what they should learn first. This article
-highlights some of the pros and cons of various dialects of lisp and when you should strongly
-consider or definitely avoid a certain dialect.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org06b3f04" class="outline-3">
-<h3 id="org06b3f04"><a href="blog/clojure-design.html">The things I love about Clojure</a></h3>
-<div class="outline-text-3" id="text-org06b3f04">
-<div class="small" id="orga22a013">
-<p>
-February 9th, 2022 | 8 minute read
-</p>
-
-</div>
-
-<p>
-I was asked why I love Clojure by some students, and it&rsquo;s something I&rsquo;ve given a decent amount of
-thought to. So here&rsquo;s why I think Clojure is the best designed programming language I&rsquo;ve ever seen.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgbc0c511" class="outline-3">
-<h3 id="orgbc0c511"><a href="blog/joy-of-racket.html">The Joy of learning Racket</a></h3>
-<div class="outline-text-3" id="text-orgbc0c511">
-<div class="small" id="org3a98f94">
-<p>
-December 14th, 2019 | 8 minute read
-</p>
-
-</div>
-
-<p>
-Recently I started learning Racket and it&rsquo;s the most fun I&rsquo;ve had learning a new language in a long
-time. In this post I&rsquo;ll talk about what was great about Racket and how you can get started.
-</p>
-</div>
-</div>
-<div id="outline-container-orgec9e9b8" class="outline-3">
-<h3 id="orgec9e9b8"><a href="blog/lisp-uninitiated.html">Lisp for the uninitiated</a></h3>
-<div class="outline-text-3" id="text-orgec9e9b8">
-<div class="small" id="orgb9678e4">
-<p>
-November 10th, 2019 | 15 minute read
-</p>
-
-</div>
-
-<p>
-For many people, Lisp is a mystical programming language they hear of here and there, and hear of
-it&rsquo;s great power. Well, Lisp is amazing, but I&rsquo;m gonna demystify it a bit for you.
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgd901e5a" class="outline-2">
-<h2 id="orgd901e5a"><a href="talks/index.html">Talks</a></h2>
-<div class="outline-text-2" id="text-orgd901e5a">
-</div>
-<div id="outline-container-org981a2ec" class="outline-3">
-<h3 id="org981a2ec"><a href="talks/metaprogramming/talk.html">Meta Programming and Macros</a></h3>
-<div class="outline-text-3" id="text-org981a2ec">
-<div class="small" id="orgd265b48">
-<p>
-October 21st 2020
-</p>
-
-</div>
-
-<p>
-What is meta-programming? What are macros? Why use them? This talk gives an introduction to macros
-and meta-programming in Racket. We define a number of constructs from Racket ourselves using the
-macro system.
-</p>
-</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2022-02-19 Sat 12:44</p>
+<p class="author">Author: Philip</p>
+<p class="date">Created: 2022-02-19 Sat 12:27</p>
 </div>
 </body>
 </html>

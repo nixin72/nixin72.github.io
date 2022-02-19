@@ -4,10 +4,22 @@
 
 
 * Projects
-- [[https://github.com/nixin72/dotfiles][dotfiles]]: My constantly tinkered-with dotfiles for linux
-- [[https://github.com/nixin72/from-template][from-template]]: A Racket tool for using templates
-- [[https://github.com/nixin72/block-nav.el][block-nav.el]]: An Emacs package for navigation
-- [[https://github.com/nixin72/window-bind-buffer.el][window-bind-buffer.el]]: An Emacs package for modern buffer/window management
+*** [[https://github.com/nixin72/shan][Shan]]
+Shan is a cross-platform, declarative package manager. Instead of utilizing it's own repositories,
+it wraps your favourite system-wide package managers so that you can use them declaratively.
+
+*** [[https://github.com/nixin72/block-nav.el][block-nav.el]]
+An Emacs packgage for easier navigation. Navigation to different functions across large files can be
+a pain, or to the next case in a particularly large if-statement. This emacs package helps you
+navigated based on indentation levels.
+
+*** [[https://github.com/nixin72/dotfiles][My dotfiles]]
+Collection of personal dotfiles that I use for Linux and macOS. Includes neovim, Emacs, i3, rofi, etc.
+
+*** Other
+- [[https://github.com/nixin72/from-template][from-template]]: A Racket tool for using templates - migrated to [[https://github.com/racket-templates/new][racket-templates]].
+- [[https://github.com/nixin72/window-bind-buffer.el][window-bind-buffer.el]]: An Emacs package for modern buffer/window management - archived
+
 
 * [[file:blog/index.org][Blog]]
 
