@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-02-17 Thu 22:33 -->
+<!-- 2022-02-19 Sat 13:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Clojure Design</title>
@@ -241,13 +241,16 @@ you need to think about. But making changes to data is still incredibly easy:
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">[</span>hashmap <span style="color: #98be65;">{</span><span style="color: #a9a1e1;">:a</span> <span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #a9a1e1;">:b</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #a9a1e1;">:c</span> <span style="color: #da8548; font-weight: bold;">3</span><span style="color: #98be65;">}</span><span style="color: #c678dd;">]</span>
-  <span style="color: #c678dd;">(</span>assoc hashmap <span style="color: #a9a1e1;">:a</span> <span style="color: #da8548; font-weight: bold;">2</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+  <span style="color: #c678dd;">(</span>println hashmap<span style="color: #c678dd;">)</span>              <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">{:a 1, :b 2, :c 3}</span>
+  <span style="color: #c678dd;">(</span>println <span style="color: #98be65;">(</span>assoc hashmap <span style="color: #a9a1e1;">:a</span> <span style="color: #da8548; font-weight: bold;">2</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">{:a 2, :b 2, :c 3}</span>
+  <span style="color: #c678dd;">(</span>println hashmap<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>             <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">{:a 1, :b 2, :c 3}</span>
 </pre>
 </div>
 <p>
 I can use a wide variety of functions to produce new data structures that are modified versions of
-the old ones, but in Clojure is never changes the origional and uses <b>structural sharing</b> to reduce
-the memory footprint of doing this and avoiding copying all that data.
+the old ones, but in Clojure these operations never change the original data structure. Normally
+this would require a lot of values, which is very inefficient, so Clojure utilizes a technique call
+<b><a href="https://hypirion.com/musings/understanding-persistent-vector-pt-1">structural sharing</a></b> to reduce the memory footprint of doing this.
 </p>
 </div>
 </div>
@@ -256,9 +259,10 @@ the memory footprint of doing this and avoiding copying all that data.
 <h2 id="org70e86f8">Thread-safety</h2>
 <div class="outline-text-2" id="text-org70e86f8">
 <p>
-In the instances where it’s necessary, Clojure provides thread-safe mechanisms for updating values
-to keep them synchronized across threads. This makes it super good for building largely concurrent
-applications - which Clojure provides tons of support for simple threading.
+In the instances where mutation is necessary, Clojure provides thread-safe mechanisms for updating
+values to keep them synchronized across threads. This makes Clojure very good for building largely
+concurrent applications. Here&rsquo;s a simple example of using an <code>atom</code> to synchronize a value across two
+threads.
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">[</span>val <span style="color: #98be65;">(</span>atom <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #98be65;">)</span>
@@ -272,10 +276,9 @@ applications - which Clojure provides tons of support for simple threading.
       <span style="color: #a9a1e1;">(</span><span style="color: #51afef;">recur</span><span style="color: #a9a1e1;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
-
 <p>
-Will print 1-10, perhaps in a weird order, but with the value of <code>val</code> being in-sync in the main
-thread and the future thread. We can use <code>atom</code> to access thread-safe mutation.
+This will print 1-10, perhaps in a weird order, but with the value of <code>val</code> being kept in-sync between
+the main thread and the future thread.
 </p>
 </div>
 </div>
@@ -286,11 +289,11 @@ thread and the future thread. We can use <code>atom</code> to access thread-safe
 <p>
 Clojure also features really good first-class support for a lot of data structures - lists, vectors,
 hashmaps, sets, stacks and queues. So the data structure you need is always right there. All of
-these data structures can be interacted with through the sequence interface, which has like, 100+
-functions probably. Practically any operation you want - reverse order, sort, sort-by, group-by,
-frequencies of elements, mappings, reductions, slices, zipping, tree-walking, etc. And any type of
-transformation that isn’t there is usually really easy to express as a composition of other
-operations.
+these data structures can be interacted with through the sequence interface, a huge collection of
+100+ functions that perform tons of different operations on sequences. Practically any operation you
+want - reverse order, sort, sort-by, group-by, frequencies of elements, mappings, reductions,
+slices, zipping, tree-walking, etc. And any type of transformation that isn’t there is usually
+really easy to express as a composition of other operations.
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure"><span style="color: #51afef;">[</span><span style="color: #a9a1e1;">:this</span> <span style="color: #a9a1e1;">:is</span> <span style="color: #a9a1e1;">:a</span> <span style="color: #a9a1e1;">:vector</span><span style="color: #51afef;">]</span>
@@ -307,7 +310,7 @@ operations.
 <div class="outline-text-2" id="text-org259e458">
 <p>
 The language also allows transformations to always be easily expressed as a pipeline of data. In
-Java you can only .a().b().c() so much if the APIs were designed to work that way, but in Clojure
+Java you can only <code>.a().b().c()</code> so long as the APIs were designed to work that way, but in Clojure
 you can pipe the output of any function as the input to any other, which makes data transformations
 very clear to express. The functions are all also just designed to work incredibly well together in
 a very predictable way. The expected result is almost always what you get when messing around with
@@ -334,10 +337,11 @@ things.
 <div class="outline-text-2" id="text-org8375de6">
 <p>
 Clojure also has an excellent solution to scalability. There’s this well known problem called the
-expression problem that OOP and Functional languages need to deal with. OOP languages struggle to
-extend a type to have other functionalities and functional languages struggle to extend a
-functionality to work with more types. Clojure solves both these problems by allowing you to extend
-in either direction through what it calls multi-methods and protocols.
+<i>expression problem</i> that OOP and Functional languages need to deal with. OOP languages struggle to
+extend an existing type to have other functionalities and functional languages struggle to extend an
+existing functionality to work with more types. Clojure provides a solution to this problem in both
+directions by allowing you to create what it calls multi-methods and protocols, that can extend a
+type or functionality.
 </p>
 
 <p>
@@ -351,10 +355,13 @@ explains this well.</a>
 <h2 id="org55ee466">Ecosystem</h2>
 <div class="outline-text-2" id="text-org55ee466">
 <p>
-It’s also a hosted language, meaning it runs on top of other platforms and ecosystems. It supports
-compiling to JVM, JavaScript or dotnet, which means Clojure has access to millions of libraries and
-has a massive ecosystem. There’s always going to be a library to do what you want pretty much, and
-Clojure has absolutely seamless interop with whatever host language you’re targeting.
+Clojure is also a hosted language, meaning it runs on top of other platforms and ecosystems. It&rsquo;s
+official implementations support compiling to JVM, JavaScript or dotnet, which means Clojure has
+access to millions of libraries and has a massive ecosystem. There’s always going to be a library to
+do what you want pretty much, and Clojure has absolutely seamless interop with whatever host
+language you’re targeting. Most of the time however, the Java libraries aren&rsquo;t exactly idiomatic
+Clojure, so Clojure has it&rsquo;s own package ecosystem too, <a href="https://clojars.org/">Clojars</a>, that has tens of thousands of
+Clojure libraries.
 </p>
 </div>
 </div>
@@ -363,9 +370,9 @@ Clojure has absolutely seamless interop with whatever host language you’re tar
 <h2 id="org7703eb6">Macros</h2>
 <div class="outline-text-2" id="text-org7703eb6">
 <p>
-By virtue of being a lisp, it also has macros, which are basically functions that run at compile
-time and transform your code. This lets you build your own syntax in Clojure whenever you find
-something that isn’t very nice to express normally, or when you just want to abstract away some
+By virtue of being a lisp, Clojure also has macros, which are basically functions that run at
+compile time and transform your code. This lets you build your own syntax in Clojure whenever you
+find something that isn’t very nice to express normally, or when you just want to abstract away some
 details you don’t want people to have to worry about. Macros are an awesome abstraction tool that
 not many languages have.
 </p>
@@ -380,6 +387,14 @@ not many languages have.
   <span style="color: #c678dd;">(</span>println <span style="color: #98be65;">(</span>+ a b<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
+
+<p>
+Some do however, such as Rust and Nim, but macros in those languages are complex because you need to
+deal with tokens in an abstract syntax tree and producing new valid code can be a complex process.
+In Clojure however, since the various data structurs share the same syntax as Clojure itself,
+writing macros is just a matter of using the same good library of 100+ sequence functions. No need
+to learn a whole complex macro system.
+</p>
 </div>
 </div>
 
@@ -387,9 +402,12 @@ not many languages have.
 <h2 id="orgfbaccd3">Ergonomics</h2>
 <div class="outline-text-2" id="text-orgfbaccd3">
 <p>
-It’s also got so many other small niceties. Commenting out a single expression, even if it’s several
-lines long, with a single comment symbol. Short-hand syntax for lambda functions. Syntax support for
-regular expressions. Short and sane function names. A testing library built in.
+Clojure has also just got so many other small niceties. Commenting out a single expression, even if
+it’s several lines long, with a single comment symbol. Short-hand syntax for lambda functions.
+Syntax support for regular expressions. Syntax for all the core data structures. Short and sane
+function names. A testing library built in. And so many other things that are just really nice to
+have in a language. Things that don&rsquo;t make or break it, but when you&rsquo;re using the language you say
+&ldquo;damn, I wish &lt;other-lang&gt; had this.&rdquo;
 </p>
 </div>
 </div>
@@ -398,9 +416,11 @@ regular expressions. Short and sane function names. A testing library built in.
 <h2 id="org4d0d0c9">Simple</h2>
 <div class="outline-text-2" id="text-org4d0d0c9">
 <p>
-And all of this, and Clojure is, at its core, a super simple language. Basically all you have to
-learn is how to make functions, declare variables, if expressions, and then slowly learn functions
-in the standard library, 90% of which is super easily accessible through a cheatsheet on the Clojure
+After all of this, Clojure is, at its core, a super simple language. I think most people could learn
+enough Clojure to be productive in a weekend. The biggest hurdle is the syntax, which there&rsquo;s
+countless tools out there to help make it easier to work with. Basically all you have to learn is
+how to make functions, declare variables, conditionals, and then slowly learn functions in the
+standard library - 90% of which is super easily accessible through a <a href="https://clojure.org/api/cheatsheet">cheatsheet</a> on the Clojure
 website. And with sane function names, you don’t even have to look at the docs for that function
 most of the time cause it just does what you expect.
 </p>
@@ -423,7 +443,7 @@ simpler, understandable, and scalable solutions to real-world problems.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2022-02-17 Thu 22:33</p>
+<p class="date">Created: 2022-02-19 Sat 13:17</p>
 </div>
 </body>
 </html>

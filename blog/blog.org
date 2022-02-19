@@ -9,7 +9,7 @@ consider or definitely avoid a certain dialect.
 
 ** [[file:clojure-design.org][The things I love about Clojure]]
 #+BEGIN_small
-February 9th, 2022 | 8 minute read
+February 9th, 2022 | 5 minute read
 #+END_small
 
 I was asked why I love Clojure by some students, and it's something I've given a decent amount of
