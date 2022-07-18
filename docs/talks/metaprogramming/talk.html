@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+html
+<html>
 <head>
-<!-- 2022-02-17 Thu 20:08 -->
+<!-- 2022-03-01 Tue 17:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Meta Programming and Macros</title>
@@ -204,34 +202,34 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8056aad">What is meta programming?</a></li>
-<li><a href="#org1f254df">What are macros?</a></li>
-<li><a href="#orgb8b5f26">Why write macros?</a></li>
-<li><a href="#orgff46484">A simple while loop</a></li>
-<li><a href="#org8e862f6">First look at macros</a></li>
-<li><a href="#org23cac44">Inspecting and debugging macros</a></li>
-<li><a href="#orgb8d4b3e">How does this work?</a></li>
-<li><a href="#orgf91df45">A quick detour to Common Lisp</a></li>
-<li><a href="#orgb58b204">What&rsquo;s wrong with functions?</a></li>
-<li><a href="#orga55593b">Threading macros</a></li>
-<li><a href="#org9e9625b">Lisp as Lambdas</a></li>
-<li><a href="#org2c25777">Named <code>let</code></a></li>
-<li><a href="#org9e83558">Macros in unexpected places</a></li>
-<li><a href="#org3636fee">Boolean operators as macros</a></li>
-<li><a href="#orgcdfa66c">Language-Oriented Programming</a></li>
-<li><a href="#org099b83c">Riposte</a></li>
-<li><a href="#orgf351370">ProfessorJ</a></li>
-<li><a href="#org76116c7">Macros and types</a></li>
-<li><a href="#org0fab824">Rules inside macros</a></li>
-<li><a href="#orgaf02c28">What to do with this</a></li>
-<li><a href="#org5f19cbe">Conclusion</a></li>
+<li><a href="#org5c0bf88">What is meta programming?</a></li>
+<li><a href="#org2cb2e02">What are macros?</a></li>
+<li><a href="#org6d7c0de">Why write macros?</a></li>
+<li><a href="#orgdec02eb">A simple while loop</a></li>
+<li><a href="#org45bcde9">First look at macros</a></li>
+<li><a href="#org695e891">Inspecting and debugging macros</a></li>
+<li><a href="#orgd79b323">How does this work?</a></li>
+<li><a href="#orgeb89375">A quick detour to Common Lisp</a></li>
+<li><a href="#orgcbd8a7a">What&rsquo;s wrong with functions?</a></li>
+<li><a href="#orga976f43">Threading macros</a></li>
+<li><a href="#org3c3d484">Lisp as Lambdas</a></li>
+<li><a href="#orgc5af38d">Named <code>let</code></a></li>
+<li><a href="#orgbe1891e">Macros in unexpected places</a></li>
+<li><a href="#orgdaeeaad">Boolean operators as macros</a></li>
+<li><a href="#orge8bb97d">Language-Oriented Programming</a></li>
+<li><a href="#org733c29b">Riposte</a></li>
+<li><a href="#org259a234">ProfessorJ</a></li>
+<li><a href="#org87edeb3">Macros and types</a></li>
+<li><a href="#org913dc43">Rules inside macros</a></li>
+<li><a href="#orga4deeaf">What to do with this</a></li>
+<li><a href="#org43b39a2">Conclusion</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org8056aad" class="outline-2">
-<h2 id="org8056aad">What is meta programming?</h2>
-<div class="outline-text-2" id="text-org8056aad">
+<div id="outline-container-org5c0bf88" class="outline-2">
+<h2 id="org5c0bf88">What is meta programming?</h2>
+<div class="outline-text-2" id="text-org5c0bf88">
 <ul class="org-ul">
 <li>The ability to treat our code as data</li>
 <li>Using information about our source code in our program</li>
@@ -240,9 +238,9 @@
 </div>
 </div>
 
-<div id="outline-container-org1f254df" class="outline-2">
-<h2 id="org1f254df">What are macros?</h2>
-<div class="outline-text-2" id="text-org1f254df">
+<div id="outline-container-org2cb2e02" class="outline-2">
+<h2 id="org2cb2e02">What are macros?</h2>
+<div class="outline-text-2" id="text-org2cb2e02">
 <ul class="org-ul">
 <li>Macros are the ability to transform our code at compile time</li>
 <li>Macros are a form of meta programming
@@ -255,9 +253,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgb8b5f26" class="outline-2">
-<h2 id="orgb8b5f26">Why write macros?</h2>
-<div class="outline-text-2" id="text-orgb8b5f26">
+<div id="outline-container-org6d7c0de" class="outline-2">
+<h2 id="org6d7c0de">Why write macros?</h2>
+<div class="outline-text-2" id="text-org6d7c0de">
 <ul class="org-ul">
 <li>In what scenario would we really need to transform our syntax?</li>
 <li>Sounds like complex theory crap that we shouldn&rsquo;t worry about</li>
@@ -269,9 +267,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgff46484" class="outline-2">
-<h2 id="orgff46484">A simple while loop</h2>
-<div class="outline-text-2" id="text-orgff46484">
+<div id="outline-container-orgdec02eb" class="outline-2">
+<h2 id="orgdec02eb">A simple while loop</h2>
+<div class="outline-text-2" id="text-orgdec02eb">
 <p>
 In Lisp, as we all know, we tend to favour recursion. After all, why not? Tail-recursion just gets
 optimized into loops anyways, so it&rsquo;s not like we&rsquo;re loosing much performance. Let&rsquo;s look at what
@@ -298,9 +296,9 @@ our looping for us and then call it. That&rsquo;s silly.
 </div>
 </div>
 
-<div id="outline-container-org8e862f6" class="outline-2">
-<h2 id="org8e862f6">First look at macros</h2>
-<div class="outline-text-2" id="text-org8e862f6">
+<div id="outline-container-org45bcde9" class="outline-2">
+<h2 id="org45bcde9">First look at macros</h2>
+<div class="outline-text-2" id="text-org45bcde9">
 <p>
 We can use macros to write our own while loop that uses tail-recursion so that we can write this
 pattern once and then use our abstraction every time instead:
@@ -339,9 +337,9 @@ for now though.
 </div>
 </div>
 
-<div id="outline-container-org23cac44" class="outline-2">
-<h2 id="org23cac44">Inspecting and debugging macros</h2>
-<div class="outline-text-2" id="text-org23cac44">
+<div id="outline-container-org695e891" class="outline-2">
+<h2 id="org695e891">Inspecting and debugging macros</h2>
+<div class="outline-text-2" id="text-org695e891">
 <p>
 We can use the <code>expand-once</code> function to see what our macros will output:
 </p>
@@ -368,9 +366,9 @@ macro-expansions and debug them.
 </div>
 </div>
 
-<div id="outline-container-orgb8d4b3e" class="outline-2">
-<h2 id="orgb8d4b3e">How does this work?</h2>
-<div class="outline-text-2" id="text-orgb8d4b3e">
+<div id="outline-container-orgd79b323" class="outline-2">
+<h2 id="orgd79b323">How does this work?</h2>
+<div class="outline-text-2" id="text-orgd79b323">
 <p>
 In most programming languages, there&rsquo;s this dichotomy of code and data. In Lisp languages, this
 dichotomy doesn&rsquo;t exist. Consider the following code:
@@ -402,9 +400,9 @@ y)</code>. Completely different meaning now.
 </div>
 </div>
 
-<div id="outline-container-orgf91df45" class="outline-2">
-<h2 id="orgf91df45">A quick detour to Common Lisp</h2>
-<div class="outline-text-2" id="text-orgf91df45">
+<div id="outline-container-orgeb89375" class="outline-2">
+<h2 id="orgeb89375">A quick detour to Common Lisp</h2>
+<div class="outline-text-2" id="text-orgeb89375">
 <p>
 When we define functions, the parameters to those functions are evaluated before being passed in,
 whereas in macros they&rsquo;re not. The arguments to our macros are the code itself. This is a little
@@ -432,9 +430,9 @@ to manipulate as linked lists using the same old <code>car</code>, <code>cdr</co
 </div>
 </div>
 
-<div id="outline-container-orgb58b204" class="outline-2">
-<h2 id="orgb58b204">What&rsquo;s wrong with functions?</h2>
-<div class="outline-text-2" id="text-orgb58b204">
+<div id="outline-container-orgcbd8a7a" class="outline-2">
+<h2 id="orgcbd8a7a">What&rsquo;s wrong with functions?</h2>
+<div class="outline-text-2" id="text-orgcbd8a7a">
 <p>
 So this macro crap just expanded to a bunch of functions, why use them? What&rsquo;s wrong with functions?
 Nothing is wrong with functions. They just serve adifferent purpose. Let&rsquo;s try implementing our
@@ -474,9 +472,9 @@ way that we could do by writing functions or creating new classes.
 </div>
 </div>
 
-<div id="outline-container-orga55593b" class="outline-2">
-<h2 id="orga55593b">Threading macros</h2>
-<div class="outline-text-2" id="text-orga55593b">
+<div id="outline-container-orga976f43" class="outline-2">
+<h2 id="orga976f43">Threading macros</h2>
+<div class="outline-text-2" id="text-orga976f43">
 <p>
 If you&rsquo;re still not convinced, here&rsquo;s a macro that would allow us to pipe our data between function
 calls so that we don&rsquo;t need to have deep nested calls:
@@ -521,9 +519,9 @@ inserting the argument as the first parameter.
 </div>
 </div>
 
-<div id="outline-container-org9e9625b" class="outline-2">
-<h2 id="org9e9625b">Lisp as Lambdas</h2>
-<div class="outline-text-2" id="text-org9e9625b">
+<div id="outline-container-org3c3d484" class="outline-2">
+<h2 id="org3c3d484">Lisp as Lambdas</h2>
+<div class="outline-text-2" id="text-org3c3d484">
 <p>
 A whole lot of what we do in Lisp can be boiled down to macros around lambdas. Our <code>while</code> loop is one
 example, but even <code>let</code> can be thought of as syntactic sugar over a lambda call:
@@ -565,9 +563,9 @@ As you can see, <code>let</code> is just a simple macro around an immediately in
 </div>
 </div>
 
-<div id="outline-container-org2c25777" class="outline-2">
-<h2 id="org2c25777">Named <code>let</code></h2>
-<div class="outline-text-2" id="text-org2c25777">
+<div id="outline-container-orgc5af38d" class="outline-2">
+<h2 id="orgc5af38d">Named <code>let</code></h2>
+<div class="outline-text-2" id="text-orgc5af38d">
 <p>
 Another useful form for <code>let</code> is the <i>named</i> <code>let</code>, which allows us to call our <code>let</code> block recursively. 
 Again, we can define this almost entirely in terms of lambdas.
@@ -611,9 +609,9 @@ We can now use our <code>nlet</code> like below, and it will return the sum of a
 </div>
 </div>
 
-<div id="outline-container-org9e83558" class="outline-2">
-<h2 id="org9e83558">Macros in unexpected places</h2>
-<div class="outline-text-2" id="text-org9e83558">
+<div id="outline-container-orgbe1891e" class="outline-2">
+<h2 id="orgbe1891e">Macros in unexpected places</h2>
+<div class="outline-text-2" id="text-orgbe1891e">
 <p>
 Macros are so prevalent, that not only can our control flow contructs be built using them, but even
 much more unsuspecting things. Consider the following function:
@@ -654,9 +652,9 @@ wait anyways for this function.
 </div>
 </div>
 
-<div id="outline-container-org3636fee" class="outline-2">
-<h2 id="org3636fee">Boolean operators as macros</h2>
-<div class="outline-text-2" id="text-org3636fee">
+<div id="outline-container-orgdaeeaad" class="outline-2">
+<h2 id="orgdaeeaad">Boolean operators as macros</h2>
+<div class="outline-text-2" id="text-orgdaeeaad">
 <p>
 We can instead redefine our <code>and</code> and <code>or</code> constructs to be macros instead so that we evaluate one at a
 time and don&rsquo;t compute values needlessly - that way as soon as one value is true, we can say our <code>or</code>
@@ -680,9 +678,9 @@ evaluate branches that it needs to go into.
 </div>
 </div>
 
-<div id="outline-container-orgcdfa66c" class="outline-2">
-<h2 id="orgcdfa66c">Language-Oriented Programming</h2>
-<div class="outline-text-2" id="text-orgcdfa66c">
+<div id="outline-container-orge8bb97d" class="outline-2">
+<h2 id="orge8bb97d">Language-Oriented Programming</h2>
+<div class="outline-text-2" id="text-orge8bb97d">
 <p>
 So macros can be used for a lot. We&rsquo;ve used them to define looping constructs, logical operators,
 recursive blocks, threading macros. and we could define a whole lot more. We can build entire 
@@ -692,9 +690,9 @@ designed to do <i>language-oriented programming</i>.
 </div>
 </div>
 
-<div id="outline-container-org099b83c" class="outline-2">
-<h2 id="org099b83c">Riposte</h2>
-<div class="outline-text-2" id="text-org099b83c">
+<div id="outline-container-org733c29b" class="outline-2">
+<h2 id="org733c29b">Riposte</h2>
+<div class="outline-text-2" id="text-org733c29b">
 <p>
 Riposte is a language built on-top of Racket designed to be a scripting language for testing REST
 APIs. Here&rsquo;s how you&rsquo;d ensure a JSON response matches a specified schema:
@@ -725,9 +723,9 @@ plain old Racket code.
 </div>
 </div>
 
-<div id="outline-container-orgf351370" class="outline-2">
-<h2 id="orgf351370">ProfessorJ</h2>
-<div class="outline-text-2" id="text-orgf351370">
+<div id="outline-container-org259a234" class="outline-2">
+<h2 id="org259a234">ProfessorJ</h2>
+<div class="outline-text-2" id="text-org259a234">
 <p>
 We can use reader macros to make some pretty impressive things:
 </p>
@@ -752,9 +750,9 @@ implementation of Java using Racket reader macros.
 </div>
 </div>
 
-<div id="outline-container-org76116c7" class="outline-2">
-<h2 id="org76116c7">Macros and types</h2>
-<div class="outline-text-2" id="text-org76116c7">
+<div id="outline-container-org87edeb3" class="outline-2">
+<h2 id="org87edeb3">Macros and types</h2>
+<div class="outline-text-2" id="text-org87edeb3">
 <p>
 Notice how in the Java/Racket code above we have <i>static typing</i>. Since the reader-macros are one of
 the first things to run in the compilation process and they just need to output valid Racket code,
@@ -768,9 +766,9 @@ system.
 </div>
 </div>
 
-<div id="outline-container-org0fab824" class="outline-2">
-<h2 id="org0fab824">Rules inside macros</h2>
-<div class="outline-text-2" id="text-org0fab824">
+<div id="outline-container-org913dc43" class="outline-2">
+<h2 id="org913dc43">Rules inside macros</h2>
+<div class="outline-text-2" id="text-org913dc43">
 <p>
 One thing that can be very helpful to have is rules for how the rest of your program is able to
 interact with macros, or define certain special forms inside your macros. For example, in the <code>while</code>
@@ -807,9 +805,9 @@ And now we can redefine our while macro to be able to use our new <code>break</c
 </div>
 </div>
 </div>
-<div id="outline-container-orgaf02c28" class="outline-2">
-<h2 id="orgaf02c28">What to do with this</h2>
-<div class="outline-text-2" id="text-orgaf02c28">
+<div id="outline-container-orga4deeaf" class="outline-2">
+<h2 id="orga4deeaf">What to do with this</h2>
+<div class="outline-text-2" id="text-orga4deeaf">
 <p>
 Racket provides some insanely powerful meta-programming facilities. From <code>define-syntax</code> to reader
 macros, we have <i>a lot</i> of flexibility. But what do we use it for? 
@@ -841,9 +839,9 @@ using <code>define-syntax</code>. Something that looks like this:
 </div>
 </div>
 
-<div id="outline-container-org5f19cbe" class="outline-2">
-<h2 id="org5f19cbe">Conclusion</h2>
-<div class="outline-text-2" id="text-org5f19cbe">
+<div id="outline-container-org43b39a2" class="outline-2">
+<h2 id="org43b39a2">Conclusion</h2>
+<div class="outline-text-2" id="text-org43b39a2">
 <p>
 Meta-programming and macros allow some very powerful transformations in Lisp, which facilitate the
 creation of new abstractions that we don&rsquo;t really have access to in almost any other language. While
@@ -857,7 +855,7 @@ prevalent throughout Lisp programs.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Philip Dumaresq</p>
-<p class="date">Created: 2022-02-17 Thu 20:08</p>
+<p class="date">Created: 2022-03-01 Tue 17:28</p>
 </div>
 </body>
 </html>

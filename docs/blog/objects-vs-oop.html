@@ -7,7 +7,7 @@
   <meta name="viewport" content=
   "width=device-width, initial-scale=1">
 
-  <title>About Me</title>
+  <title>Using Objects != being Object Oriented</title>
   <meta name="author" content="Philip Dumaresq">
   <meta name="generator" content="Org Mode">
   <style type="text/css">
@@ -202,52 +202,48 @@
 
 <body>
   <div id="content" class="content">
-    <h1 class="title">About Me</h1>
+    <h1 class="title">Using Objects != being Object Oriented</h1>
 
     <div class="org-center">
-      <p><a href="index.html">Home</a> | <a href=
-      "about.html">About</a> | <a href=
-      "contact.html">Contact</a></p>
+      <p><a href="../index.html">Home</a> | <a href=
+      "../about.html">About</a> | <a href=
+      "../contact.html">Contact</a></p>
     </div>
 
-    <div id="outline-container-org021a80d" class="outline-2">
-      <h2 id="org021a80d">Hi, my name is Philip!</h2>
+    <p>The term &#8220;object oriented programming&#8221; is
+    something that we often misuse when talking about the use of
+    objects. The word &#8220;oriented&#8221; in particular is
+    important, because it implies that an overall system is geared
+    towards the use of objects or that there&#8217;s some
+    interconnection and communication between objects that makes
+    our system oriented towards the use of objects. And I think
+    that this &#8220;oriented&#8221; part of object-oriented,
+    that&#8217;s the bad part.</p>
 
-      <div class="outline-text-2" id="text-org021a80d">
-        <p>I&#8217;m a passionate developer living in Montreal
-        Canada, currently taking some time off school due to covid.
-        Normally I&#8217;m a student at Concordia University, but
-        right now I&#8217;m focusing on building open-source
-        projects and looking for full-time work.</p>
-      </div>
+    <p>Objects on their own are nothing more than a way to hold
+    various pieces of data together in a container and act on that
+    data, and that&#8217;s a useful tool to have. But we get so
+    caught up in the &#8220;functions&#8221; vs
+    &#8220;objects&#8221; language, that we forget that the import
+    word isn&#8217;t <i>objects</i> but the <i>oriented</i> part.
+    We can introduce a small handful of objects to our system to
+    manage things like state, so long as we don&#8217;t start
+    having several objects communicating together or the scope of
+    their control is ill-defined or we allow them to grow into a
+    fully object-oriented system in it&#8217;s own right.</p>
 
-      <div id="outline-container-orgdfd56d8" class="outline-3">
-        <h3 id="orgdfd56d8">My Background</h3>
-
-        <div class="outline-text-3" id="text-orgdfd56d8">
-          <p>Before starting in university, I completed a 3-year
-          technical degree in Computer Science from Heritage
-          college in Gatineau, Quebec. This program was invaluable
-          to me, and shaped my view of programming. I spent two
-          summers before university working as a full-stack
-          developer for TechInsights, and 2 semester in college
-          working as a TA.</p>
-        </div>
-      </div>
-
-      <div id="outline-container-org34346a1" class="outline-3">
-        <h3 id="org34346a1">Personal Interests</h3>
-
-        <div class="outline-text-3" id="text-org34346a1">
-          <p>Outside of Computer Science or programming, I love
-          going rock climbing and being outdoors. I love camping
-          and hiking in the summer, and during the winter I enjoy
-          going out skiing and skating. Being from Ottawa,
-          I&#8217;ve been spoiled all my life by the Rideau
-          Canal,</p>
-        </div>
-      </div>
-    </div>
+    <p>Languages like Go or Rust for example are not
+    object-oriented. Go has structs with properties and methods,
+    and these structs can implicitely implement interfaces in Go,
+    but entire programs aren&#8217;t build around these objects -
+    they&#8217;re used to encapsulate individual pieces of
+    functionality for something like a datastructure or an HTTP
+    connection, where you have an object containing some
+    information and you have methods to act on it. The core of the
+    code in Go is still just normal, procedural, C-like code
+    though. It&#8217;s not object-oriented (nor is it particularly
+    functional). So just because something <i>has</i> objects
+    doesn&#8217;t mean that it&#8217;s object-<i>oriented</i>.</p>
   </div>
 
   <div id="postamble" class="status">

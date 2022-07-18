@@ -1,4 +1,6 @@
 #+SETUPFILE: main.org
+#+HTML_DOCTYPE: html5
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="assets/org.css" />
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/org.css" />
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../assets/org.css" />
+

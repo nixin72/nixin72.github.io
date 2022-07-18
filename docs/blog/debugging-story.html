@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <!-- 2022-07-18 Mon 17:57 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content=
+  "width=device-width, initial-scale=1">
+
+  <title>Debugging a fun build failure in Clojure</title>
+  <meta name="author" content="Philip Dumaresq">
+  <meta name="generator" content="Org Mode">
+  <style type="text/css">
+#content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  </style>
+  <link rel="stylesheet" type="text/css" href="assets/org.css">
+  <link rel="stylesheet" type="text/css" href="../assets/org.css">
+  <link rel="stylesheet" type="text/css" href=
+  "../../assets/org.css">
+</head>
+
+<body>
+  <div id="content" class="content">
+    <h1 class="title">Debugging a fun build failure in Clojure</h1>
+
+    <div class="org-center">
+      <p><a href="../index.html">Home</a> | <a href=
+      "../about.html">About</a> | <a href=
+      "../contact.html">Contact</a></p>
+    </div>
+
+    <p>Recently I was working on a Clojure project where I
+    encountered a really interesting bug.</p>
+
+    <p>I was writing a small interpreter, and for Clojure + Java
+    interop, I was writing some code that used reflection to get
+    the viable arities for any given function. This way I could
+    throw some compile-time errors if they were calling a function
+    with too many arguments or something. My code looked something
+    like this:</p>
+
+    <div class="org-src-container">
+      <pre class="src src-clojure">
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">defn</span> <span style=
+"color: #c678dd;">get-static-arity</span> <span style=
+"color: #c678dd;">[</span>method-name all-methods<span style=
+"color: #c678dd;">]</span>
+  <span style="color: #c678dd;">(</span>into #<span style=
+"color: #98be65;">{}</span> <span style=
+"color: #98be65;">(</span>comp <span style=
+"color: #a9a1e1;">(</span>filter #<span style=
+"color: #51afef;">(</span><span style=
+"color: #51afef;">and</span> <span style=
+"color: #c678dd;">(</span>= <span style=
+"color: #98be65;">(</span>.getName <span style=
+"color: #dcaeea;">%</span><span style=
+"color: #98be65;">)</span> method-name<span style=
+"color: #c678dd;">)</span>
+                                <span style=
+"color: #c678dd;">(</span>not <span style=
+"color: #98be65;">(</span>.isVarArgs <span style=
+"color: #dcaeea;">%</span><span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span><span style="color: #a9a1e1;">)</span>
+                  <span style=
+"color: #a9a1e1;">(</span>map #<span style=
+"color: #51afef;">(</span><span style=
+"color: #51afef;">-&gt;</span> <span style=
+"color: #dcaeea;">%</span> .getParameterTypes alength<span style=
+"color: #51afef;">)</span><span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">)</span>
+        all-methods<span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">defn</span> <span style=
+"color: #c678dd;">get-variadic-arity</span> <span style=
+"color: #c678dd;">[</span>method-name all-methods<span style=
+"color: #c678dd;">]</span>
+  <span style="color: #c678dd;">(</span>first <span style=
+"color: #98be65;">(</span>into #<span style=
+"color: #a9a1e1;">{}</span> <span style=
+"color: #a9a1e1;">(</span>comp <span style=
+"color: #51afef;">(</span>filter #<span style=
+"color: #c678dd;">(</span><span style=
+"color: #51afef;">and</span> <span style=
+"color: #98be65;">(</span>= <span style=
+"color: #a9a1e1;">(</span>.getName <span style=
+"color: #dcaeea;">%</span><span style=
+"color: #a9a1e1;">)</span> method-name<span style=
+"color: #98be65;">)</span>
+                                       <span style=
+"color: #98be65;">(</span>.isVarArgs <span style=
+"color: #dcaeea;">%</span><span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+                         <span style=
+"color: #51afef;">(</span>map #<span style=
+"color: #c678dd;">(</span><span style=
+"color: #51afef;">-&gt;</span> <span style=
+"color: #dcaeea;">%</span> .getParameterTypes alength<span style=
+"color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span><span style="color: #a9a1e1;">)</span>
+               all-methods<span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">defn</span> <span style=
+"color: #c678dd;">get-fn-arity</span> <span style=
+"color: #c678dd;">[</span>f<span style="color: #c678dd;">]</span>
+  <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #98be65;">(</span>symbol? f<span style=
+"color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span><span style=
+"color: #51afef;">let</span> <span style=
+"color: #a9a1e1;">[</span><span style=
+"color: #51afef;">[</span>ns-name method-name<span style=
+"color: #51afef;">]</span> <span style=
+"color: #51afef;">(</span><span style=
+"color: #ECBE7B;">str</span>/split <span style=
+"color: #c678dd;">(</span>str f<span style=
+"color: #c678dd;">)</span> #<span style=
+"color: #98be65;">"/"</span><span style="color: #51afef;">)</span>
+          methods <span style=
+"color: #51afef;">(</span>.getDeclaredMethods <span style=
+"color: #c678dd;">(</span>resolve <span style=
+"color: #98be65;">(</span>symbol ns-name<span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span><span style="color: #a9a1e1;">]</span>
+      <span style="color: #a9a1e1;">{</span><span style=
+"color: #a9a1e1;">:static</span> <span style=
+"color: #51afef;">(</span>get-static-arity method-name methods<span style="color: #51afef;">)</span>
+       <span style="color: #a9a1e1;">:variadic</span> <span style=
+"color: #51afef;">(</span>get-variadic-arity method-name methods<span style="color: #51afef;">)</span><span style="color: #a9a1e1;">}</span><span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span><span style=
+"color: #51afef;">let</span> <span style=
+"color: #a9a1e1;">[</span>methods <span style=
+"color: #51afef;">(</span>.getDeclaredMethods <span style=
+"color: #c678dd;">(</span>class f<span style=
+"color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span><span style="color: #a9a1e1;">]</span>
+      <span style="color: #a9a1e1;">{</span><span style=
+"color: #a9a1e1;">:static</span> <span style=
+"color: #51afef;">(</span>get-static-arity <span style=
+"color: #98be65;">"invoke"</span> methods<span style=
+"color: #51afef;">)</span>
+       <span style="color: #a9a1e1;">:variadic</span> <span style=
+"color: #51afef;">(</span>get-variadic-arity <span style=
+"color: #98be65;">"doInvoke"</span> methods<span style=
+"color: #51afef;">)</span><span style=
+"color: #a9a1e1;">}</span><span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+    </div>
+
+    <p>And then this was called by passing it either a function -
+    <code>(get-fn-arity map)</code> or by passing it a symbol -
+    <code>(get-fn-arity 'Math/sqrt)</code>. This difference is
+    because in Clojure we can&#8217;t simply use
+    <code>Math/sqrt</code> as a function - ie, we can&#8217;t say
+    <code>(map Math/sqrt [1 2 3 4 5])</code>, because Clojure will
+    be looking for a field names <code>sqrt</code> in the
+    <code>Math</code> class, not a static method. Now,
+    there&#8217;s a bug in this code that took me a while to figure
+    out. Both the <code>get-static-arity</code> and
+    <code>get-variadic-arity</code> functions worked about as
+    expected - but the <code>get-fn-arity</code> never seemed to
+    work for variadic Clojure functions - everything else was good.
+    I couldn&#8217;t figure out what the issue was here, it worked
+    for Java methods, but not Clojure functions. Eventually I
+    realized what the problem probably was - Clojure doesn&#8217;t
+    actually implement varargs using JVM&#8217;s varargs. With this
+    suspicion, I changed that last line to call
+    <code>get-static-arity</code> and it worked great. Now, I had
+    fixed my bug, and I had a suspicion that I knew what caused it,
+    but I didn&#8217;t actually <i>know</i> this for sure, so I
+    decided to look into the generated bytecode. At first I tried
+    to use <code>no.disassemble</code>, but I ran into some issues
+    with it, so I figured I&#8217;d just do it the &#8220;old
+    fashioned&#8221; way and compile my project to a jar then use
+    <code>javap</code> to inspect the bytecode. But when compiling
+    my project, I encountered a new error - one that <i>really</i>
+    confused me, far more than the arity bug. I got this:</p>
+
+    <div class="org-src-container">
+      <pre class="src src-clojure">
+<span style="color: #51afef;">{</span><span style=
+"color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.main</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">message</span>
+ <span style=
+"color: #98be65;">"Syntax error (IOException) compiling fn* at (proj/validation.clj:338:3).</span><span style="color: #98be65; font-weight: bold;">\n</span><span style="color: #98be65;">File name too long</span><span style="color: #98be65; font-weight: bold;">\n</span><span style="color: #98be65;">"</span>,
+ <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.main</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">triage</span>
+ <span style="color: #c678dd;">{</span><span style=
+"color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.error</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">phase</span> <span style=
+"color: #a9a1e1;">:compile-syntax-check</span>,
+  <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.error</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">line</span> <span style=
+"color: #da8548; font-weight: bold;">338</span>,
+  <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.error</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">column</span> <span style=
+"color: #da8548; font-weight: bold;">3</span>,
+  <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.error</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">source</span> <span style=
+"color: #98be65;">"validation.clj"</span>,
+  <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.error</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">symbol</span> fn*,
+  <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.error</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">path</span> <span style=
+"color: #98be65;">"proj/validation.clj"</span>,
+  <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.error</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">class</span> java.io.IOException,
+  <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.error</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">cause</span> <span style=
+"color: #98be65;">"File name too long"</span><span style=
+"color: #c678dd;">}</span>,
+ <span style="color: #a9a1e1;">:</span><span style=
+"color: #ECBE7B;">clojure.main</span><span style=
+"color: #bbc2cf; background-color: #21242b;">/</span><span style=
+"color: #a9a1e1;">trace</span>
+ <span style="color: #c678dd;">{</span><span style=
+"color: #a9a1e1;">:via</span> <span style=
+"color: #98be65;">[</span>...<span style="color: #98be65;">]</span>
+  <span style="color: #a9a1e1;">:cause</span> <span style=
+"color: #98be65;">"File name too long"</span>,
+  <span style="color: #a9a1e1;">:phase</span> <span style=
+"color: #a9a1e1;">:compile-syntax-check</span><span style=
+"color: #c678dd;">}</span><span style="color: #51afef;">}</span>
+</pre>
+    </div>
+
+    <p>&#8230;File name too long? The file name is
+    <code>validation.clj</code>, what do you mean this is too long?
+    That was my first stupid thought, but of course that
+    wasn&#8217;t the issue. Then I noticed that it was pointing to
+    an actual line number in my code, which of course it would, I
+    don&#8217;t know what I was initially thinking. But, this was
+    pointing me to a seemingly innocuous call to
+    <code>clojure.core.match/match</code> - nothing here, right?
+    It&#8217;s just some library code that I&#8217;ve used plenty
+    of times before and never had any issues&#8230;</p>
+
+    <p>To understand this error, we need to dig into the
+    <code>match</code> macro and the Clojure compiler itself.
+    Let&#8217;s take a look a simpler example than the
+    <code>match</code> that I was working with:</p>
+
+    <div class="org-src-container">
+      <pre class="src src-clojure">
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">defn</span> <span style=
+"color: #c678dd;">testing</span> <span style=
+"color: #c678dd;">[</span>x<span style="color: #c678dd;">]</span>
+  <span style="color: #c678dd;">(</span>match x
+    <span style="color: #98be65;">[</span>a<span style=
+"color: #98be65;">]</span> a
+    <span style="color: #98be65;">[</span>a _<span style=
+"color: #98be65;">]</span> a
+    <span style="color: #98be65;">[</span>a _ _<span style=
+"color: #98be65;">]</span> a<span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+    </div>
+
+    <p>This is a super simple use of <code>match</code>. It simply
+    check if the input is of length 1, 2, or 3, and returns the
+    first element. Not much to it. Now, we want to look at the code
+    expanded from this to look for lambda functions that might be
+    generated. We&#8217;re doing this because in Clojure,
+    we&#8217;re compiling to the JVM, and what the JVM understands
+    is classes.</p>
+
+    <p>Functions in Clojure actually gets compiled to a class in
+    the JVM with methods called <code>invoke</code> and/or
+    <code>doInvoke</code>. The <code>doInvoke</code> methods are
+    for variadic arities, and <code>invoke</code> for normal
+    functions. Now, each file can only contain one class, and so
+    each function ends up getting it&#8217;s own class file.</p>
+
+    <p>With lambda functions, this ends up looking rather messy.
+    Lambda functions need to actually have a name generated for
+    their class so that it can be looked up. What Clojure ends up
+    doing is using a name-mangling scheme that appends a new
+    randomly generated name to the end of the enclosing
+    scope&#8217;s name. This means that lambda function&#8217;s
+    class names might end up looking something like</p>
+    <pre class="example">
+namespace$my_function$fn__4240$fn__4251.class
+</pre>
+
+    <p>And as you continue nesting lambdas, this gets longer and
+    longer and longer&#8230; Now that we know this, let&#8217;s
+    take a look at the expansion of the <code>testing</code>
+    function above - and more importantly, the <code>match</code>
+    inside it.</p>
+
+    <div class="org-src-container">
+      <pre class="src src-clojure">
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">def</span> <span style=
+"color: #dcaeea;">testing</span>
+ <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">fn*</span>
+   <span style="color: #98be65;">(</span><span style=
+"color: #a9a1e1;">[</span>x<span style="color: #a9a1e1;">]</span>
+     <span style="color: #a9a1e1;">(</span><span style=
+"color: #51afef;">try</span>
+       <span style="color: #51afef;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #c678dd;">(</span><span style="color: #51afef;">let*</span>
+             <span style=
+"color: #98be65;">[</span>and__5531__auto__ <span style=
+"color: #a9a1e1;">(</span>vector? x<span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">]</span>
+             <span style="color: #98be65;">(</span><span style=
+"color: #51afef;">if</span> and__5531__auto__ <span style=
+"color: #a9a1e1;">(</span>== <span style=
+"color: #51afef;">(</span>count x<span style=
+"color: #51afef;">)</span> <span style=
+"color: #da8548; font-weight: bold;">1</span><span style=
+"color: #a9a1e1;">)</span> and__5531__auto__<span style=
+"color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+         <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">let*</span> <span style=
+"color: #98be65;">[</span>a <span style=
+"color: #a9a1e1;">(</span>nth x <span style=
+"color: #da8548; font-weight: bold;">0</span><span style=
+"color: #a9a1e1;">)</span><span style=
+"color: #98be65;">]</span> a<span style="color: #c678dd;">)</span>
+         <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #a9a1e1;">:else</span> <span style=
+"color: #98be65;">(</span><span style=
+"color: #51afef;">throw</span> <span style=
+"color: #ECBE7B;">clojure.core.match</span>/backtrack<span style=
+"color: #98be65;">)</span> <span style=
+"color: #a9a1e1;">nil</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+       <span style="color: #51afef;">(</span><span style=
+"color: #51afef;">catch</span>
+         Exception
+         e__8036__auto__
+         <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #98be65;">(</span>identical? e__8036__auto__ <span style=
+"color: #ECBE7B;">clojure.core.match</span>/backtrack<span style=
+"color: #98be65;">)</span>
+           <span style="color: #98be65;">(</span><span style=
+"color: #51afef;">do</span>
+             <span style="color: #a9a1e1;">(</span><span style=
+"color: #51afef;">try</span>
+               <span style="color: #51afef;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #c678dd;">(</span><span style="color: #51afef;">let*</span>
+                     <span style=
+"color: #98be65;">[</span>and__5531__auto__ <span style=
+"color: #a9a1e1;">(</span>vector? x<span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">]</span>
+                     <span style=
+"color: #98be65;">(</span><span style=
+"color: #51afef;">if</span> and__5531__auto__
+                       <span style=
+"color: #a9a1e1;">(</span>== <span style=
+"color: #51afef;">(</span>count x<span style=
+"color: #51afef;">)</span> <span style=
+"color: #da8548; font-weight: bold;">2</span><span style=
+"color: #a9a1e1;">)</span>
+                       and__5531__auto__<span style=
+"color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+                 <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">let*</span> <span style=
+"color: #98be65;">[</span>a <span style=
+"color: #a9a1e1;">(</span>nth x <span style=
+"color: #da8548; font-weight: bold;">0</span><span style=
+"color: #a9a1e1;">)</span><span style=
+"color: #98be65;">]</span> a<span style="color: #c678dd;">)</span>
+                 <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #a9a1e1;">:else</span> <span style=
+"color: #98be65;">(</span><span style=
+"color: #51afef;">throw</span> <span style=
+"color: #ECBE7B;">clojure.core.match</span>/backtrack<span style=
+"color: #98be65;">)</span> <span style=
+"color: #a9a1e1;">nil</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+               <span style="color: #51afef;">(</span><span style=
+"color: #51afef;">catch</span>
+                 Exception
+                 e__8036__auto__
+                 <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #98be65;">(</span>identical?
+                       e__8036__auto__
+                       <span style=
+"color: #ECBE7B;">clojure.core.match</span>/backtrack<span style=
+"color: #98be65;">)</span>
+                   <span style=
+"color: #98be65;">(</span><span style="color: #51afef;">do</span>
+                     <span style=
+"color: #a9a1e1;">(</span><span style="color: #51afef;">try</span>
+                       <span style=
+"color: #51afef;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #c678dd;">(</span><span style="color: #51afef;">let*</span>
+                             <span style=
+"color: #98be65;">[</span>and__5531__auto__ <span style=
+"color: #a9a1e1;">(</span>vector? x<span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">]</span>
+                             <span style=
+"color: #98be65;">(</span><span style=
+"color: #51afef;">if</span> and__5531__auto__
+                               <span style=
+"color: #a9a1e1;">(</span>== <span style=
+"color: #51afef;">(</span>count x<span style=
+"color: #51afef;">)</span> <span style=
+"color: #da8548; font-weight: bold;">3</span><span style=
+"color: #a9a1e1;">)</span>
+                               and__5531__auto__<span style=
+"color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+                         <span style=
+"color: #c678dd;">(</span><span style=
+"color: #51afef;">let*</span> <span style=
+"color: #98be65;">[</span>a <span style=
+"color: #a9a1e1;">(</span>nth x <span style=
+"color: #da8548; font-weight: bold;">0</span><span style=
+"color: #a9a1e1;">)</span><span style=
+"color: #98be65;">]</span> a<span style="color: #c678dd;">)</span>
+                         <span style=
+"color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #a9a1e1;">:else</span>
+                           <span style=
+"color: #98be65;">(</span><span style=
+"color: #51afef;">throw</span> <span style=
+"color: #ECBE7B;">clojure.core.match</span>/backtrack<span style=
+"color: #98be65;">)</span>
+                           <span style=
+"color: #a9a1e1;">nil</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+                       <span style=
+"color: #51afef;">(</span><span style=
+"color: #51afef;">catch</span>
+                         Exception
+                         e__8036__auto__
+                         <span style=
+"color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #98be65;">(</span>identical?
+                               e__8036__auto__
+                               <span style=
+"color: #ECBE7B;">clojure.core.match</span>/backtrack<span style=
+"color: #98be65;">)</span>
+                           <span style=
+"color: #98be65;">(</span><span style="color: #51afef;">do</span>
+                             <span style=
+"color: #a9a1e1;">(</span><span style=
+"color: #51afef;">throw</span>
+                               <span style=
+"color: #51afef;">(</span><span style="color: #51afef;">new</span>
+                                 java.lang.IllegalArgumentException
+                                 <span style=
+"color: #c678dd;">(</span>str <span style=
+"color: #98be65;">"No matching clause: "</span> x<span style=
+"color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span><span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">)</span>
+                           <span style=
+"color: #98be65;">(</span><span style=
+"color: #51afef;">throw</span> e__8036__auto__<span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span><span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">)</span>
+                   <span style=
+"color: #98be65;">(</span><span style=
+"color: #51afef;">throw</span> e__8036__auto__<span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span><span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">)</span>
+           <span style="color: #98be65;">(</span><span style=
+"color: #51afef;">throw</span> e__8036__auto__<span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span><span style=
+"color: #a9a1e1;">)</span><span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+    </div>
+
+    <p>This is a rather long expansion for such a simple looking
+    function. But, right off the bat, we can see two different
+    classes that will need to be generated: one for the
+    <code>testing</code> var, and a second for the function
+    that&#8217;s acutally bound to that var. But take a look at the
+    expansion, and notice how there&#8217;s no actual other
+    instances of <code>fn*</code>. Now, the actual macro in
+    question that gave me the error was much longer, and the
+    expanded code was well over 2000 lines long, but there was
+    still no <code>fn*</code> in that code that would be getting
+    compiled into it&#8217;s own class. So what&#8217;s going
+    on?</p>
+
+    <p>Clojure of course compiles to the JVM, and as such, needs to
+    use JVM semantics for everything under the hood. This can get
+    tricky with things like <code>if</code>, <code>try</code>,
+    loops, and other things that are statements in the JVM.
+    Consider the following examples:</p>
+
+    <div class="org-src-container">
+      <pre class="src src-clojure">
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">defn</span> <span style=
+"color: #c678dd;">f</span> <span style="color: #c678dd;">[]</span>
+  <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #a9a1e1;">true</span> <span style=
+"color: #a9a1e1;">:x</span> <span style=
+"color: #a9a1e1;">:y</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">defn</span> <span style=
+"color: #c678dd;">g</span> <span style="color: #c678dd;">[]</span>
+  <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #a9a1e1;">true</span> <span style=
+"color: #a9a1e1;">:x</span> <span style=
+"color: #a9a1e1;">:y</span><span style="color: #c678dd;">)</span>
+  <span style="color: #a9a1e1;">true</span><span style=
+"color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">defn</span> <span style=
+"color: #c678dd;">h</span> <span style="color: #c678dd;">[]</span>
+  <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">let</span> <span style=
+"color: #98be65;">[</span>x <span style=
+"color: #a9a1e1;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #a9a1e1;">true</span> <span style=
+"color: #a9a1e1;">:x</span> <span style=
+"color: #a9a1e1;">:y</span><span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">]</span>
+    x<span style="color: #c678dd;">)</span><span style=
+"color: #51afef;">)</span>
+</pre>
+    </div>
+
+    <p>In <code>f</code>, the compiler is able to see that the
+    output value of the <code>if</code> is actually what&#8217;s
+    returned from the function - this makes mapping the semantics
+    very simple, you just return the values produced by each
+    branch.</p>
+
+    <p>In <code>g</code>, it&#8217;s even easier - there&#8217;s no
+    mapping of semantics that need to happen because you&#8217;re
+    discarding the output value of the <code>if</code>, making it
+    functionall just a statement.</p>
+
+    <p>But in <code>h</code>, something much more complex is going
+    on - we&#8217;re using the output value of the <code>if</code>
+    and assigning it to <code>x</code> - something that statement
+    semantics can&#8217;t capture.</p>
+
+    <p>What Clojure does in these instances is it actually wraps
+    the <code>if</code> in a function taking no arguments (a
+    thunk), which effectively transforms the <code>if</code> into
+    the case - it&#8217;s now a return context. The actual
+    <code>if</code> call is then replaced with a call to the
+    function generated. Now let&#8217;s take a look at that
+    expansion again, and notice this <code>if</code>:</p>
+
+    <div class="org-src-container">
+      <pre class="src src-clojure">
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #c678dd;">(</span><span style="color: #51afef;">let*</span>
+      <span style=
+"color: #98be65;">[</span>and__5531__auto__ <span style=
+"color: #a9a1e1;">(</span>vector? x<span style=
+"color: #a9a1e1;">)</span><span style="color: #98be65;">]</span>
+      <span style="color: #98be65;">(</span><span style=
+"color: #51afef;">if</span> and__5531__auto__
+        <span style="color: #a9a1e1;">(</span>== <span style=
+"color: #51afef;">(</span>count x<span style=
+"color: #51afef;">)</span> <span style=
+"color: #da8548; font-weight: bold;">2</span><span style=
+"color: #a9a1e1;">)</span>
+        and__5531__auto__<span style=
+"color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">let*</span> <span style=
+"color: #98be65;">[</span>a <span style=
+"color: #a9a1e1;">(</span>nth x <span style=
+"color: #da8548; font-weight: bold;">0</span><span style=
+"color: #a9a1e1;">)</span><span style=
+"color: #98be65;">]</span> a<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style=
+"color: #51afef;">if</span> <span style=
+"color: #a9a1e1;">:else</span> <span style=
+"color: #98be65;">(</span><span style=
+"color: #51afef;">throw</span> <span style=
+"color: #ECBE7B;">clojure.core.match</span>/backtrack<span style=
+"color: #98be65;">)</span> <span style=
+"color: #a9a1e1;">nil</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+    </div>
+
+    <p>The condition in this <code>if</code> actually contains
+    another <code>if</code>. In Java, we can&#8217;t map this to
+    either statement or return semantics, so we need to wrap this
+    in a thunk and use the output of that function as the condition
+    to this if instead.</p>
+
+    <p>So now that we know this, looking at the macro we can see a
+    few instances where this happens, and where extra classes are
+    going to be generated, even though the macroexpansion itself
+    doesn&#8217;t reflect this.</p>
+
+    <p>So now we&#8217;ve finally gotten to what the issue was!
+    <code>if</code> expressions in the macro expansion were getting
+    hoisted into thunks to map them better to statement semantics,
+    and this caused extra functions to be generated that
+    wasn&#8217;t visible in the actual expansion. These functions
+    then all get compiled into classes with successively longer
+    names when they&#8217;re nested.</p>
+
+    <p>This was a super interesting problem to enounter and work
+    through and learn about. My solution in the end was to rewrite
+    the match as a simple <code>case</code> with a nested
+    <code>cond</code>, and this generates far fewer lambda
+    functions and compiles with no problem.</p>
+  </div>
+
+  <div id="postamble" class="status">
+    <p class="author">Author: Philip Dumaresq</p>
+
+    <p class="date">Created: 2022-07-18 Mon 17:57</p>
+  </div>
+</body>
+</html>

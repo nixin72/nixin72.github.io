@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-02-19 Sat 12:27 -->
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>&lrm;</title>
-<meta name="author" content="Philip" />
-<meta name="generator" content="Org Mode" />
-<style>
+  <!-- 2022-03-01 Tue 17:28 -->
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii" />
+  <meta name="viewport" content=
+  "width=device-width, initial-scale=1" />
+
+  <title>&lrm;</title>
+  <meta name="author" content="Philip" />
+  <meta name="generator" content="Org Mode" />
+  <style type="text/css">
+/*<![CDATA[*/
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -192,72 +197,119 @@
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
-</style>
+  /*]]>*/
+  </style>
 </head>
+
 <body>
-<div id="content" class="content">
-<div id="table-of-contents" role="doc-toc">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents" role="doc-toc">
-<ul>
-<li><a href="#org4c8261d">Discord Forum bot</a></li>
-<li><a href="#org9a8ce03">Clojure API library</a></li>
-<li><a href="#org7e50f40">Clojure + Svelte library?</a></li>
-</ul>
-</div>
-</div>
-<div id="outline-container-org4c8261d" class="outline-2">
-<h2 id="org4c8261d">Discord Forum bot</h2>
-<div class="outline-text-2" id="text-org4c8261d">
-<ul class="org-ul">
-<li>Forces everything into threads</li>
-<li>Prompts user for information about their question</li>
-<li>Adds upvote/downvote buttons</li>
-<li>Lets you mark a message as containing the correct answer.</li>
-<li>Bot keeps record of this in website too with more accessible search for it to be a &ldquo;proper&rdquo; forum</li>
-<li>Bot can also work in other communities too, like Slack, since it has threads</li>
-</ul>
-</div>
-</div>
+  <div id="content" class="content">
+    <div id="table-of-contents" role="doc-toc">
+      <h2>Table of Contents</h2>
 
-<div id="outline-container-org9a8ce03" class="outline-2">
-<h2 id="org9a8ce03">Clojure API library</h2>
-<div class="outline-text-2" id="text-org9a8ce03">
-<ul class="org-ul">
-<li>Add metadata maps to functions to create APIs</li>
-</ul>
-<div class="org-src-container">
-<pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">defn</span> <span style="color: #c678dd;">get-users</span> <span style="color: #c678dd;">{</span><span style="color: #a9a1e1;">:get</span> <span style="color: #98be65;">"/users"</span>
-                 <span style="color: #a9a1e1;">:query-params</span> <span style="color: #98be65;">[</span>a b c<span style="color: #98be65;">]</span><span style="color: #c678dd;">}</span>
-  <span style="color: #c678dd;">[</span>req<span style="color: #c678dd;">]</span>
-  <span style="color: #c678dd;">(</span>list-users<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+      <div id="text-table-of-contents" role="doc-toc">
+        <ul>
+          <li><a href="#org71d3245">Discord Forum bot</a></li>
+
+          <li><a href="#org5529046">Clojure API library</a></li>
+
+          <li><a href="#org276c3a0">Clojure + Svelte
+          library?</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="outline-container-org71d3245" class="outline-2">
+      <h2 id="org71d3245">Discord Forum bot</h2>
+
+      <div class="outline-text-2" id="text-org71d3245">
+        <ul class="org-ul">
+          <li>Forces everything into threads</li>
+
+          <li>Prompts user for information about their
+          question</li>
+
+          <li>Adds upvote/downvote buttons</li>
+
+          <li>Lets you mark a message as containing the correct
+          answer.</li>
+
+          <li>Bot keeps record of this in website too with more
+          accessible search for it to be a &ldquo;proper&rdquo;
+          forum</li>
+
+          <li>Bot can also work in other communities too, like
+          Slack, since it has threads</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="outline-container-org5529046" class="outline-2">
+      <h2 id="org5529046">Clojure API library</h2>
+
+      <div class="outline-text-2" id="text-org5529046">
+        <ul class="org-ul">
+          <li>Add metadata maps to functions to create APIs</li>
+        </ul>
+
+        <div class="org-src-container">
+          <pre class="src src-clojure">
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">defn</span> <span style=
+"color: #c678dd;">get-users</span> <span style=
+"color: #c678dd;">{</span><span style=
+"color: #a9a1e1;">:get</span> <span style=
+"color: #98be65;">"/users"</span>
+                 <span style=
+"color: #a9a1e1;">:query-params</span> <span style=
+"color: #98be65;">[</span>a b c<span style=
+"color: #98be65;">]</span><span style="color: #c678dd;">}</span>
+  <span style="color: #c678dd;">[</span>req<span style=
+"color: #c678dd;">]</span>
+  <span style="color: #c678dd;">(</span>list-users<span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
-</div>
-<ul class="org-ul">
-<li>Maybe could alternatively make this a WebRTC thing? I&rsquo;ve been interested in HTML over the wire&#x2026;</li>
-</ul>
-</div>
-</div>
+        </div>
 
-<div id="outline-container-org7e50f40" class="outline-2">
-<h2 id="org7e50f40">Clojure + Svelte library?</h2>
-<div class="outline-text-2" id="text-org7e50f40">
-<div class="org-src-container">
-<pre class="src src-clojure"><span style="color: #51afef;">(</span><span style="color: #51afef;">def</span> <span style="color: #dcaeea;">val</span> <span style="color: #c678dd;">(</span>atom <span style="color: #98be65;">"hello"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+        <ul class="org-ul">
+          <li>Maybe could alternatively make this a WebRTC thing?
+          I&rsquo;ve been interested in HTML over the
+          wire&hellip;</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="outline-container-org276c3a0" class="outline-2">
+      <h2 id="org276c3a0">Clojure + Svelte library?</h2>
+
+      <div class="outline-text-2" id="text-org276c3a0">
+        <div class="org-src-container">
+          <pre class="src src-clojure">
+<span style="color: #51afef;">(</span><span style=
+"color: #51afef;">def</span> <span style=
+"color: #dcaeea;">val</span> <span style=
+"color: #c678dd;">(</span>atom <span style=
+"color: #98be65;">"hello"</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 
 <span style="color: #51afef;">(</span>html
- <span style="color: #c678dd;">(</span>div <span style="color: #98be65;">(</span>p <span style="color: #98be65;">"Hello"</span> @val<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+ <span style="color: #c678dd;">(</span>div <span style=
+"color: #98be65;">(</span>p <span style=
+"color: #98be65;">"Hello"</span> @val<span style=
+"color: #98be65;">)</span><span style=
+"color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
-</div>
-<p>
-Idk, but svelte seems nice and easy, and would nice to have access to it through ClojureScript
-</p>
-</div>
-</div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Philip</p>
-<p class="date">Created: 2022-02-19 Sat 12:27</p>
-</div>
+        </div>
+
+        <p>Idk, but svelte seems nice and easy, and would nice to
+        have access to it through ClojureScript</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="postamble" class="status">
+    <p class="author">Author: Philip</p>
+
+    <p class="date">Created: 2022-03-01 Tue 17:28</p>
+  </div>
 </body>
 </html>

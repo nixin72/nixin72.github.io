@@ -1,0 +1,15 @@
+#+HTML: <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css" />
+#+BEGIN_EXPORT html
+<script>
+window.klipse_settings = {
+  selector: '.lang-clj',
+  selector_eval_clisp: '.lang-lisp',
+  codemirror_options_in: {
+    autoCloseBrackets: true,
+    lineNumbers: true,
+    indentUnit: 2,
+  }
+};
+</script>
+#+END_EXPORT
+

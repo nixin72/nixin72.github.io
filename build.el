@@ -20,12 +20,13 @@
 (setq org-publish-project-alist
       `(,build-root
         ,build-assets
-        ,build-blog
         ("nixin72.github.io"
          :components ("nixin72.github.io:root"
                       "nixin72.github.io:assets"))))
 
+
 (org-publish-reset-cache)
 (org-publish-remove-all-timestamps)
+(org-publish-current-project)
 
 ;;; build.el ends here

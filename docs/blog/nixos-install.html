@@ -1,17 +1,21 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-  <!-- 2022-07-18 Mon 17:57 -->
-  <meta charset="utf-8">
+  <!-- 2022-03-01 Tue 17:28 -->
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii" />
   <meta name="viewport" content=
-  "width=device-width, initial-scale=1">
+  "width=device-width, initial-scale=1" />
 
-  <title>About Me</title>
-  <meta name="author" content="Philip Dumaresq">
-  <meta name="generator" content="Org Mode">
+  <title>&lrm;</title>
+  <meta name="author" content="Philip" />
+  <meta name="generator" content="Org Mode" />
   <style type="text/css">
-#content { max-width: 60em; margin: auto; }
+/*<![CDATA[*/
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -193,67 +197,96 @@
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
+  /*]]>*/
   </style>
-  <link rel="stylesheet" type="text/css" href="assets/org.css">
-  <link rel="stylesheet" type="text/css" href="../assets/org.css">
-  <link rel="stylesheet" type="text/css" href=
-  "../../assets/org.css">
 </head>
 
 <body>
   <div id="content" class="content">
-    <h1 class="title">About Me</h1>
+    <div id="table-of-contents" role="doc-toc">
+      <h2>Table of Contents</h2>
 
-    <div class="org-center">
-      <p><a href="index.html">Home</a> | <a href=
-      "about.html">About</a> | <a href=
-      "contact.html">Contact</a></p>
+      <div id="text-table-of-contents" role="doc-toc">
+        <ul>
+          <li><a href="#org657a2c2">Connect to the
+          internet</a></li>
+
+          <li><a href="#orga96c4d7">Partition the
+          harddrive</a></li>
+
+          <li><a href="#org6208232">Formatting the
+          harddrive</a></li>
+
+          <li><a href="#org9f4df3f">Mount the partition</a></li>
+
+          <li><a href="#org1249ba3">Generate config</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div id="outline-container-org021a80d" class="outline-2">
-      <h2 id="org021a80d">Hi, my name is Philip!</h2>
+    <div id="outline-container-org657a2c2" class="outline-2">
+      <h2 id="org657a2c2">Connect to the internet</h2>
 
-      <div class="outline-text-2" id="text-org021a80d">
-        <p>I&#8217;m a passionate developer living in Montreal
-        Canada, currently taking some time off school due to covid.
-        Normally I&#8217;m a student at Concordia University, but
-        right now I&#8217;m focusing on building open-source
-        projects and looking for full-time work.</p>
+      <div class="outline-text-2" id="text-org657a2c2">
+        <pre class="example">
+$ passwd
+$ systemctl start wpa_supplicant
+$ wpa_passphrase SSID | sudo tee /etc/wpa_supplicant.conf
+$ systemctl restart wpa_supplicant
+</pre>
       </div>
+    </div>
 
-      <div id="outline-container-orgdfd56d8" class="outline-3">
-        <h3 id="orgdfd56d8">My Background</h3>
+    <div id="outline-container-orga96c4d7" class="outline-2">
+      <h2 id="orga96c4d7">Partition the harddrive</h2>
 
-        <div class="outline-text-3" id="text-orgdfd56d8">
-          <p>Before starting in university, I completed a 3-year
-          technical degree in Computer Science from Heritage
-          college in Gatineau, Quebec. This program was invaluable
-          to me, and shaped my view of programming. I spent two
-          summers before university working as a full-stack
-          developer for TechInsights, and 2 semester in college
-          working as a TA.</p>
-        </div>
+      <div class="outline-text-2" id="text-orga96c4d7">
+        <pre class="example">
+$ sudo parted /dev/sda4 -- mklabel gpt
+$ sudo parted /dev/sda4 -- mkpart primary 512MiB -8GiB
+$ sudo parted /dev/sda4 -- mkpart primary linux-swap -8GiB 100%
+
+</pre>
       </div>
+    </div>
 
-      <div id="outline-container-org34346a1" class="outline-3">
-        <h3 id="org34346a1">Personal Interests</h3>
+    <div id="outline-container-org6208232" class="outline-2">
+      <h2 id="org6208232">Formatting the harddrive</h2>
 
-        <div class="outline-text-3" id="text-org34346a1">
-          <p>Outside of Computer Science or programming, I love
-          going rock climbing and being outdoors. I love camping
-          and hiking in the summer, and during the winter I enjoy
-          going out skiing and skating. Being from Ottawa,
-          I&#8217;ve been spoiled all my life by the Rideau
-          Canal,</p>
-        </div>
+      <div class="outline-text-2" id="text-org6208232">
+        <pre class="example">
+$ mkfs.ext4 -L nixos /dev/sda4
+</pre>
+      </div>
+    </div>
+
+    <div id="outline-container-org9f4df3f" class="outline-2">
+      <h2 id="org9f4df3f">Mount the partition</h2>
+
+      <div class="outline-text-2" id="text-org9f4df3f">
+        <pre class="example">
+$ sudo mount /dev/disk/by-label/nixos /mnt
+</pre>
+      </div>
+    </div>
+
+    <div id="outline-container-org1249ba3" class="outline-2">
+      <h2 id="org1249ba3">Generate config</h2>
+
+      <div class="outline-text-2" id="text-org1249ba3">
+        <pre class="example">
+nixos-generate-config --root /mnt
+vim /mnt/etc/nixos/configuration.nix
+nixos-install
+</pre>
       </div>
     </div>
   </div>
 
   <div id="postamble" class="status">
-    <p class="author">Author: Philip Dumaresq</p>
+    <p class="author">Author: Philip</p>
 
-    <p class="date">Created: 2022-07-18 Mon 17:57</p>
+    <p class="date">Created: 2022-03-01 Tue 17:28</p>
   </div>
 </body>
 </html>
