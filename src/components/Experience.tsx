@@ -1,96 +1,76 @@
 import React from 'react';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  MotionValue,
+} from 'motion/react';
+
+import Md from "../util/Md";
 
 import rplLogo from "../photos/rpl-logo.svg";
+import rplMd from "../samples/experiences/rpl.md";
 import craLogo from "../photos/cra-logo.png";
+import craMd from "../samples/experiences/cra.md";
 import concordiaLogo from "../photos/uni-logo.png";
+import taMd from "../samples/experiences/ta.md";
 import githubLogo from "../photos/github-logo.png";
+import githubMd from "../samples/experiences/github.md";
 
-type ExperienceArgs = {
-  id: string;
-  alt: string;
-  imgsrc: string;
-  imgwidth: string | number;
-  dir: "ltr" | "rtl";
-  children: React.ReactNode;
+function useParallax(value: MotionValue<number>, distance: number) {
+  return useTransform(value, [0, 1], [-distance, distance])
 }
 
-function Experience({id, alt, imgsrc, imgwidth, dir, children}: ExperienceArgs) {
+type ExperienceArgs = {
+  alt: string;
+  imgsrc: string;
+  txtsrc: string;
+}
+
+function Experience({ alt, imgsrc, txtsrc }: ExperienceArgs) {
+  const ref = React.useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref })
+  const y = useParallax(scrollYProgress, 100)
+
   return (
-    <div id={id}
-      className='experience'
-      style={{display: 'grid', gridTemplateColumns: "50% 50%", width: "80%", direction: dir}}>
-      <div className='acc'>
-        <img src={imgsrc} style={{ width: imgwidth }} alt={alt} />
+    <div className='experience'
+      style={{
+        display: 'grid',
+        gridTemplateColumns: "50% 50%",
+        width: "80%",
+        margin: '5rem 0',
+        position: 'relative'
+      }}>
+      <div className='acc' ref={ref}>
+        <img src={imgsrc} style={{ width: 400 }} alt={alt + " logo"} />
       </div>
-      <div style={{ direction: "ltr" }}>
-        {children}
-      </div>
+      <motion.div
+        initial={{ visibility: "hidden" }}
+        animate={{ visibility: "visible" }}
+        style={{
+          y,
+          direction: "ltr",
+          top: "calc(50% - 25px)",
+          left: "calc(50% + 120px)",
+        }}>
+          <Md src={txtsrc} />
+      </motion.div>
     </div>
   );
 }
 
 export function Experiences() {
   return (
-    <div className='fc jcc aic' style={{ width: "100%" }}>
-      <h1>Work Experience</h1>
-      <Experience id='exp-rpl' alt="Red Planet Labs logo" imgsrc={rplLogo} imgwidth={400} dir="ltr">
-        <p>
-          Worked on a very small team developing Rama, a new bleeding edge distributed systems platform for the JVM
-        </p>
-        <ul>
-          <li>Supported customers by fixing immediate client-facing issues</li>
-          <li>Supported the team by making QoL improvements to the codebase and developer tools</li>
-          <li>Ensured the codebase was compatible between all LTS versions of Java</li>
-          <li>Took ownership of the system front-end, improving code design and adding automated testing</li>
-          <li>Published open-source code on GitHub</li>
-        </ul>
-      </Experience>
-      <Experience id="exp-cra" alt="Canada Revenue Agency logo" imgsrc={craLogo} imgwidth={400} dir="ltr">
-        <p>
-          Modernized training and onboarding processes at the Canada Revenue Agency through mobile applications and gameification
-        </p>
-        <ul>
-          <li>Started out working on an application designed to teach management skills on a team with other developers</li>
-          <li>Got asked to work on a solo-project prototyping a notification system for all CRA mobile devices</li>
-          <li>Shifted to a lead developer role, and worked on an onboarding application for new hires</li>
-          <li>Worked closely with project owners to deliver on their visions of the project</li>
-        </ul>
-      </Experience>
-      <Experience id="exp-ta" alt="Concordia University logo" imgsrc={concordiaLogo} imgwidth={400} dir="ltr">
-        <p>
-          Taught the fundamentals of functional programming in COMP-348, programming languages and paradigms
-        </p>
-        <ul>
-          <li>Taught students the basics of C, Ruby, Common Lisp, and Prolog.</li>
-          <li>Made supplemental material for students to improve their knowledge of Lisp.</li>
-          <li>Made a website in my spare time to help students by providing an FAQ, help setting up programming environments, and providing practice questions.</li>
-          <li>Researched difficult questions when I couldn't provide answers in class so I could follow up later.</li>
-          <li>Helped students outside my normal hours, answering questions on Discord and by email.</li>
-        </ul>
-      </Experience>
-      <Experience id="exp-github" alt="GitHub logo" imgsrc={githubLogo} imgwidth={400} dir="ltr">
-        <p>
-          Working as both an intern and a part-time contractor, I contributed to the GitHub Learning Lab
-        </p>
-        <ul>
-          <li>Starting as an intern, worked on making a public API for the GitHub Learning Lab</li>
-          <li>Learned the GitHub REST API to model ours off of that</li>
-          <li>Implemented secure requests via API tokens</li>
-          <li>As a contractor, designed and created a few projects for people to follow to learn various programming languages</li>
-        </ul>
-      </Experience>
-      <div id="exp-github" className='fr'>
-        <div></div>
-        <div></div>
-      </div>
-      <div id="exp-github" className='fr'>
-        <div></div>
-        <div></div>
-      </div>
-      <div id="exp-ta" className='fr'>
-        <div></div>
-        <div></div>
-      </div>
+    <div>
+      <motion.div >
+        <h1>Work Experience</h1>
+        <div className='fc aic'>
+          <Experience alt="Red Planet Labs" imgsrc={rplLogo} txtsrc={rplMd} />
+          <Experience alt="Canada Revenue Agency" imgsrc={craLogo} txtsrc={craMd} />
+          <Experience alt="Concordia University" imgsrc={concordiaLogo} txtsrc={taMd} />
+          <Experience alt="GitHub" imgsrc={githubLogo} txtsrc={githubMd} />
+        </div>
+      </motion.div>
     </div>
   )
 }
