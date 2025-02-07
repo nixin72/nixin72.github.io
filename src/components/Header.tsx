@@ -26,9 +26,9 @@ function Link({Icon, pre, link}: LinkArgs) {
   );
 }
 
-function BannerImage({ opacity }: { opacity: MotionValue }) {
+function BannerImage({ top, opacity }: { top: MotionValue, opacity: MotionValue }) {
   return (
-    <motion.div style={{ opacity, position: 'fixed', top: 0 }} >
+    <motion.div style={{ position: 'fixed', opacity, top }} >
       <img src={banner} style={{ objectFit: 'cover', width: '100vw', height: '100vh' }} />
     </motion.div>
   );
@@ -119,95 +119,12 @@ export function Header() {
       <div style={{
         aspectRatio: `${window.innerWidth}/${window.innerHeight}`
       }}>
-        <BannerImage opacity={hideTransformer} />
+        <BannerImage top={top} opacity={hideTransformer} />
         <Headline top={top} color={color} />
         <About top={top} opacity={showTransformer} />
         <ScrollIndicator opacity={hideTransformer} />
       </div>
       <div style={{ aspectRatio: `${window.innerWidth}/${window.innerHeight}` }} />
     </div>
-  );
-}
-
-export function _Header() {
-  return (
-    <section style={{
-      width: "100%",
-      minHeight: "100vh",
-      position: 'relative',
-      display: 'flex',
-      justifyContent: 'center'
-    }}>
-      <div id="header-top" style={{height: 0}}></div>
-      <div id="header-text" style={{
-        position: 'absolute',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        textAlign: "left",
-        marginLeft: "8%",
-        top: "8rem",
-        left: "4rem",
-        zIndex: 100,
-      }}>
-        <h1 style={{fontSize: "4rem", color: "white"}}>Philip Dumaresq</h1>
-        <h2 style={{fontSize: "3rem", color: "white"}}>Full Stack Software Developer</h2>
-        <div style={{ width: "70%", fontSize: "1.5rem", textAlign: 'left', margin: '45vh 0 0 25vh' }} >
-          <p>
-            Hi! I'm an intermediate-level software developer with a wide array of experiences.
-            From the fast pace of startup culture to the public service, I've worked on distributed
-            systems, mobile applications, front-ends, backends, developer tooling and more.
-            I love learning new things and teaching others, and I'm a big advocate of functional
-            programming.
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            If you're looking for an engineer to add to your team, I'm currently looking for work!
-            <p>
-              Find me on LinkedIn, GitHub, or send me an email:
-            </p>
-            <Link Icon={Linkedin} pre="https://www." link="linkedin.com/in/phdumaresq" />
-            <Link Icon={GitHub} pre="https://" link="github.com/nixin72" />
-            <Link Icon={Mail} pre="mailto:" link="phdumaresq@protonmail.com" />
-          </div>
-        </div>
-      </div>
-      <div id="header-cover" style={{
-        display: 'flex',
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 0,
-        left: "50%",
-        transform: "translateX(-50%)",
-        opacity: 1
-      }}>
-        <img id="header-img" src={banner}
-          style={{
-            minWidth: '100vw',
-            height: window.innerHeight,
-            objectFit: 'cover',
-            overflowX: 'hidden',
-            transform: 'scale(1)'
-          }}
-        />
-      </div>
-      <div id="scroll-indicator" style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        top: '90%',
-        left: 0,
-        width: "100%",
-        zIndex: 100
-      }}>
-          <div style={{width: 75, height: 25, borderRadius: 5, background: "white", marginRight: -10}}>
-          </div>
-          <div style={{width: 75, height: 75, borderRadius: 500, background: "white", display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <ChevronsDown id="scroll-down" size={35} />
-          </div>
-          <div style={{width: 75, height: 25, borderRadius: 5, background: "white", marginLeft: -10}}>
-          </div>
-      </div>
-    </section>
   );
 }
