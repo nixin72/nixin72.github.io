@@ -1,3 +1,0 @@
-#+TITLE: Questions
-#+SETUPFILE: ../templates/home.org
-#+INCLUDE: faq.org

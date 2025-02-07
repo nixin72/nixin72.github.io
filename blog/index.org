@@ -1,4 +1,0 @@
-#+TITLE: Blog
-#+SETUPFILE: ../templates/home.org
-#+INCLUDE: header.org
-#+INCLUDE: blog.org

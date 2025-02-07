@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Philip Dumaresq</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+      <script>
+       const wheelOpt = { passive: false };
+       const keyCodes = { 37: 'left', 38: 'up', 39: 'right', 40: 'up' };
+
+       // NOTE: Possibly required to get this working on Safari?
+       async function execWhenTrue(predicateFn, callbackFn) {
+         while (!predicateFn()) {
+           console.log("Waiting...")
+         }
+         callbackFn();
+       }
+
+       function waitFor(condition, callback) {
+         if (!condition()) {
+           console.log('waiting');
+           window.setTimeout(waitFor.bind(null, condition, callback), 100); /* this checks the flag every 100 milliseconds*/
+         } else {
+           console.log('done');
+           callback();
+         }
+       }
+
+       function addScrollEvent(eventListener, preventDefault) {
+         const wrappedEvent = (e) => {
+           const prevent = preventDefault();
+           if (prevent) {
+             e.preventDefault();
+           }
+           eventListener(e);
+         }
+
+         const wrappedKeyEvent = (e) => {
+           if (keyCodes[e.keyCode]) {
+             // Make sure the keycodes register some type of scroll
+             if (e.keyCode == 38) e.deltaY = -5;
+             if (e.keyCode == 40) e.deltaY = 5;
+             wrappedEvent(e);
+           }
+         }
+
+         window.addEventListener('DOMMouseScroll', wrappedEvent, false);
+         window.addEventListener('wheel', wrappedEvent, wheelOpt);
+         window.addEventListener('touchmove', wrappedEvent, wheelOpt);
+         window.addEventListener('keydown', wrappedKeyEvent, false);
+       }
+
+
+       window.onload = () => {
+         /**
+          * We want to make sure that when the page is refreshed, it's always
+          * scrolled automatically back up to the top of the page. This is just
+          * to ensure that the animations don't break by having the page load
+          * scrolled down just a tiny bit.
+         */
+         window.scrollTo(0,0);
+
+         const headerCover = document.querySelector("#header-cover");
+         const headerImg = document.querySelector("#header-img");
+         const headerTop = document.querySelector("#header-top");
+         const headerText = document.querySelectorAll("#header-text *");
+         const scrollIndicator = document.querySelector("#scroll-indicator");
+         const header = document.querySelector("#header");
+         const about = document.querySelector("#about");
+
+         let atTop = true;
+
+         const observer = new window.IntersectionObserver(([entry]) => {
+           atTop = entry.isIntersecting;
+           if (!atTop) {
+             about.classList.remove("phase-out");
+             about.classList.remove("hide");
+             about.classList.add("phase-in");
+           }
+           else {
+             about.classList.remove("phase-in");
+             about.classList.add("phase-out");
+             setTimeout(() => about.classList.add("hide"), 1000);
+           }
+         }, {
+           root: null,
+           threshold: 1
+         })
+
+
+         let opacity = 1;
+         let scale = 0;
+         let color = 255;
+         let scroll = 90;
+
+         const scrollEvent = (event) => {
+           if (atTop) {
+             const deltaY = event.deltaY / 100;
+
+             opacity -= deltaY;
+             scale += deltaY;
+             color -= event.deltaY * 3;
+             scroll -= event.deltaY;
+
+             if (opacity < -0.1 || isNaN(opacity)) opacity = -0.1;
+             if (opacity > 1) opacity = 1;
+             if (scale < 0) scale = 0;
+             if (scale > 1 || isNaN(scale)) scale = 1;
+             if (color < 0) color = 0;
+             if (color > 255 || isNaN(color)) color = 255;
+             if (scroll < 0 || isNaN(scroll)) scroll = 0;
+             if (scroll > 90) scroll = 90;
+
+             scrollIndicator.style.top = `${scroll}%`;
+             scrollIndicator.style.opacity = opacity;
+             headerCover.style.opacity = opacity;
+             headerImg.style.transform = `scale(${1 + scale})`;
+             for (const h of headerText) {
+               h.style.color = `rgb(${color}, ${color}, ${color})`
+             }
+           }
+           else {
+             scrollIndicator.style.top = `0%`;
+             scrollIndicator.style.opacity = 0;
+             headerCover.style.opacity = 0;
+             headerImg.style.transform = `scale(${1 + scale})`;
+             for (const h of headerText) {
+               h.style.color = `rgb(${0}, ${0}, ${0})`
+             }
+
+           }
+         }
+
+         if (headerTop) {
+          observer.observe(headerTop);
+          addScrollEvent(scrollEvent, () => opacity >= 0);
+         }
+
+       }
+      </script>
+  </body>
+</html>

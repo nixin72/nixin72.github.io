@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+li { text-align: left; }
+
+#scroll-down { animation: scroll 1.5s infinite; }
+@keyframes scroll {
+  0% { transform: scale(1.25) translateY(3px); }
+  50% { transform: scale(1) translateY(-3px); }
+  100% { transform: scale(1.25) translateY(3px); }
+}
+
+.phase-out { animation: phase-out 1s none; }
+@keyframes phase-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.phase-in { animation: phase-in 1s none; }
+@keyframes phase-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.hide { display: none!important; }
+.fr { display: flex; flex-direction: row; }
+.fc { display: flex; flex-direction: column; }
+.jcc { justify-content: center; }
+.jcsa { justify-content: space-around; }
+.jcsb { justify-content: space-between; }
+.aic { align-items: center; }
+.acc { align-content: center; }
+
+.project pre { font-size: 1rem; text-align: left; }
