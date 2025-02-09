@@ -1,13 +1,11 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 type CodeblockArgs = {
   code: string;
   language: string;
-  lineNumbers?: boolean;
 }
 
-export function Codeblock({code, language, lineNumbers}: CodeblockArgs) {
+export default function Codeblock({code, language }: CodeblockArgs) {
   const circle = { width: "1rem", height: "1rem", borderRadius: "500px"}
   return (
     <div>

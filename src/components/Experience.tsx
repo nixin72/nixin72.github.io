@@ -59,10 +59,10 @@ function Experience({ alt, imgsrc, txtsrc }: ExperienceArgs) {
   );
 }
 
-export function Experiences() {
+export default function Experiences() {
   return (
     <div>
-      <motion.div >
+      <motion.div className='fc jcc aic'>
         <h1>Work Experience</h1>
         <div className='fc aic'>
           <Experience alt="Red Planet Labs" imgsrc={rplLogo} txtsrc={rplMd} />

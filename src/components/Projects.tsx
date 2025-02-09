@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React  from 'react';
 
-import { Codeblock } from './Codeblock';
+import Codeblock from './Codeblock';
 
 import racoNew from '../samples/raco-new.txt';
 import stackfn from '../samples/stackfn.txt';
+import { useScreenSizes } from '../util/Util';
 
 type ProjectArgs = {
   name: string;
@@ -14,10 +15,13 @@ type ProjectArgs = {
 }
 
 function Project({ name, desc, link, dir, children }: ProjectArgs) {
+  const { isDesktopOrLaptop } = useScreenSizes();
+
   return (
     <div className="project" style={{
-      display: 'grid',
+      display: isDesktopOrLaptop ? 'grid' : 'block',
       gridTemplateColumns: '50% 50%',
+      gridAutoFlow: "column",
       direction: dir,
       width: "80%"
     }}>
@@ -32,7 +36,7 @@ function Project({ name, desc, link, dir, children }: ProjectArgs) {
   );
 }
 
-export function Projects() {
+export default function Projects() {
   const [racoNewMd, setRacoNewMd] = React.useState("");
   const [stackfnmd, setstackfnmd] = React.useState("");
 
