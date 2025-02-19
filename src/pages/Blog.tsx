@@ -19,7 +19,7 @@ function PostSummary({ src }: PostProps) {
   const { metadata, post } = useMd(url);
 
   return (
-    <div>
+    <div className="post">
       <h4><a href={`${src}`}>{metadata.title}</a></h4>
       <h5>{metadata.date} | {metadata.time}min read</h5>
       <Markdown>{post.substring(0, 250) + "..."}</Markdown>
