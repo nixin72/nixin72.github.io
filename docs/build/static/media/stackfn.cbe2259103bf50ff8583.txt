@@ -1,7 +1,0 @@
-(defproc> !clear
-  <empty?>
-  (invoke> not 1)
-  (while>
-   (if>)
-   <empty?>
-   (invoke> not 1)))

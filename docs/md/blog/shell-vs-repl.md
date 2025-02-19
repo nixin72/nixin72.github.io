@@ -1,7 +1,7 @@
 ---
 title: REPLs and why they'll never convince someone to try a Lisp
 time: 10
-date: Feb 8th, 2025
+date: Feb 19th, 2025
 ---
 
 When people talk about programming in Lisps, the first thing you'll hear being
