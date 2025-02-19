@@ -1,9 +1,9 @@
+import Markdown from "react-markdown";
+import { useParams } from "react-router";
 import { useMotionValue } from "motion/react";
 
 import Md, { useMd } from "../util/Md";
 import Header from "../components/Header";
-import { useParams } from "react-router";
-import Markdown from "react-markdown";
 import Codeblock from "../components/Codeblock";
 
 type PostProps = {
@@ -56,10 +56,11 @@ function Post({ src }: PostProps) {
 
 export default function Blog() {
   const { post } = useParams();
+  const opacity = useMotionValue(1);
 
   return (
     <div className="fc aic" style={{ textAlign: 'left' }}>
-      <Header />
+      <Header opacity={opacity} />
       <div style={{ marginTop: '8vh', width: "50%" }}>
         {post ?
         <>

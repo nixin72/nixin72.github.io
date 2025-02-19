@@ -1,6 +1,5 @@
 import React from 'react';
 import Markdown from 'react-markdown';
-import Codeblock from '../components/Codeblock';
 
 export type MdMetadata = {
   title?: string;

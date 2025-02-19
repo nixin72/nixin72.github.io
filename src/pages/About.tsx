@@ -6,9 +6,11 @@ import Header from "../components/Header";
 import placeholder from "../photos/placeholder.jpeg";
 
 export default function About() {
+  const opacity = useMotionValue(1);
+
   return (
     <div className="fc aic" style={{ textAlign: 'left' }}>
-      <Header />
+      <Header opacity={opacity} />
       <div className="fr aic jcsb" style={{ marginTop: '8vh', width: "80%" }}>
         <img
           src={placeholder}

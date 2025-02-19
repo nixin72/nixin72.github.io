@@ -1,5 +1,4 @@
-import React from 'react';
-import { motion, MotionValue } from "motion/react";
+import { motion, MotionValue, useTransform } from "motion/react";
 import { GitHub, Icon, Linkedin, Mail } from 'react-feather';
 
 type LinkProps = {
@@ -7,13 +6,17 @@ type LinkProps = {
   Icon: Icon;
 }
 
-function Link({ href, Icon }: LinkProps) {
+function Link({ href, Icon, }: LinkProps) {
   return (
-    <a href={href} target="_blank" rel="noreferrer"><Icon /></a>
+    <motion.a href={href} target="_blank" rel="noreferrer">
+      <Icon />
+    </motion.a>
   );
 }
 
-export default function Header() {
+export default function Header({ opacity } : { opacity: MotionValue }) {
+  const opacity2 = useTransform(opacity, [0, 1], [0.6, 1]);
+
   return (
     <motion.div style={{
       position: 'fixed',
@@ -22,8 +25,8 @@ export default function Header() {
       padding: '0 5vw',
       height: '8vh',
       textAlign: 'left',
-      borderBottom: 'thin solid black',
-      background: "white",
+      borderBottom: `thin solid rgba(000,000,000, ${opacity.get()})`,
+      background: `rgba(255,255,255, ${opacity2.get()})`,
       alignSelf: 'center',
       display: 'flex',
       justifyContent: 'center',
