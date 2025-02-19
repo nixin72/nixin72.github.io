@@ -5,34 +5,17 @@ import {
   useTransform,
   MotionValue,
 } from 'motion/react';
-
-import Md from "../util/Md";
-
-import rplLogo from "../photos/rpl-logo.svg";
-import rplMd from "../samples/experiences/rpl.md";
-import craLogo from "../photos/cra-logo.png";
-import craMd from "../samples/experiences/cra.md";
-import concordiaLogo from "../photos/uni-logo.png";
-import taMd from "../samples/experiences/ta.md";
-import githubLogo from "../photos/github-logo.png";
-import githubMd from "../samples/experiences/github.md";
+import { ChevronsDown, GitHub, Linkedin, Mail, Icon } from "react-feather"
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import useScrollValues from '../util/Scroll';
-
-import '../App.css';
-
-import racoNew from '../samples/raco-new.txt';
-import stackfn from '../samples/stackfn.txt';
-import { useContentWidth, useScreenSizes } from '../util/Util';
+import Md from "../util/Md";
 import Codeblock from '../components/Codeblock';
 
-import { ChevronsDown, GitHub, Linkedin, Mail, Icon } from "react-feather"
+import { useScrollValues, ScrollValues } from '../util/Scroll';
+import { useContentWidth, useScreenSizes, useFontSizes } from '../util/Util';
 
-import banner from '../photos/banner.jpeg';
-import { useFontSizes } from '../util/Util';
-import { ScrollValues } from '../util/Scroll';
+import '../App.css';
 
 /*******************************************************************************
  *** BANNER
@@ -59,7 +42,7 @@ function Link({Icon, pre, link}: LinkArgs) {
 function BannerImage({ top, opacity }: { top: MotionValue, opacity: MotionValue }) {
   return (
     <motion.div style={{ position: 'fixed', opacity, top }} >
-      <img src={banner} alt="" style={{ objectFit: 'cover', width: '100vw', height: '100vh' }} />
+      <img src="/imgs/banner.jpeg" alt="" style={{ objectFit: 'cover', width: '100vw', height: '100vh' }} />
     </motion.div>
   );
 }
@@ -184,8 +167,8 @@ function Projects() {
   const [stackfnmd, setstackfnmd] = React.useState("");
 
   React.useEffect(() => {
-    fetch(racoNew).then(res => res.text()).then(text => setRacoNewMd(text))
-    fetch(stackfn).then(res => res.text()).then(text => setstackfnmd(text))
+    fetch("/md/raco-new.txt").then(res => res.text()).then(text => setRacoNewMd(text))
+    fetch("/md/stackfn.txt").then(res => res.text()).then(text => setstackfnmd(text))
   }, [])
 
   return (
@@ -225,7 +208,7 @@ function useParallax(value: MotionValue<number>, distance: number) {
 function Experience({ alt, imgsrc, txtsrc }: ExperienceArgs) {
   const ref = React.useRef(null)
   const { scrollYProgress } = useScroll({ target: ref })
-  const y = useParallax(scrollYProgress, 100)
+  const y = useParallax(scrollYProgress, 150)
   const { wide } = useContentWidth();
 
   return (
@@ -238,7 +221,7 @@ function Experience({ alt, imgsrc, txtsrc }: ExperienceArgs) {
         position: 'relative'
       }}>
       <div className='acc' ref={ref}>
-        <img src={imgsrc} style={{ width: 400 }} alt={alt + " logo"} />
+        <img src={`/imgs/${imgsrc}`} style={{ width: 400 }} alt={alt + " logo"} />
       </div>
       <motion.div
         initial={{ visibility: "hidden" }}
@@ -249,7 +232,7 @@ function Experience({ alt, imgsrc, txtsrc }: ExperienceArgs) {
           top: "calc(50% - 25px)",
           left: "calc(50% + 120px)",
         }}>
-          <Md src={txtsrc} />
+          <Md src={`/md/experiences/${txtsrc}.md`} />
       </motion.div>
     </div>
   );
@@ -261,10 +244,10 @@ function Experiences() {
       <motion.div className='fc jcc aic'>
         <h1>Work Experience</h1>
         <div className='fc aic'>
-          <Experience alt="Red Planet Labs" imgsrc={rplLogo} txtsrc={rplMd} />
-          <Experience alt="Canada Revenue Agency" imgsrc={craLogo} txtsrc={craMd} />
-          <Experience alt="Concordia University" imgsrc={concordiaLogo} txtsrc={taMd} />
-          <Experience alt="GitHub" imgsrc={githubLogo} txtsrc={githubMd} />
+          <Experience alt="Red Planet Labs" imgsrc="rpl-logo.svg" txtsrc="rpl" />
+          <Experience alt="Canada Revenue Agency" imgsrc="cra-logo.png" txtsrc="cra" />
+          <Experience alt="Concordia University" imgsrc="uni-logo.png" txtsrc="ta" />
+          <Experience alt="GitHub" imgsrc="github-logo.png" txtsrc="github" />
         </div>
       </motion.div>
     </div>

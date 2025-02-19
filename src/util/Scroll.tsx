@@ -16,7 +16,7 @@ export type ScrollValues = {
   color: MotionValue
 }
 
-export default function useScrollValues(): ScrollValues {
+export function useScrollValues(): ScrollValues {
   const { scrollY } = useScroll();
   const vh = window.innerHeight;
 
