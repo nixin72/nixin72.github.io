@@ -5,6 +5,7 @@ import { useMotionValue } from "motion/react";
 import Md, { useMd } from "../util/Md";
 import Header from "../components/Header";
 import Codeblock from "../components/Codeblock";
+import { useContentWidth } from "../util/Util";
 
 type PostProps = {
   src: string;
@@ -19,7 +20,7 @@ function PostSummary({ src }: PostProps) {
   const { metadata, post } = useMd(url);
 
   return (
-    <div className="post">
+    <div>
       <h4><a href={`${src}`}>{metadata.title}</a></h4>
       <h5>{metadata.date} | {metadata.time}min read</h5>
       <Markdown>{post.substring(0, 250) + "..."}</Markdown>
@@ -57,11 +58,12 @@ function Post({ src }: PostProps) {
 export default function Blog() {
   const { post } = useParams();
   const opacity = useMotionValue(1);
+  const { narrow } = useContentWidth();
 
   return (
     <div className="fc aic" style={{ textAlign: 'left' }}>
       <Header opacity={opacity} />
-      <div style={{ marginTop: '8vh', width: "50%" }}>
+      <div style={{ marginTop: '8vh', width: narrow }}>
         {post ?
         <>
           <Post src={`blog/${post}`} />

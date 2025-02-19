@@ -21,6 +21,14 @@ export function useScreenSizes() {
   }
 }
 
+export function useContentWidth(): { narrow: string, wide: string } {
+  const { isTabletOrMobile, isDesktopOrLaptop, isBigScreen } = useScreenSizes();
+  if (isTabletOrMobile) return { narrow: "90%", wide: "95%" };
+  if (isDesktopOrLaptop) return { narrow: "60%", wide: "80%" } ;
+  if (isBigScreen) return { narrow: "50%", wide: "60%" };
+  return { narrow: "60%", wide: "80%" }
+}
+
 export function useFontSizes() {
   const { isDesktopOrLaptop, isBigScreen, isTabletOrMobile } = useScreenSizes();
   const sizes = [ isTabletOrMobile, isDesktopOrLaptop, isBigScreen ];
