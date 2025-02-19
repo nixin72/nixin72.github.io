@@ -9,15 +9,13 @@ import '../App.css';
 
 export default function App() {
   const scrollValues = useScrollValues();
-  const opacity = scrollValues.showTransformer;
-
   return (
     <div className="App">
+      <Header />
       <Banner scrollValues={scrollValues} />
       <Projects />
       <Experiences />
       <Footer />
-      <Header opacity={opacity} />
     </div>
   );
 }
