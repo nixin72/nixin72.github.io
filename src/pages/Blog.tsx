@@ -12,7 +12,6 @@ type PostProps = {
 }
 
 function urlToMdsrc(src: string) {
-  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === "development") {
     return `/md/${src}.md`;
   }
@@ -24,8 +23,6 @@ function urlToMdsrc(src: string) {
 function PostSummary({ src }: PostProps) {
   const url = urlToMdsrc(src);
   const { metadata, post } = useMd(url);
-
-  console.log(src, url);
 
   return (
     <div>
