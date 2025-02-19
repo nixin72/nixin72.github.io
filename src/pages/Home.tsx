@@ -47,11 +47,11 @@ function BannerImage({ top, opacity }: { top: MotionValue, opacity: MotionValue 
   );
 }
 
-function Headline({ top, color }: { top: MotionValue, color: MotionValue }) {
+function Headline({ top, color, margin }: { top: MotionValue, color: MotionValue, margin: string }) {
   const { h1fs, h2fs } = useFontSizes();
   return (
     <motion.div style={{ position: 'fixed', top: top }}>
-      <div style={{ textAlign: 'left', margin: '20vh 0 0 25vh' }}>
+      <div style={{ textAlign: 'left', margin: `20vh 0 0 ${margin}` }}>
         <motion.h1 style={{ fontSize: h1fs, color }}>Philip Dumaresq</motion.h1>
         <motion.h2 style={{ fontSize: h2fs, color }}>Full Stack Software Developer</motion.h2>
       </div>
@@ -59,11 +59,11 @@ function Headline({ top, color }: { top: MotionValue, color: MotionValue }) {
   );
 }
 
-function About({ top, opacity }: { top: MotionValue, opacity: MotionValue }) {
+function About({ top, opacity, margin }: { top: MotionValue, opacity: MotionValue, margin: string }) {
   const { defaultfs } = useFontSizes();
   return (
     <motion.div style={{ position: 'fixed', top, opacity }}>
-      <div style={{ width: "70%", fontSize: defaultfs, textAlign: 'left', margin: '45vh 0 0 25vh' }} >
+      <div style={{ width: "70%", fontSize: defaultfs, textAlign: 'left', margin: `45vh 0 0 ${margin}` }} >
         <p>
           Hi! I'm an intermediate-level software developer with a wide array of experiences.
           From the fast pace of startup culture to the public service, I've worked on distributed
@@ -113,14 +113,23 @@ function ScrollIndicator({ opacity }: { opacity: MotionValue }) {
 
 function Banner({ scrollValues }: { scrollValues: ScrollValues } ) {
   const { top, hideTransformer, showTransformer, color } = scrollValues;
+  const { isTabletOrMobile, isDesktopOrLaptop, isBigScreen } = useScreenSizes();
+
+  const [marginLeft, setMarginLeft] = React.useState("");
+  React.useEffect(() => {
+    if (isTabletOrMobile) setMarginLeft("5vh");
+    if (isDesktopOrLaptop) setMarginLeft("25vh");
+    if (isBigScreen) setMarginLeft("30vh");
+  }, [isTabletOrMobile, isDesktopOrLaptop, isBigScreen]);
+
   return (
     <div>
       <div style={{
         aspectRatio: `${window.innerWidth}/${window.innerHeight}`
       }}>
         <BannerImage top={top} opacity={hideTransformer} />
-        <Headline top={top} color={color} />
-        <About top={top} opacity={showTransformer} />
+        <Headline top={top} color={color} margin={marginLeft} />
+        <About top={top} opacity={showTransformer} margin={marginLeft} />
         <ScrollIndicator opacity={hideTransformer} />
       </div>
       <div style={{ aspectRatio: `${window.innerWidth}/${window.innerHeight}` }} />

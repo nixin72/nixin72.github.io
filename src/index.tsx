@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { Routes, Route, HashRouter } from 'react-router';
 
 import Home from './pages/Home';
 import Blog from './pages/Blog';
@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -22,6 +22,6 @@ root.render(
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:post" element={<Blog />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );

@@ -39,9 +39,9 @@ export default function Header({ opacity } : { opacity: MotionValue }) {
         alignItems: 'center',
       }}>
         <div className="fr jcsb" style={{ width: "20%" }}>
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/blog">Blog</a>
+          <a href="/#">Home</a>
+          <a href="/#/about">About</a>
+          <a href="/#/blog">Blog</a>
         </div>
         <div className="fr jcsb" style={{ width: "15%" }}>
           <Link href="https://www.linkedin.com/in/phdumaresq" Icon={Linkedin} />
