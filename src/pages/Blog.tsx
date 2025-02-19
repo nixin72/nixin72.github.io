@@ -12,7 +12,8 @@ type PostProps = {
 }
 
 function urlToMdsrc(src: string) {
-  if (process.env.NODE_ENV) {
+  console.log(process.env.NODE_ENV);
+  if (process.env.NODE_ENV === "development") {
     return `/md/${src}.md`;
   }
   else {
