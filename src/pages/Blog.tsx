@@ -24,6 +24,8 @@ function PostSummary({ src }: PostProps) {
   const url = urlToMdsrc(src);
   const { metadata, post } = useMd(url);
 
+  console.log(src, url);
+
   return (
     <div>
       <h4><a href={`/#/${src}`}>{metadata.title}</a></h4>
