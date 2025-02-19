@@ -1,3 +1,0 @@
-#+Author: Philip Dumaresq
-#+EMAIL: phdumaresq@protonmail.com
-#+LANGUAGE: en

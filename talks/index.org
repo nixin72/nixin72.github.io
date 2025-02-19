@@ -1,5 +1,0 @@
-#+TITLE: Talks
-#+SETUPFILE: ../templates/home.org
-#+INCLUDE: header.org
-#+INCLUDE: talks.org
-
