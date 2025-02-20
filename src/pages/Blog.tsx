@@ -16,7 +16,7 @@ function urlToMdsrc(src: string) {
     return `/md/${src}.md`;
   }
   else {
-    return `https://raw.githubusercontent.com/nixin72/nixin72.github.io/refs/heads/master/docs/md/${src}.md`
+    return `https://raw.githubusercontent.com/nixin72/nixin72.github.io/refs/heads/master/public/md/${src}.md`
   }
 }
 
